@@ -5,12 +5,12 @@ const path = require('path');
 const readline = require('readline');
 
 // ── 설정 ──────────────────────────────────────────────────
-const AUTO_MODE      = process.argv.includes('--auto');
-const SLACK_TOKEN    = process.env.SLACK_TOKEN;
-const CSV_PATH       = process.env.CSV_PATH || './subscribers.csv';
-const PREVIEW_EMAIL  = process.env.PREVIEW_EMAIL;
-const TIMEOUT_MS      = 30 * 60 * 1000;  // 30분
-const POLL_INTERVAL_MS = 30 * 1000;       // 30초
+const AUTO_MODE        = process.argv.includes('--auto');
+const SLACK_TOKEN      = process.env.SLACK_TOKEN;
+const CSV_PATH         = process.env.CSV_PATH || './subscribers.csv';
+const PREVIEW_EMAIL    = process.env.PREVIEW_EMAIL;
+const TIMEOUT_MS       = 30 * 60 * 1000;  // 30분
+const POLL_INTERVAL_MS = 30 * 1000;        // 30초
 
 if (!SLACK_TOKEN) {
   console.error('❌ .env 파일에 SLACK_TOKEN 이 필요합니다.');
@@ -23,28 +23,42 @@ if (!PREVIEW_EMAIL) {
 
 const slack = new WebClient(SLACK_TOKEN);
 
-// ── 레벨별 뉴스레터 파일 읽기 ────────────────────────────
-// 반환값: { [level]: { type: 'json', blocks: [...] } | { type: 'txt', body: '...' } }
-function loadNewsletters() {
-  const levels = ['초급', '중급', '고급'];
-  const map = {};
-  for (const level of levels) {
-    const jsonPath = path.resolve(`./newsletter_${level}.json`);
-    const txtPath  = path.resolve(`./newsletter_${level}.txt`);
-
-    if (fs.existsSync(jsonPath)) {
-      const parsed = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
-      const blocks = Array.isArray(parsed) ? parsed : parsed.blocks;
-      map[level] = { type: 'json', blocks };
-      console.log(`   ✔ newsletter_${level}.json 로드됨`);
-    } else if (fs.existsSync(txtPath)) {
-      map[level] = { type: 'txt', body: fs.readFileSync(txtPath, 'utf-8').trim() };
-      console.log(`   ✔ newsletter_${level}.txt 로드됨`);
-    } else {
-      console.warn(`   ⚠ newsletter_${level}.json / .txt 없음 → 해당 레벨 건너뜀`);
-    }
+// ── 뉴스레터 파일 선택 ────────────────────────────────────
+// newsletters/ 에서 오늘 이전/당일 파일 중 가장 최근 것을 선택
+// 해당 파일이 없으면 가장 가까운 미래 파일로 fallback
+function loadNewsletter() {
+  const dir = path.resolve('./newsletters');
+  if (!fs.existsSync(dir)) {
+    throw new Error('newsletters/ 폴더가 없습니다.');
   }
-  return map;
+
+  const files = fs.readdirSync(dir)
+    .filter(f => /^\d{4}-\d{2}-\d{2}\.json$/.test(f))
+    .sort();
+
+  if (files.length === 0) {
+    throw new Error('newsletters/ 폴더에 발송할 파일이 없습니다. (형식: YYYY-MM-DD.json)');
+  }
+
+  const today = new Date().toISOString().slice(0, 10);
+  const past  = files.filter(f => f.slice(0, 10) <= today);
+  const chosen = past.length > 0 ? past[past.length - 1] : files[0];
+
+  const filePath = path.join(dir, chosen);
+  const parsed = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  const blocks = Array.isArray(parsed) ? parsed : parsed.blocks;
+
+  console.log(`   ✔ ${chosen} 로드됨`);
+  return { blocks, filePath };
+}
+
+// ── 발송 완료 파일 보관 ───────────────────────────────────
+function archiveNewsletter(filePath) {
+  const sentDir = path.resolve('./newsletters/sent');
+  if (!fs.existsSync(sentDir)) fs.mkdirSync(sentDir, { recursive: true });
+  const fileName = path.basename(filePath);
+  fs.renameSync(filePath, path.join(sentDir, fileName));
+  console.log(`\n📁 ${fileName} → newsletters/sent/ 로 이동 완료`);
 }
 
 // ── CSV 읽기 ──────────────────────────────────────────────
@@ -56,7 +70,7 @@ function fetchSubscribers() {
 
   const lines = fs.readFileSync(filePath, 'utf-8').split('\n');
 
-  // 첫 행이 헤더면 건너뜀 (이름/이메일/레벨 포함 여부로 판단)
+  // 첫 행이 헤더면 건너뜀
   const firstLine = lines[0]?.toLowerCase() ?? '';
   const dataLines = firstLine.includes('이름') || firstLine.includes('email')
     ? lines.slice(1)
@@ -69,11 +83,10 @@ function fetchSubscribers() {
       const cols = line.split(',');
       // 구글 폼 응답처럼 첫 컬럼이 타임스탬프인 경우 자동 감지해 건너뜀
       const offset = /^\d{4}\./.test(cols[0]) || /^\d{4}-\d{2}-\d{2}/.test(cols[0]) ? 1 : 0;
-      const [name = '', email = '', level = ''] = cols.slice(offset);
+      const [name = '', email = ''] = cols.slice(offset);
       return {
         name:  name.trim(),
         email: email.trim().toLowerCase(),
-        level: level.trim(),
       };
     })
     .filter(s => s.email);
@@ -168,7 +181,7 @@ function confirm(question) {
 
 // ── 미리보기 발송 ─────────────────────────────────────────
 // previewUserId 반환 (자동 모드에서 DM 채널 재사용)
-async function sendPreview(newsletters) {
+async function sendPreview(newsletter) {
   console.log(`\n👀 미리보기 발송 중... → ${PREVIEW_EMAIL}`);
 
   const previewUserId = await lookupSlackUserId(PREVIEW_EMAIL);
@@ -176,23 +189,18 @@ async function sendPreview(newsletters) {
     throw new Error(`미리보기 계정(${PREVIEW_EMAIL})을 Slack에서 찾을 수 없습니다.`);
   }
 
-  for (const [level, newsletter] of Object.entries(newsletters)) {
-    await sendDM(previewUserId, '미리보기', newsletter);
-    console.log(`   ✔ [${level}] 미리보기 발송 완료`);
-    await new Promise(r => setTimeout(r, 1200));
-  }
+  await sendDM(previewUserId, '미리보기', newsletter);
+  console.log('   ✔ 미리보기 발송 완료');
 
   return previewUserId;
 }
 
 // ── 전체 구독자 발송 ──────────────────────────────────────
-async function sendToAll(targets, newsletters) {
+async function sendToAll(subscribers, newsletter) {
   console.log('');
   const stats = { sent: 0, skipped: 0, failed: 0 };
 
-  for (const sub of targets) {
-    const { name, email, level } = sub;
-
+  for (const { name, email } of subscribers) {
     const userId = await lookupSlackUserId(email);
     if (!userId) {
       console.warn(`⚠️  [${email}] Slack 계정을 찾을 수 없음 → 건너뜀`);
@@ -201,8 +209,8 @@ async function sendToAll(targets, newsletters) {
     }
 
     try {
-      await sendDM(userId, name, newsletters[level]);
-      console.log(`✅  [${level}] ${name} <${email}> → 발송 완료`);
+      await sendDM(userId, name, newsletter);
+      console.log(`✅  ${name} <${email}> → 발송 완료`);
       stats.sent++;
     } catch (err) {
       console.error(`❌  [${email}] 발송 실패: ${err.message}`);
@@ -280,36 +288,25 @@ async function main() {
   }
 
   console.log('📄 뉴스레터 파일 확인 중...');
-  const newsletters = loadNewsletters();
-
-  if (Object.keys(newsletters).length === 0) {
-    console.error('❌ 발송할 뉴스레터 파일이 없습니다. newsletter_초급.txt 등을 준비해주세요.');
-    process.exit(1);
-  }
+  const { blocks, filePath } = loadNewsletter();
+  const newsletter = { type: 'json', blocks };
 
   console.log('\n📋 구독자 목록을 불러오는 중...');
   const subscribers = fetchSubscribers();
 
-  const targets = subscribers.filter(s => newsletters[s.level]);
-  const noFile  = subscribers.filter(s => s.level && !newsletters[s.level]);
-
-  noFile.forEach(s => {
-    console.warn(`   ⚠ [${s.email}] newsletter_${s.level}.json / .txt 없음 → 건너뜀`);
-  });
-
-  if (targets.length === 0) {
+  if (subscribers.length === 0) {
     console.log('발송 대상이 없습니다. 종료합니다.');
     return;
   }
 
   console.log('\n── 발송 예정 목록 ──────────────────────');
-  targets.forEach((s, i) => {
-    console.log(`  ${String(i + 1).padStart(2)}. [${s.level}] ${s.name} <${s.email}>`);
+  subscribers.forEach((s, i) => {
+    console.log(`  ${String(i + 1).padStart(2)}. ${s.name} <${s.email}>`);
   });
   console.log(`${'─'.repeat(40)}`);
-  console.log(`  총 ${targets.length}명`);
+  console.log(`  총 ${subscribers.length}명`);
 
-  const previewUserId = await sendPreview(newsletters);
+  const previewUserId = await sendPreview(newsletter);
 
   if (AUTO_MODE) {
     // ── 자동 모드: Slack DM으로 승인 대기 ────────────────
@@ -331,7 +328,8 @@ async function main() {
     }
 
     console.log('\n✅ 발송 승인 확인. 전체 발송을 시작합니다.');
-    await sendToAll(targets, newsletters);
+    await sendToAll(subscribers, newsletter);
+    archiveNewsletter(filePath);
 
   } else {
     // ── 수동 모드: 터미널에서 y/n 입력 ──────────────────
@@ -340,7 +338,8 @@ async function main() {
       console.log('발송을 취소했습니다.');
       return;
     }
-    await sendToAll(targets, newsletters);
+    await sendToAll(subscribers, newsletter);
+    archiveNewsletter(filePath);
   }
 }
 
