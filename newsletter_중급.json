@@ -15,15 +15,91 @@
 			"type": "section",
 			"text": {
 				"type": "plain_text",
-				"text": "안녕하세요, 히토코토 구독자 여러분! :wave: \n 월요일 아침, 5분으로 일본어 감각을 깨워드리는 히토코토가 찾아왔어요. ",
+				"text": "안녕하세요, 히토코토 구독자 여러분! \n월요일 아침, 5분으로 일본어 감각을 깨워드리는 히토코토가 찾아왔어요. ",
 				"emoji": true
 			}
 		},
 		{
+			"type": "rich_text",
+			"elements": [
+				{
+					"type": "rich_text_section",
+					"elements": [
+						{
+							"type": "text",
+							"text": "이번 주는 일본의 황금 연휴 "
+						},
+						{
+							"type": "text",
+							"text": "골든위크",
+							"style": {
+								"code": true
+							}
+						},
+						{
+							"type": "text",
+							"text": "를 테마로 준비했습니다.\n일본 직장인들은 최대 12일 연휴라는데 정말 부럽네요... "
+						},
+						{
+							"type": "emoji",
+							"name": "meow_melt_cry"
+						},
+						{
+							"type": "text",
+							"text": "\n부러운 마음은 잠시 접어두고, 이번주 일본어 한 마디 시작해봐요!"
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": "🎬 영화계가 만들어낸 말, 골든위크의 유래",
+				"emoji": true
+			},
+			"level": 3
+		},
+		{
+			"type": "rich_text",
+			"elements": [
+				{
+					"type": "rich_text_section",
+					"elements": [
+						{
+							"type": "text",
+							"text": "골든위크는 4월 말부터 5월 초까지 이어지는 일본 최대의 황금 연휴예요.\n\n쇼와의 날, 헌법기념일, 녹색의 날, 어린이날까지 공휴일이 이어지면서 최대 12일 연휴도 만들어지죠.\n사실 골든위크라는 이름, 원래는 "
+						},
+						{
+							"type": "text",
+							"text": "영화계에서 만든 마케팅 용어",
+							"style": {
+								"bold": true
+							}
+						},
+						{
+							"type": "text",
+							"text": "였어요.\n1951년, 이 시기에 극장 관객이 폭발적으로 늘자 '황금 시간대처럼 관객이 몰린다'는 의미로 붙인 이름이거든요.\n\n매년 이 시기가 되면 그야말로 일본 전국이 들썩여요.\n고향으로 향하는 귀성 행렬, 순식간에 매진되는 신칸센과 항공권, 고속도로를 가득 메운 차들까지.\n1년 중 가장 분주하면서도 가장 설레는 시기랍니다 "
+						},
+						{
+							"type": "emoji",
+							"name": "sparkles",
+							"unicode": "2728"
+						}
+					]
+				}
+			]
+		},
+		{
 			"type": "section",
 			"text": {
-				"type": "mrkdwn",
-				"text": "이번 주는 일본의 황금 연휴 `골든위크`를 테마로 준비했습니다.\n일본 직장인들은 최대 12일 연휴라는데.. 정말 부럽네요 :sob: 부러운 마음은 잠시 접어두고, 오늘도 5분 일본어 시작해봐요!"
+				"type": "plain_text",
+				"text": " ",
+				"emoji": true
 			}
 		},
 		{
@@ -33,16 +109,21 @@
 			"type": "header",
 			"text": {
 				"type": "plain_text",
-				"text": "1년 중 일본인들의 가장 긴 휴식 기간, 골든위크",
+				"text": "💡 이번주 필수 단어",
 				"emoji": true
 			},
 			"level": 3
 		},
 		{
+			"type": "markdown",
+			"text": "##\n| 단어 | 읽기 | 의미 |\n|---|---|---|\n| 帰省 | きせい | 귀성 |\n| 連休 | れんきゅう | 연휴 |\n| 混雑 | こんざつ | 혼잡 |\n| 満席 | まんせき | 만석 \n| 渋滞 | じゅうたい | 교통체증 "
+		},
+		{
 			"type": "section",
 			"text": {
-				"type": "mrkdwn",
-				"text": "골든위크는 4월 말부터 5월 초까지 이어지는 일본 최대의 황금 연휴예요. 쇼와의 날, 헌법기념일, 녹색의 날, 어린이날까지 공휴일이 이어지면서 최대 12일 연휴도 만들어지죠. \n사실 골든위크라는 이름, 원래는 영화계에서 만든 마케팅 용어였어요. 1951년, 이 시기에 극장 관객이 폭발적으로 늘자 '황금 시간대처럼 관객이 몰린다'는 의미로 붙인 이름이 지금까지 이어져 온 거예요. \n매년 이 시기가 되면 일본 전국이 들썩여요. 고향으로 향하는 귀성 행렬, 순식간에 매진되는 신칸센과 항공권, 고속도로를 가득 메운 차들까지. 1년 중 가장 분주하면서도 가장 설레는 시기랍니다 :sparkles:"
+				"type": "plain_text",
+				"text": " ",
+				"emoji": true
 			}
 		},
 		{
@@ -52,10 +133,151 @@
 			"type": "header",
 			"text": {
 				"type": "plain_text",
-				"text": "이번주 필수 단어",
+				"text": ":speech_balloon: 이번주 짧은 대화",
 				"emoji": true
 			},
 			"level": 3
+		},
+		{
+			"type": "rich_text",
+			"elements": [
+				{
+					"type": "rich_text_quote",
+					"elements": [
+						{
+							"type": "text",
+							"text": "A: ゴールデンウィーク、どこか行く予定ある？ "
+						},
+						{
+							"type": "text",
+							"text": "(골든위크에 어딘가 갈 계획 있어?)",
+							"style": {
+								"italic": true
+							}
+						},
+						{
+							"type": "text",
+							"text": "\n\nB: 実家に帰省しようと思ってるよ。でも新幹線、もう満席らしくて。 "
+						},
+						{
+							"type": "text",
+							"text": "(고향에 가려고 하는데, 신칸센이 이미 만석이래.)",
+							"style": {
+								"italic": true
+							}
+						},
+						{
+							"type": "text",
+							"text": "\n\nA: それは大変だね。高速道路も渋滞するし、早めに動かないとね！ "
+						},
+						{
+							"type": "text",
+							"text": "(그거 큰일이네. 고속도로도 막히니까 일찍 움직여야겠다!)",
+							"style": {
+								"italic": true
+							}
+						},
+						{
+							"type": "text",
+							"text": "\n\nB: そうだね。来年はもっと早く予約しないと。 "
+						},
+						{
+							"type": "text",
+							"text": "(맞아. 내년엔 더 일찍 예약해야겠어.)",
+							"style": {
+								"italic": true
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": " ",
+				"emoji": true
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": ":joystick: 이번주 퀴즈 한 문제",
+				"emoji": true
+			},
+			"level": 3
+		},
+		{
+			"type": "input",
+			"element": {
+				"type": "radio_buttons",
+				"options": [
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "連休に帰省した",
+							"emoji": true
+						},
+						"value": "value-0"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "連休に旅行した",
+							"emoji": true
+						},
+						"value": "value-1"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "連休に出張した",
+							"emoji": true
+						},
+						"value": "value-2"
+					}
+				],
+				"action_id": "radio_buttons-action"
+			},
+			"label": {
+				"type": "plain_text",
+				"text": "'연휴에 고향에 갔다'를 일본어로 하면?",
+				"emoji": true
+			},
+			"optional": false
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": " ",
+				"emoji": true
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": "바쁜 월요일 아침, 오늘도 히토코토와 함께해주셔서 감사해요.\n짧은 5분이 쌓여 든든한 일본어 실력이 되기를 바라며,\n다음 주 월요일, 또 다른 일본어 한 마디로 찾아올게요! 👋",
+				"emoji": true
+			}
+		},
+		{
+			"type": "context",
+			"elements": [
+				{
+					"type": "mrkdwn",
+					"text": ":space_invader: Hitokoto | 매주 월요일 발행\n구독 문의 또는 레벨 변경은 @bella.12에게 문의주세요."
+				}
+			]
 		}
 	]
 }

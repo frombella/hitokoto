@@ -2,9 +2,9 @@
   "name": "hitokoto",
   "version": "1.0.0",
   "description": "Google Sheets 구독자 명단을 읽어 레벨별 뉴스레터를 Slack DM으로 발송합니다.",
-  "main": "content.js",
+  "main": "send.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node send.js"
   },
   "keywords": [],
   "author": "",
@@ -12,7 +12,6 @@
   "type": "commonjs",
   "dependencies": {
     "@slack/web-api": "^7.15.0",
-    "dotenv": "^17.4.1",
-    "googleapis": "^171.4.0"
+    "dotenv": "^17.4.1"
   }
 }

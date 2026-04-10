@@ -20,7 +20,7 @@ function loadNewsletters() {
       console.log(`   ✔ newsletter_${level}.json 로드됨`);
     } else if (fs.existsSync(txtPath)) {
       map[level] = { type: 'txt', body: fs.readFileSync(txtPath, 'utf-8').trim() };
-      console.log(`   ✔ newsletter_${level}.txt 로드됨 (Block Kit 변환 예정)`);
+      console.log(`   ✔ newsletter_${level}.txt 로드됨`);
     } else {
       console.warn(`   ⚠ newsletter_${level}.json / .txt 없음 → 해당 레벨 건너뜀`);
     }
@@ -29,11 +29,17 @@ function loadNewsletters() {
 }
 
 // ── 설정 ──────────────────────────────────────────────────
-const SLACK_TOKEN   = process.env.SLACK_TOKEN;
-const CSV_PATH      = process.env.CSV_PATH || './subscribers.csv';
+const SLACK_TOKEN    = process.env.SLACK_TOKEN;
+const CSV_PATH       = process.env.CSV_PATH || './subscribers.csv';
+const PREVIEW_EMAIL  = process.env.PREVIEW_EMAIL;
 
 if (!SLACK_TOKEN) {
   console.error('❌ .env 파일에 SLACK_TOKEN 이 필요합니다.');
+  process.exit(1);
+}
+
+if (!PREVIEW_EMAIL) {
+  console.error('❌ .env 파일에 PREVIEW_EMAIL 이 필요합니다.');
   process.exit(1);
 }
 
@@ -162,6 +168,22 @@ function confirm(question) {
   });
 }
 
+// ── 미리보기 발송 ─────────────────────────────────────────
+async function sendPreview(newsletters) {
+  console.log(`\n👀 미리보기 발송 중... → ${PREVIEW_EMAIL}`);
+
+  const previewUserId = await lookupSlackUserId(PREVIEW_EMAIL);
+  if (!previewUserId) {
+    throw new Error(`미리보기 계정(${PREVIEW_EMAIL})을 Slack에서 찾을 수 없습니다.`);
+  }
+
+  for (const [level, newsletter] of Object.entries(newsletters)) {
+    await sendDM(previewUserId, '미리보기', newsletter);
+    console.log(`   ✔ [${level}] 미리보기 발송 완료`);
+    await new Promise(r => setTimeout(r, 1200));
+  }
+}
+
 // ── 메인 ──────────────────────────────────────────────────
 async function main() {
   console.log('━'.repeat(44));
@@ -202,9 +224,12 @@ async function main() {
     console.log(`  ${String(i + 1).padStart(2)}. [${s.level}] ${s.name} <${s.email}>`);
   });
   console.log(`${'─'.repeat(40)}`);
-  console.log(`  총 ${targets.length}명\n`);
+  console.log(`  총 ${targets.length}명`);
 
-  const answer = await confirm('위 목록으로 발송하시겠습니까? (y/n) ');
+  // 미리보기 발송
+  await sendPreview(newsletters);
+
+  const answer = await confirm('\n미리보기 계정으로 발송했습니다. 확인 후 전체 발송하시겠습니까? (y/n) ');
   if (answer !== 'y') {
     console.log('발송을 취소했습니다.');
     return;
