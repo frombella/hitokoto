@@ -3,3 +3,5 @@ node_modules/
 service-account.json
 subscribers.csv
 .claude/
+.DS_Store
+bot.log

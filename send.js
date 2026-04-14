@@ -103,68 +103,14 @@ async function lookupSlackUserId(email) {
   }
 }
 
-// ── Block Kit 구성 (txt 전용) ─────────────────────────────
-function chunkText(text, maxLen = 3000) {
-  if (text.length <= maxLen) return [text];
-  const chunks = [];
-  for (let i = 0; i < text.length; i += maxLen) chunks.push(text.slice(i, i + maxLen));
-  return chunks;
-}
-
-function buildBlocks(name, body) {
-  const blocks = [
-    {
-      type: 'header',
-      text: { type: 'plain_text', text: ':space_invader: Hitokoto | 이번주 일본어 한 마디', emoji: true },
-    },
-    { type: 'divider' },
-    {
-      type: 'section',
-      text: {
-        type: 'plain_text',
-        text: `안녕하세요, ${name}님! :wave:\n월요일 아침, 5분으로 일본어 감각을 깨워드리는 히토코토가 찾아왔어요.`,
-        emoji: true,
-      },
-    },
-    { type: 'divider' },
-  ];
-
-  for (const para of body.split(/\n{2,}/)) {
-    const trimmed = para.trim();
-    if (!trimmed) continue;
-
-    // 단일 행 + :emoji: 시작 + 150자 이하 → header 블록
-    if (!trimmed.includes('\n') && /^:[a-z_]+:/.test(trimmed) && trimmed.length <= 150) {
-      blocks.push({ type: 'divider' });
-      blocks.push({
-        type: 'header',
-        text: { type: 'plain_text', text: trimmed, emoji: true },
-      });
-    } else {
-      for (const chunk of chunkText(trimmed)) {
-        blocks.push({
-          type: 'section',
-          text: { type: 'mrkdwn', text: chunk },
-        });
-      }
-    }
-  }
-
-  return blocks;
-}
-
 // ── DM 발송 ───────────────────────────────────────────────
-async function sendDM(userId, name, newsletter) {
+async function sendDM(userId, newsletter) {
   const { channel } = await slack.conversations.open({ users: userId });
-
-  const blocks = newsletter.type === 'json'
-    ? newsletter.blocks
-    : buildBlocks(name, newsletter.body);
 
   await slack.chat.postMessage({
     channel: channel.id,
     text: ':space_invader: Hitokoto | 이번주 일본어 한 마디',  // 알림용 fallback
-    blocks,
+    blocks: newsletter.blocks,
   });
 }
 
@@ -189,7 +135,7 @@ async function sendPreview(newsletter) {
     throw new Error(`미리보기 계정(${PREVIEW_EMAIL})을 Slack에서 찾을 수 없습니다.`);
   }
 
-  await sendDM(previewUserId, '미리보기', newsletter);
+  await sendDM(previewUserId, newsletter);
   console.log('   ✔ 미리보기 발송 완료');
 
   return previewUserId;
@@ -209,7 +155,7 @@ async function sendToAll(subscribers, newsletter) {
     }
 
     try {
-      await sendDM(userId, name, newsletter);
+      await sendDM(userId, newsletter);
       console.log(`✅  ${name} <${email}> → 발송 완료`);
       stats.sent++;
     } catch (err) {

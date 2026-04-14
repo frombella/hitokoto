@@ -1,7 +1,7 @@
 {
   "name": "hitokoto",
   "version": "1.0.0",
-  "description": "구독자 CSV를 읽어 레벨별 일본어 뉴스레터를 Slack DM으로 발송합니다.",
+  "description": "일본어 학습 뉴스레터를 Slack DM으로 자동 발송",
   "main": "send.js",
   "scripts": {
     "start": "node send.js",
