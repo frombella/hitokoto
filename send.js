@@ -42,7 +42,7 @@ function loadNewsletter() {
 
   const today = new Date().toISOString().slice(0, 10);
   const past  = files.filter(f => f.slice(0, 10) <= today);
-  const chosen = past.length > 0 ? past[past.length - 1] : files[0];
+  const chosen = past.length > 0 ? past[0] : files[0];
 
   const filePath = path.join(dir, chosen);
   const parsed = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
@@ -144,13 +144,15 @@ async function sendPreview(newsletter) {
 // ── 전체 구독자 발송 ──────────────────────────────────────
 async function sendToAll(subscribers, newsletter) {
   console.log('');
-  const stats = { sent: 0, skipped: 0, failed: 0 };
+  const stats = { sent: 0, failed: 0 };
+  const failures = [];  // { name, email }
 
   for (const { name, email } of subscribers) {
     const userId = await lookupSlackUserId(email);
     if (!userId) {
       console.warn(`⚠️  [${email}] Slack 계정을 찾을 수 없음 → 건너뜀`);
-      stats.skipped++;
+      failures.push({ name, email });
+      stats.failed++;
       continue;
     }
 
@@ -160,6 +162,7 @@ async function sendToAll(subscribers, newsletter) {
       stats.sent++;
     } catch (err) {
       console.error(`❌  [${email}] 발송 실패: ${err.message}`);
+      failures.push({ name, email });
       stats.failed++;
     }
 
@@ -169,8 +172,37 @@ async function sendToAll(subscribers, newsletter) {
 
   console.log('\n── 발송 결과 ──────────────────────');
   console.log(`   성공: ${stats.sent}명`);
-  console.log(`   건너뜀: ${stats.skipped}명`);
   console.log(`   실패: ${stats.failed}명`);
+
+  return { stats, failures };
+}
+
+// ── 발송 결과 리포트 DM ───────────────────────────────────
+async function sendReport(previewUserId, total, stats, failures) {
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
+  const now = new Date();
+  const dateStr = `${now.toISOString().slice(0, 10)} (${days[now.getDay()]})`;
+
+  let text =
+    `📊 히토코토 발송 결과 리포트\n` +
+    `────────────────\n` +
+    `📅 발송일: ${dateStr}\n` +
+    `📨 총 구독자: ${total}명\n` +
+    `✅ 발송 성공: ${stats.sent}명\n` +
+    `❌ 발송 실패: ${stats.failed}명`;
+
+  if (failures.length === 0) {
+    text += '\n\n모두 성공적으로 발송됐어요 🎉';
+  } else {
+    text += '\n\n실패 목록:';
+    for (const { name, email } of failures) {
+      text += `\n  • ${name} <${email}>`;
+    }
+  }
+
+  const { channel } = await slack.conversations.open({ users: previewUserId });
+  await slack.chat.postMessage({ channel: channel.id, text });
+  console.log('📊 발송 결과 리포트를 운영자에게 전송했습니다.');
 }
 
 // ── 자동 모드: 발송 승인 요청 DM ─────────────────────────
@@ -274,8 +306,9 @@ async function main() {
     }
 
     console.log('\n✅ 발송 승인 확인. 전체 발송을 시작합니다.');
-    await sendToAll(subscribers, newsletter);
+    const { stats: autoStats, failures: autoFailures } = await sendToAll(subscribers, newsletter);
     archiveNewsletter(filePath);
+    await sendReport(previewUserId, subscribers.length, autoStats, autoFailures);
 
   } else {
     // ── 수동 모드: 터미널에서 y/n 입력 ──────────────────
@@ -284,8 +317,9 @@ async function main() {
       console.log('발송을 취소했습니다.');
       return;
     }
-    await sendToAll(subscribers, newsletter);
+    const { stats, failures } = await sendToAll(subscribers, newsletter);
     archiveNewsletter(filePath);
+    await sendReport(previewUserId, subscribers.length, stats, failures);
   }
 }
 
