@@ -6,8 +6,10 @@ const readline = require('readline');
 
 // ── 설정 ──────────────────────────────────────────────────
 const AUTO_MODE        = process.argv.includes('--auto');
+const WELCOME_MODE     = process.argv.includes('--welcome');
 const SLACK_TOKEN      = process.env.SLACK_TOKEN;
 const CSV_PATH         = process.env.CSV_PATH || './subscribers.csv';
+const WELCOMED_PATH    = path.resolve('./welcomed.json');
 const PREVIEW_EMAIL    = process.env.PREVIEW_EMAIL;
 const TIMEOUT_MS       = 30 * 60 * 1000;  // 30분
 const POLL_INTERVAL_MS = 30 * 1000;        // 30초
@@ -24,7 +26,7 @@ if (!PREVIEW_EMAIL) {
 const slack = new WebClient(SLACK_TOKEN);
 
 // ── 뉴스레터 파일 선택 ────────────────────────────────────
-// newsletters/ 에서 오늘 이전/당일 파일 중 가장 최근 것을 선택
+// newsletters/ 에서 오늘 이전/당일 파일 중 가장 오래된 것을 선택
 // 해당 파일이 없으면 가장 가까운 미래 파일로 fallback
 function loadNewsletter() {
   const dir = path.resolve('./newsletters');
@@ -59,6 +61,16 @@ function archiveNewsletter(filePath) {
   const fileName = path.basename(filePath);
   fs.renameSync(filePath, path.join(sentDir, fileName));
   console.log(`\n📁 ${fileName} → newsletters/sent/ 로 이동 완료`);
+}
+
+// ── 환영 메시지 발송 이력 ─────────────────────────────────
+function loadWelcomed() {
+  if (!fs.existsSync(WELCOMED_PATH)) return new Set();
+  return new Set(JSON.parse(fs.readFileSync(WELCOMED_PATH, 'utf-8')));
+}
+
+function saveWelcomed(welcomedSet) {
+  fs.writeFileSync(WELCOMED_PATH, JSON.stringify([...welcomedSet], null, 2));
 }
 
 // ── CSV 읽기 ──────────────────────────────────────────────
@@ -254,8 +266,60 @@ async function waitForApproval(channelId, previewUserId, messageTs) {
   return false;
 }
 
+// ── 환영 메시지 모드 ──────────────────────────────────────
+async function runWelcome() {
+  console.log('📋 구독자 목록을 불러오는 중...');
+  const subscribers = fetchSubscribers();
+
+  if (subscribers.length === 0) {
+    console.log('구독자가 없습니다. 종료합니다.');
+    return;
+  }
+
+  const welcomed = loadWelcomed();
+  const targets = subscribers.filter(s => !welcomed.has(s.email));
+
+  console.log(`\n총 ${subscribers.length}명 중 ${targets.length}명에게 환영 메시지를 발송합니다.`);
+
+  if (targets.length === 0) {
+    console.log('모든 구독자가 이미 환영 메시지를 받았습니다.');
+    return;
+  }
+
+  console.log('');
+  for (const { name, email } of targets) {
+    const userId = await lookupSlackUserId(email);
+    if (!userId) {
+      console.warn(`⚠️  [${email}] Slack 계정을 찾을 수 없음 → 건너뜀`);
+      continue;
+    }
+
+    try {
+      const { channel } = await slack.conversations.open({ users: userId });
+      await slack.chat.postMessage({
+        channel: channel.id,
+        text: `안녕하세요, ${name}님! 👾\n히토코토 뉴스레터 구독을 환영해요.\n매주 월요일 아침, 일본어 한 마디를 전달해드릴게요 🍃`,
+      });
+      welcomed.add(email);
+      saveWelcomed(welcomed);
+      console.log(`✅  ${name} <${email}> → 환영 메시지 발송 완료`);
+    } catch (err) {
+      console.error(`❌  [${email}] 발송 실패: ${err.message}`);
+    }
+
+    await new Promise(r => setTimeout(r, 1200));
+  }
+
+  console.log('\n환영 메시지 발송 완료');
+}
+
 // ── 메인 ──────────────────────────────────────────────────
 async function main() {
+  if (WELCOME_MODE) {
+    await runWelcome();
+    return;
+  }
+
   if (!AUTO_MODE) {
     console.log('━'.repeat(44));
     console.log('  ⚠️  반드시 별도 터미널에서 실행하세요.');
@@ -267,7 +331,7 @@ async function main() {
 
   console.log('📄 뉴스레터 파일 확인 중...');
   const { blocks, filePath } = loadNewsletter();
-  const newsletter = { type: 'json', blocks };
+  const newsletter = { blocks };
 
   console.log('\n📋 구독자 목록을 불러오는 중...');
   const subscribers = fetchSubscribers();
