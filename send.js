@@ -92,6 +92,7 @@ function fetchSubscribers() {
   return dataLines
     .map(line => line.trim())
     .filter(line => line)
+    .filter(line => /^\d{4}/.test(line))  // 타임스탬프로 시작하는 행만 유효 데이터로 처리
     .map(line => {
       const cols = line.split(',');
       // 구글 폼 응답처럼 첫 컬럼이 타임스탬프인 경우 자동 감지해 건너뜀
