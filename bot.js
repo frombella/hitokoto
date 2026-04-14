@@ -50,7 +50,7 @@ app.event('message', async ({ event, client }) => {
   if (event.bot_id || event.subtype) return;
 
   // PREVIEW_EMAIL 계정 예외 처리 (승인용 '발송' 메시지가 정상 동작하도록)
-  // if (event.user === previewUserId) return;  // TODO: 테스트 후 복구
+  if (event.user === previewUserId) return;
 
   const userId = event.user;
   const text = (event.text ?? '').trim();
