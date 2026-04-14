@@ -1,0 +1,269 @@
+{
+	"blocks": [
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": "Hitokoto | 이번주 일본어 한 마디",
+				"emoji": true
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": "안녕하세요, 히토코토 구독자 여러분! 👾",
+				"emoji": true
+			}
+		},
+		{
+			"type": "rich_text",
+			"elements": [
+				{
+					"type": "rich_text_section",
+					"elements": [
+						{
+							"type": "text",
+							"text": "골든위크가 끝난 첫 월요일, 출근길 발걸음이 조금 무겁지 않으신가요?\n사실 일본에는 이 감정에 이름이 붙어 있어요. 바로 "
+						},
+						{
+							"type": "text",
+							"text": "오월병(五月病・ごがつびょう)",
+							"style": {
+								"bold": true
+							}
+						},
+						{
+							"type": "text",
+							"text": " 입니다."
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": " ",
+				"emoji": true
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": "🌿 연휴 끝, 갑자기 찾아오는 그 감정에 이름이 있다",
+				"emoji": true
+			}
+		},
+		{
+			"type": "rich_text",
+			"elements": [
+				{
+					"type": "rich_text_section",
+					"elements": [
+						{
+							"type": "text",
+							"text": "오월병, 사실 의학적 진단명은 아니에요.\n그런데 기업들이 5월마다 별도로 면담을 잡을 만큼, 일본 사회가 공식적으로 인정한 무기력증이에요.\n\n원래는 4월에 새 출발을 한 신입사원·신입생이 주인공이었어요.\n낯선 환경에서 긴장을 유지하다가, 골든위크로 한숨 돌린 순간 긴장이 풀리면서 무너지는 패턴이죠.\n그런데 요즘은 연차 상관없이 모든 직장인에게 찾아와요. 어떻게 보면 골든위크가 너무 길어서 생기는 부작용이기도 해요.\n\n한국의 번아웃이나 슬럼프와 비슷하지만, "
+						},
+						{
+							"type": "text",
+							"text": "시기까지 딱 정해진 무기력감",
+							"style": {
+								"bold": true
+							}
+						},
+						{
+							"type": "text",
+							"text": "에 이름을 붙여준 건 굉장히 일본답지 않나요?"
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": " ",
+				"emoji": true
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": "🌧️ 오월병, 이런 증상이라면?",
+				"emoji": true
+			}
+		},
+		{
+			"type": "rich_text",
+			"elements": [
+				{
+					"type": "rich_text_list",
+					"style": "bullet",
+					"indent": 0,
+					"border": 0,
+					"elements": [
+						{
+							"type": "rich_text_section",
+							"elements": [
+								{
+									"type": "text",
+									"text": "쉬어도 쉬는 것 같지 않다",
+									"style": {
+										"bold": true
+									}
+								},
+								{
+									"type": "text",
+									"text": " 연휴에 충분히 쉬었는데도 피로가 풀리지 않는 느낌이에요."
+								}
+							]
+						},
+						{
+							"type": "rich_text_section",
+							"elements": [
+								{
+									"type": "text",
+									"text": "회사·학교에 가기 싫은 마음이 평소보다 강하다",
+									"style": {
+										"bold": true
+									}
+								},
+								{
+									"type": "text",
+									"text": " 일본에선 이 시기에 결근·결석이 눈에 띄게 늘어요."
+								}
+							]
+						},
+						{
+							"type": "rich_text_section",
+							"elements": [
+								{
+									"type": "text",
+									"text": "작은 일에 짜증이 나거나 눈물이 난다",
+									"style": {
+										"bold": true
+									}
+								},
+								{
+									"type": "text",
+									"text": " 감정 기복이 심해지는 것도 오월병의 대표적인 신호예요."
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": " ",
+				"emoji": true
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": "🎒 이번주 챙겨가는 단어",
+				"emoji": true
+			}
+		},
+		{
+			"type": "markdown",
+			"text": "| 단어 | 읽기 | 의미 | 예문 |\n|---|---|---|---|\n| 五月病 | ごがつびょう | 오월병 | 五月病になってしまいました。(오월병에 걸려버렸어요.) |\n| やる気 | やるき | 의욕 | やる気が出ない日もありますよね。(의욕이 안 나는 날도 있죠.) |\n| 新生活 | しんせいかつ | 새 생활 | 新生活に慣れるまで時間がかかります。(새 생활에 익숙해지기까지 시간이 걸려요.) |\n| 気分転換 | きぶんてんかん | 기분 전환 | 少し外に出ると、気分転換になりますよ。(조금 밖에 나가면 기분 전환이 돼요.)|"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": " ",
+				"emoji": true
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": "👀 실제 대화, 살짝 엿보기",
+				"emoji": true
+			}
+		},
+		{
+			"type": "rich_text",
+			"elements": [
+				{
+					"type": "rich_text_preformatted",
+					"border": 0,
+					"elements": [
+						{
+							"type": "text",
+							"text": "A: 連休が終わってから、なんか体が重くて。\n　 (연휴가 끝나고 나서, 왠지 몸이 무거워서요.)\nB: 五月病かもしれないですね。この時期はみんなそうですよ。\n　 (오월병일지도 모르겠네요. 이 시기엔 다들 그래요.)\nA: そうかもしれないです。なんかやる気が出なくて困っています。\n　 (그럴지도 모르겠어요. 왠지 의욕이 안 나서 힘드네요.)\nB: 無理しないでくださいね。少し休むのも大事ですよ。\n　 (무리하지 마세요. 조금 쉬는 것도 중요해요.)"
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "💡 _*포인트*_ — 「無理しないでくださいね」 는 '무리하지 마세요'라는 뜻인데, 위로할 때 자주 쓰는 표현 중 하나예요. "
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": " ",
+				"emoji": true
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": "오늘 배운 거 하나만 기억해도 충분해요. 🌱\n다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!",
+				"emoji": true
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": " ",
+				"emoji": true
+			}
+		},
+		{
+			"type": "context",
+			"elements": [
+				{
+					"type": "mrkdwn",
+					"text": "👾 Hitokoto | 매주 월요일 발행\n주제 제안 및 뉴스레터 관련 문의는 @bella.12에게 연락주세요."
+				}
+			]
+		}
+	]
+}
