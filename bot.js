@@ -41,6 +41,10 @@ async function loadPreviewUserId() {
 // key: userId, value: true
 const pendingCancel = {};
 
+// ── 피드백 대기 상태 ──────────────────────────────────────
+// key: userId, value: true
+const pendingFeedback = {};
+
 // ── DM 이벤트 리스너 ──────────────────────────────────────
 app.event('message', async ({ event, client }) => {
   // DM 채널만 처리
@@ -55,11 +59,48 @@ app.event('message', async ({ event, client }) => {
   const userId = event.user;
   const text = (event.text ?? '').trim();
 
+  // ── 피드백 대기 중 ────────────────────────────────────
+  if (pendingFeedback[userId]) {
+    const isCommand =
+      text === '도움말' || text.toLowerCase() === 'help' ||
+      text === '구독취소' || text === '구독 취소' || text.toLowerCase() === 'unsubscribe' ||
+      text === '피드백' || text.toLowerCase() === 'feedback';
+
+    if (!isCommand) {
+      delete pendingFeedback[userId];
+      await client.chat.postMessage({
+        channel: event.channel,
+        text: '소중한 의견 감사해요 🍃 담당자에게 전달할게요!',
+      });
+      if (previewUserId) {
+        const { channel } = await client.conversations.open({ users: previewUserId });
+        await client.chat.postMessage({
+          channel: channel.id,
+          text: `📮 익명 피드백이 도착했어요.\n[내용]: ${text}`,
+        });
+      }
+      return;
+    }
+
+    // 인식된 명령어 → 대기 해제 후 아래 명령어 처리로 fall-through
+    delete pendingFeedback[userId];
+  }
+
   // ── 도움말 ──────────────────────────────────────────────
   if (text === '도움말' || text.toLowerCase() === 'help') {
     await client.chat.postMessage({
       channel: event.channel,
-      text: '📖 히토코토 봇 도움말\n\n사용 가능한 명령어예요:\n• 도움말 / help — 이 메뉴 표시\n• 구독 취소 / unsubscribe — 뉴스레터 구독 취소 요청',
+      text: '📖 히토코토 봇 도움말\n\n사용 가능한 명령어예요:\n• 도움말 / help — 이 메뉴 표시\n• 피드백 / feedback — 익명으로 의견 보내기\n• 구독 취소 / unsubscribe — 뉴스레터 구독 취소 요청',
+    });
+    return;
+  }
+
+  // ── 피드백 요청 ───────────────────────────────────────
+  if (text === '피드백' || text.toLowerCase() === 'feedback') {
+    pendingFeedback[userId] = true;
+    await client.chat.postMessage({
+      channel: event.channel,
+      text: '의견을 자유롭게 남겨주세요 👾\n(익명으로 전달되니 편하게 작성해주세요!)',
     });
     return;
   }

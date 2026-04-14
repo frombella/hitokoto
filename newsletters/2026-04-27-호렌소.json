@@ -118,7 +118,7 @@
 							"elements": [
 								{
 									"type": "text",
-									"text": "報告(보고)는 결과만 말하면 안 돼요",
+									"text": "보고는 결과만 말하면 안 돼요",
 									"style": {
 										"bold": true
 									}
@@ -134,7 +134,7 @@
 							"elements": [
 								{
 									"type": "text",
-									"text": "連絡(연락)은 빠를수록 좋아요",
+									"text": "연락은 빠를수록 좋아요",
 									"style": {
 										"bold": true
 									}
@@ -150,7 +150,7 @@
 							"elements": [
 								{
 									"type": "text",
-									"text": "相談(상담)은 혼자 끙끙대지 말라는 뜻이에요",
+									"text": "상담은 혼자 끙끙대지 말라는 뜻이에요",
 									"style": {
 										"bold": true
 									}
@@ -261,7 +261,7 @@
 			"elements": [
 				{
 					"type": "mrkdwn",
-					"text": "👾 Hitokoto | 매주 월요일 발행\n주제 제안 및 뉴스레터 관련 문의는 @bella.12에게 연락주세요."
+					"text": "👾 Hitokoto | 매주 월요일 발행\n이번 호 어떠셨나요? 콘텐츠 제안 및 뉴스레터와 관련된 의견이 있으시면 `피드백` 을 입력해주세요."
 				}
 			]
 		}
