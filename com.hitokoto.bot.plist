@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.hitokoto.bot</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/sh</string>
+    <string>-c</string>
+    <string>sleep 30 &amp;&amp; exec /usr/local/bin/node /Users/bella.12/hitokoto/bot.js</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/bella.12/hitokoto</string>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>KeepAlive</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/bella.12/hitokoto/bot.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/bella.12/hitokoto/bot.log</string>
+</dict>
+</plist>
