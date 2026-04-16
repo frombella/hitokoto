@@ -110,7 +110,7 @@ app.event('message', async ({ event, client }) => {
     pendingCancel[userId] = true;
     await client.chat.postMessage({
       channel: event.channel,
-      text: '구독을 취소하시겠어요? 취소를 원하시면 *네* 라고 입력해주세요.',
+      text: '구독을 취소하시겠어요? 취소를 원하시면 `네` 라고 입력해주세요.',
     });
     return;
   }

@@ -123,7 +123,7 @@ async function sendDM(userId, newsletter) {
 
   await slack.chat.postMessage({
     channel: channel.id,
-    text: ':space_invader: Hitokoto | 이번주 일본어 한 마디',  // 알림용 fallback
+    text: '👾 Hitokoto | 이번주 일본어 한 마디',  // 알림용 fallback
     blocks: newsletter.blocks,
   });
 }
@@ -232,7 +232,7 @@ async function sendReport(previewUserId, total, stats, failures) {
 async function sendConfirmRequest(channelId) {
   const res = await slack.chat.postMessage({
     channel: channelId,
-    text: '히토코토 미리보기를 확인해주세요.\n전체 발송을 원하시면 이 메시지에 \'발송\' 이라고 답장해주세요.',
+    text: '히토코토 미리보기를 확인해주세요 👾\n전체 발송을 원하시면 이 메시지에 \'발송\' 이라고 답장해주세요.',
   });
   return res.ts;  // 답장 감지 기준점
 }
@@ -420,7 +420,7 @@ async function main() {
     if (!approved) {
       await slack.chat.postMessage({
         channel: channelId,
-        text: '30분 내 응답이 없어 히토코토 발송을 자동 취소했습니다.',
+        text: '30분 내 응답이 없어 히토코토 발송을 자동 취소했어요.',
       });
       console.log('\n⏰ 시간 초과: 발송이 자동 취소되었습니다.');
       return;
