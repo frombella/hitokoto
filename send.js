@@ -155,6 +155,15 @@ async function sendPreview(newsletter) {
   return previewUserId;
 }
 
+// ── 구독자 명단 DM ────────────────────────────────────────
+async function sendSubscriberList(previewUserId, subscribers) {
+  const lines = subscribers.map(s => `- ${s.name}`).join('\n');
+  const text = `📋 구독자 ${subscribers.length}명에게 발송 예정이에요.\n${lines}`;
+
+  const { channel } = await slack.conversations.open({ users: previewUserId });
+  await slack.chat.postMessage({ channel: channel.id, text });
+}
+
 // ── 전체 구독자 발송 ──────────────────────────────────────
 async function sendToAll(subscribers, newsletter) {
   console.log('');
@@ -396,6 +405,7 @@ async function main() {
   console.log(`  총 ${subscribers.length}명`);
 
   const previewUserId = await sendPreview(newsletter);
+  await sendSubscriberList(previewUserId, subscribers);
 
   if (AUTO_MODE) {
     // ── 자동 모드: Slack DM으로 승인 대기 ────────────────
