@@ -307,6 +307,25 @@ async function runWelcome() {
     return;
   }
 
+  // 관리자 미리보기
+  const previewUserId = await lookupSlackUserId(PREVIEW_EMAIL);
+  if (!previewUserId) {
+    throw new Error(`미리보기 계정(${PREVIEW_EMAIL})을 Slack에서 찾을 수 없습니다.`);
+  }
+  const previewName = subscribers.find(s => s.email === PREVIEW_EMAIL.toLowerCase())?.name ?? '관리자';
+  const { channel: previewChannel } = await slack.conversations.open({ users: previewUserId });
+  await slack.chat.postMessage({
+    channel: previewChannel.id,
+    text: `안녕하세요, ${previewName}님! 👾\n히토코토 뉴스레터 구독을 환영합니다.\n매주 월요일 아침, 일본어 한 마디를 전달해드릴게요 🍃`,
+  });
+  console.log(`\n👀 관리자(${PREVIEW_EMAIL})에게 미리보기 발송 완료`);
+
+  const confirm2 = await confirm('구독자에게 발송할까요? (y/n) ');
+  if (confirm2 !== 'y') {
+    console.log('발송을 취소했습니다.');
+    return;
+  }
+
   console.log('');
   for (const { name, email } of targets) {
     const userId = await lookupSlackUserId(email);
