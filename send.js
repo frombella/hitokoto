@@ -9,6 +9,7 @@ const AUTO_MODE        = process.argv.includes('--auto');
 const WELCOME_MODE     = process.argv.includes('--welcome');
 const PREVIEW_MODE     = process.argv.includes('--preview');
 const PREVIEW_NEXT_MODE = process.argv.includes('--preview-next');
+const CHECK_MODE        = process.argv.includes('--check');
 const SLACK_TOKEN      = process.env.SLACK_TOKEN;
 const CSV_PATH         = process.env.CSV_PATH || './subscribers.csv';
 const WELCOMED_PATH    = path.resolve('./welcomed.json');
@@ -427,8 +428,37 @@ async function runPreview() {
   console.log('\n미리보기 발송 완료');
 }
 
+// ── 다음 발송 예정 확인 모드 ──────────────────────────────
+function runCheck() {
+  const dir = path.resolve('./newsletters');
+  if (!fs.existsSync(dir)) {
+    console.log('📭 발송 예정 파일이 없어요.');
+    return;
+  }
+
+  const files = fs.readdirSync(dir)
+    .filter(f => /^\d{4}-\d{2}-\d{2}.*\.json$/.test(f))
+    .sort();
+
+  if (files.length === 0) {
+    console.log('📭 발송 예정 파일이 없어요.');
+    return;
+  }
+
+  const today = new Date().toISOString().slice(0, 10);
+  const past  = files.filter(f => f.slice(0, 10) <= today);
+  const chosen = past.length > 0 ? past[0] : files[0];
+
+  console.log(`📅 다음 발송 예정: ${chosen}`);
+}
+
 // ── 메인 ──────────────────────────────────────────────────
 async function main() {
+  if (CHECK_MODE) {
+    runCheck();
+    return;
+  }
+
   if (WELCOME_MODE) {
     await runWelcome();
     return;
