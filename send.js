@@ -8,6 +8,7 @@ const readline = require('readline');
 const AUTO_MODE        = process.argv.includes('--auto');
 const WELCOME_MODE     = process.argv.includes('--welcome');
 const PREVIEW_MODE     = process.argv.includes('--preview');
+const PREVIEW_NEXT_MODE = process.argv.includes('--preview-next');
 const SLACK_TOKEN      = process.env.SLACK_TOKEN;
 const CSV_PATH         = process.env.CSV_PATH || './subscribers.csv';
 const WELCOMED_PATH    = path.resolve('./welcomed.json');
@@ -318,7 +319,7 @@ async function runWelcome() {
       const { channel } = await slack.conversations.open({ users: userId });
       await slack.chat.postMessage({
         channel: channel.id,
-        text: `안녕하세요, ${name}님! 👾\n히토코토 뉴스레터 구독을 환영해요.\n매주 월요일 아침, 일본어 한 마디를 전달해드릴게요 🍃`,
+        text: `안녕하세요, ${name}님! 👾\n히토코토 뉴스레터 구독을 환영합니다.\n매주 월요일 아침, 일본어 한 마디를 전달해드릴게요 🍃`,
       });
       welcomed.add(email);
       saveWelcomed(welcomed);
@@ -331,6 +332,40 @@ async function runWelcome() {
   }
 
   console.log('\n환영 메시지 발송 완료');
+}
+
+// ── 다음 뉴스레터 미리보기 모드 ──────────────────────────
+async function runPreviewNext() {
+  const dir = path.resolve('./newsletters');
+  if (!fs.existsSync(dir)) {
+    throw new Error('newsletters/ 폴더가 없습니다.');
+  }
+
+  const files = fs.readdirSync(dir)
+    .filter(f => /^\d{4}-\d{2}-\d{2}.*\.json$/.test(f))
+    .sort();
+
+  if (files.length === 0) {
+    console.log('newsletters/ 폴더에 미리보기할 파일이 없습니다.');
+    return;
+  }
+
+  const today = new Date().toISOString().slice(0, 10);
+  const future = files.filter(f => f.slice(0, 10) > today);
+  const chosen = future.length > 0 ? future[0] : files[files.length - 1];
+
+  const filePath = path.join(dir, chosen);
+  const parsed = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  const blocks = Array.isArray(parsed) ? parsed : parsed.blocks;
+
+  const previewUserId = await lookupSlackUserId(PREVIEW_EMAIL);
+  if (!previewUserId) {
+    throw new Error(`미리보기 계정(${PREVIEW_EMAIL})을 Slack에서 찾을 수 없습니다.`);
+  }
+
+  console.log(`[미리보기] ${chosen}`);
+  await sendDM(previewUserId, { blocks });
+  console.log('   ✔ 미리보기 발송 완료');
 }
 
 // ── 전체 미리보기 모드 ────────────────────────────────────
@@ -377,6 +412,11 @@ async function runPreview() {
 async function main() {
   if (WELCOME_MODE) {
     await runWelcome();
+    return;
+  }
+
+  if (PREVIEW_NEXT_MODE) {
+    await runPreviewNext();
     return;
   }
 
