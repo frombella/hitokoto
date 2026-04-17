@@ -12,7 +12,7 @@
 			"type": "section",
 			"text": {
 				"type": "plain_text",
-				"text": "안녕하세요, 히토코토 구독자 여러분! 👾",
+				"text": "안녕하세요, 히토코토 구독자 여러분!",
 				"emoji": true
 			}
 		},
@@ -265,14 +265,6 @@
 			"text": {
 				"type": "plain_text",
 				"text": "바쁜 월요일 아침, 히토코토와 함께해주셔서 감사해요. 🌸\n다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!",
-				"emoji": true
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "plain_text",
-				"text": " ",
 				"emoji": true
 			}
 		},

@@ -12,7 +12,7 @@
 			"type": "section",
 			"text": {
 				"type": "plain_text",
-				"text": "안녕하세요, 히토코토 구독자 여러분! 👾",
+				"text": "안녕하세요, 히토코토 구독자 여러분!",
 				"emoji": true
 			}
 		},
@@ -100,7 +100,7 @@
 			"type": "header",
 			"text": {
 				"type": "plain_text",
-				"text": "📢 호렌소, 이렇게 다르다?",
+				"text": "📢 호렌소, 사실 이런 뜻이에요!",
 				"emoji": true
 			}
 		},
@@ -245,14 +245,6 @@
 			"text": {
 				"type": "plain_text",
 				"text": "호렌소 세 글자, 이번 주 꼭 써먹어 보세요. 💼\n다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!",
-				"emoji": true
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "plain_text",
-				"text": " ",
 				"emoji": true
 			}
 		},

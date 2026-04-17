@@ -290,10 +290,19 @@ async function runWelcome() {
   const welcomed = loadWelcomed();
   const targets = subscribers.filter(s => !welcomed.has(s.email));
 
-  console.log(`\n총 ${subscribers.length}명 중 ${targets.length}명에게 환영 메시지를 발송합니다.`);
-
   if (targets.length === 0) {
     console.log('모든 구독자가 이미 환영 메시지를 받았습니다.');
+    return;
+  }
+
+  console.log(`\n📋 환영 메시지 발송 대상 (${targets.length}명)`);
+  for (const { name, email } of targets) {
+    console.log(`  • ${name} (${email})`);
+  }
+
+  const answer = await confirm('\n발송하시겠습니까? (y/n) ');
+  if (answer !== 'y') {
+    console.log('발송을 취소했습니다.');
     return;
   }
 
