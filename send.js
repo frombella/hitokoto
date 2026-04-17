@@ -256,7 +256,7 @@ async function waitForApproval(channelId, previewUserId, messageTs) {
       limit: 10,
     });
     const inChannel = history.messages?.some(
-      m => m.user === previewUserId && m.text?.includes('발송')
+      m => m.user === previewUserId && m.text?.trim() === '발송'
     );
     if (inChannel) return true;
 
@@ -268,7 +268,7 @@ async function waitForApproval(channelId, previewUserId, messageTs) {
         limit: 10,
       });
       const inThread = replies.messages?.slice(1).some(
-        m => m.user === previewUserId && m.text?.includes('발송')
+        m => m.user === previewUserId && m.text?.trim() === '발송'
       );
       if (inThread) return true;
     } catch {
