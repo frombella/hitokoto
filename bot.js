@@ -65,6 +65,7 @@ app.event('message', async ({ event, client }) => {
   if (pendingFeedback[userId]) {
     const isCommand =
       text === '도움말' || text.toLowerCase() === 'help' ||
+      text === '다시 보기' || text.toLowerCase() === 'archive' ||
       text === '구독취소' || text === '구독 취소' || text.toLowerCase() === 'unsubscribe' ||
       text === '피드백' || text.toLowerCase() === 'feedback';
 
