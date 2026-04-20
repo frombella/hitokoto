@@ -317,7 +317,7 @@ async function runWelcome() {
   const { channel: previewChannel } = await slack.conversations.open({ users: previewUserId });
   await slack.chat.postMessage({
     channel: previewChannel.id,
-    text: `안녕하세요, ${previewName}님! 👾\n히토코토 뉴스레터 구독을 환영합니다.\n매주 월요일 아침, 일본어 한 마디를 전달해드릴게요 🍃`,
+    text: `안녕하세요, ${previewName}님! 👾\n히토코토 뉴스레터 구독을 환영합니다.\n매주 월요일 아침, 일본어 한 마디를 전달해 드릴게요 🍃`,
   });
   console.log(`\n👀 관리자(${PREVIEW_EMAIL})에게 미리보기 발송 완료`);
 
@@ -339,7 +339,7 @@ async function runWelcome() {
       const { channel } = await slack.conversations.open({ users: userId });
       await slack.chat.postMessage({
         channel: channel.id,
-        text: `안녕하세요, ${name}님! 👾\n히토코토 뉴스레터 구독을 환영합니다.\n매주 월요일 아침, 일본어 한 마디를 전달해드릴게요 🍃`,
+        text: `안녕하세요, ${name}님! 👾\n히토코토 뉴스레터 구독을 환영합니다.\n매주 월요일 아침, 일본어 한 마디를 전달해 드릴게요 🍃`,
       });
       welcomed.add(email);
       saveWelcomed(welcomed);
