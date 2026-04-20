@@ -10,6 +10,7 @@ const WELCOME_MODE     = process.argv.includes('--welcome');
 const PREVIEW_MODE     = process.argv.includes('--preview');
 const PREVIEW_NEXT_MODE = process.argv.includes('--preview-next');
 const CHECK_MODE        = process.argv.includes('--check');
+const CHECK_ARCHIVE_MODE = process.argv.includes('--check-archive');
 const SLACK_TOKEN      = process.env.SLACK_TOKEN;
 const CSV_PATH         = process.env.CSV_PATH || './subscribers.csv';
 const WELCOMED_PATH    = path.resolve('./welcomed.json');
@@ -64,6 +65,27 @@ function archiveNewsletter(filePath) {
   const fileName = path.basename(filePath);
   fs.renameSync(filePath, path.join(sentDir, fileName));
   console.log(`\n📁 ${fileName} → newsletters/sent/ 로 이동 완료`);
+  logSentHistory(fileName);
+}
+
+// ── 발송 이력 기록 ────────────────────────────────────────
+function logSentHistory(fileName) {
+  const historyPath = path.resolve('./sent-history.json');
+  const history = fs.existsSync(historyPath)
+    ? JSON.parse(fs.readFileSync(historyPath, 'utf-8'))
+    : [];
+
+  const now = new Date();
+  const sentAt = now.getFullYear() + '-' +
+    String(now.getMonth() + 1).padStart(2, '0') + '-' +
+    String(now.getDate()).padStart(2, '0') + ' ' +
+    String(now.getHours()).padStart(2, '0') + ':' +
+    String(now.getMinutes()).padStart(2, '0') + ':' +
+    String(now.getSeconds()).padStart(2, '0');
+
+  history.push({ file: fileName, sentAt });
+  fs.writeFileSync(historyPath, JSON.stringify(history, null, 2));
+  console.log(`📝 sent-history.json 기록 완료`);
 }
 
 // ── 환영 메시지 발송 이력 ─────────────────────────────────
@@ -452,8 +474,29 @@ function runCheck() {
   console.log(`📅 다음 발송 예정: ${chosen}`);
 }
 
+// ── 다시 보기 대상 확인 ───────────────────────────────────
+function runCheckArchive() {
+  const historyPath = path.resolve('./sent-history.json');
+  const history = fs.existsSync(historyPath)
+    ? JSON.parse(fs.readFileSync(historyPath, 'utf-8'))
+    : [];
+
+  if (history.length === 0) {
+    console.log('📭 발송된 뉴스레터가 없어요.');
+    return;
+  }
+
+  const latest = history[history.length - 1];
+  console.log(`📦 다시 보기 대상: ${latest.file} (발송일: ${latest.sentAt})`);
+}
+
 // ── 메인 ──────────────────────────────────────────────────
 async function main() {
+  if (CHECK_ARCHIVE_MODE) {
+    runCheckArchive();
+    return;
+  }
+
   if (CHECK_MODE) {
     runCheck();
     return;

@@ -1,5 +1,7 @@
 require('dotenv').config();
 const { App } = require('@slack/bolt');
+const fs = require('fs');
+const path = require('path');
 
 // ── 설정 ──────────────────────────────────────────────────
 const SLACK_TOKEN    = process.env.SLACK_TOKEN;
@@ -90,8 +92,61 @@ app.event('message', async ({ event, client }) => {
   if (text === '도움말' || text.toLowerCase() === 'help') {
     await client.chat.postMessage({
       channel: event.channel,
-      text: '📖 히토코토 봇 도움말\n\n사용 가능한 명령어예요:\n• 도움말 / help — 이 메뉴 표시\n• 피드백 / feedback — 익명으로 의견 보내기\n• 구독 취소 / unsubscribe — 뉴스레터 구독 취소 요청',
+      text: '📖 히토코토 봇 도움말\n\n사용 가능한 명령어예요:\n• 도움말 / help — 이 메뉴 표시\n• 다시 보기 / archive — 가장 최근 뉴스레터 다시 보기\n• 피드백 / feedback — 익명으로 의견 보내기\n• 구독 취소 / unsubscribe — 뉴스레터 구독 취소 요청',
     });
+    return;
+  }
+
+  // ── 다시 보기 ─────────────────────────────────────────
+  if (text === '다시 보기' || text.toLowerCase() === 'archive') {
+    const historyPath = path.resolve('./sent-history.json');
+    const history = fs.existsSync(historyPath)
+      ? JSON.parse(fs.readFileSync(historyPath, 'utf-8'))
+      : [];
+
+    if (history.length === 0) {
+      await client.chat.postMessage({
+        channel: event.channel,
+        text: '아직 발송된 뉴스레터가 없어요.',
+      });
+      return;
+    }
+
+    const latest = history[history.length - 1];
+    const sentFilePath = path.resolve(`./newsletters/sent/${latest.file}`);
+
+    if (!fs.existsSync(sentFilePath)) {
+      await client.chat.postMessage({
+        channel: event.channel,
+        text: '아직 발송된 뉴스레터가 없어요.',
+      });
+      return;
+    }
+
+    const parsed = JSON.parse(fs.readFileSync(sentFilePath, 'utf-8'));
+    const blocks = Array.isArray(parsed) ? parsed : parsed.blocks;
+
+    await client.chat.postMessage({
+      channel: event.channel,
+      text: '👾 Hitokoto | 이번주 일본어 한 마디',
+      blocks,
+    });
+
+    if (previewUserId) {
+      let displayName = userId;
+      try {
+        const info = await client.users.info({ user: userId });
+        displayName = info.user?.profile?.display_name || info.user?.real_name || userId;
+      } catch {
+        // 조회 실패 시 슬랙 ID 사용
+      }
+
+      const { channel } = await client.conversations.open({ users: previewUserId });
+      await client.chat.postMessage({
+        channel: channel.id,
+        text: `📮 ${displayName}님이 다시 보기를 요청했어요. (${latest.file})`,
+      });
+    }
     return;
   }
 

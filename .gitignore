@@ -5,4 +5,5 @@ subscribers.csv
 .DS_Store
 bot.log
 welcomed.json
+sent-history.json
 *.log
