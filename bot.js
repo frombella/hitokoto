@@ -78,6 +78,15 @@ app.event('message', async ({ event, client }) => {
 
   // ── 피드백 대기 중 ────────────────────────────────────
   if (pendingFeedback[userId]) {
+    if (text === '취소') {
+      delete pendingFeedback[userId];
+      await client.chat.postMessage({
+        channel: event.channel,
+        text: '피드백이 취소됐어요.',
+      });
+      return;
+    }
+
     if (!isCommandText(text)) {
       delete pendingFeedback[userId];
       await client.chat.postMessage({
@@ -166,6 +175,52 @@ app.event('message', async ({ event, client }) => {
     }
   }
 
+  // ── 구독 취소 확인 대기 중 ────────────────────────────
+  if (pendingCancel[userId]) {
+    if (text === '취소') {
+      delete pendingCancel[userId];
+      await client.chat.postMessage({
+        channel: event.channel,
+        text: '구독 취소가 취소됐어요.',
+      });
+      return;
+    }
+
+    if (isCommandText(text)) {
+      // 인식된 명령어 → 대기 해제 후 아래 명령어 처리로 fall-through
+      delete pendingCancel[userId];
+    } else if (text === '네') {
+      delete pendingCancel[userId];
+      await client.chat.postMessage({
+        channel: event.channel,
+        text: '구독 취소 요청을 접수했어요. 담당자가 확인 후 처리해드릴게요 👾\n다시 구독하고 싶으실 때는 <https://forms.gle/sNmKiyd1qEXBAFxt7|여기> 를 통해 신청해주세요!',
+      });
+
+      if (previewUserId) {
+        let identifier = userId;
+        try {
+          const info = await client.users.info({ user: userId });
+          identifier = info.user?.profile?.email ?? userId;
+        } catch {
+          // 이메일 조회 실패 시 슬랙 ID 사용
+        }
+
+        const { channel } = await client.conversations.open({ users: previewUserId });
+        await client.chat.postMessage({
+          channel: channel.id,
+          text:
+            `📮 구독 취소 요청이 들어왔어요.\n` +
+            `• 이메일: ${identifier}\n` +
+            `Google 스프레드시트에서 해당 행을 삭제 후 CSV를 다시 다운로드해주세요.`,
+        });
+      }
+      return;
+    } else {
+      // '네' 외 다른 입력 → 대기 상태 해제 후 기본 응답으로 fall-through
+      delete pendingCancel[userId];
+    }
+  }
+
   // ── 도움말 ──────────────────────────────────────────────
   if (text === '도움말' || text.toLowerCase() === 'help') {
     await client.chat.postMessage({
@@ -231,40 +286,6 @@ app.event('message', async ({ event, client }) => {
       text: '구독을 취소하시겠어요? 취소를 원하시면 `네` 라고 입력해주세요.',
     });
     return;
-  }
-
-  // ── 구독 취소 확인 ────────────────────────────────────
-  if (pendingCancel[userId]) {
-    delete pendingCancel[userId];
-
-    if (text === '네') {
-      await client.chat.postMessage({
-        channel: event.channel,
-        text: '구독 취소 요청을 접수했어요. 담당자가 확인 후 처리해드릴게요 👾\n다시 구독하고 싶으실 때는 <https://forms.gle/sNmKiyd1qEXBAFxt7|여기> 를 통해 신청해주세요!',
-      });
-
-      if (previewUserId) {
-        let identifier = userId;
-        try {
-          const info = await client.users.info({ user: userId });
-          identifier = info.user?.profile?.email ?? userId;
-        } catch {
-          // 이메일 조회 실패 시 슬랙 ID 사용
-        }
-
-        const { channel } = await client.conversations.open({ users: previewUserId });
-        await client.chat.postMessage({
-          channel: channel.id,
-          text:
-            `📮 구독 취소 요청이 들어왔어요.\n` +
-            `• 이메일: ${identifier}\n` +
-            `Google 스프레드시트에서 해당 행을 삭제 후 CSV를 다시 다운로드해주세요.`,
-        });
-      }
-      return;
-    }
-
-    // '네' 외 다른 입력 → 대기 상태 해제 후 기본 응답으로 fall-through
   }
 
   // ── 기본 응답 ─────────────────────────────────────────
