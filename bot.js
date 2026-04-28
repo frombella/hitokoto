@@ -39,6 +39,17 @@ async function loadPreviewUserId() {
   }
 }
 
+// ── 명령어 판별 ───────────────────────────────────────────
+function isCommandText(t) {
+  return (
+    t === '도움말' || t.toLowerCase() === 'help' ||
+    t === '다시 보기' || t.toLowerCase() === 'archive' ||
+    t === '구독취소' || t === '구독 취소' || t.toLowerCase() === 'unsubscribe' ||
+    t === '피드백' || t.toLowerCase() === 'feedback' ||
+    t === '취소'
+  );
+}
+
 // ── 구독 취소 확인 대기 상태 ──────────────────────────────
 // key: userId, value: true
 const pendingCancel = {};
@@ -46,6 +57,10 @@ const pendingCancel = {};
 // ── 피드백 대기 상태 ──────────────────────────────────────
 // key: userId, value: true
 const pendingFeedback = {};
+
+// ── 다시 보기 날짜 선택 대기 상태 ────────────────────────
+// key: userId, value: 최근 한 달 발송 목록 배열
+const pendingArchive = {};
 
 // ── DM 이벤트 리스너 ──────────────────────────────────────
 app.event('message', async ({ event, client }) => {
@@ -63,13 +78,7 @@ app.event('message', async ({ event, client }) => {
 
   // ── 피드백 대기 중 ────────────────────────────────────
   if (pendingFeedback[userId]) {
-    const isCommand =
-      text === '도움말' || text.toLowerCase() === 'help' ||
-      text === '다시 보기' || text.toLowerCase() === 'archive' ||
-      text === '구독취소' || text === '구독 취소' || text.toLowerCase() === 'unsubscribe' ||
-      text === '피드백' || text.toLowerCase() === 'feedback';
-
-    if (!isCommand) {
+    if (!isCommandText(text)) {
       delete pendingFeedback[userId];
       await client.chat.postMessage({
         channel: event.channel,
@@ -89,11 +98,79 @@ app.event('message', async ({ event, client }) => {
     delete pendingFeedback[userId];
   }
 
+  // ── 다시 보기 날짜 선택 대기 중 ──────────────────────
+  if (pendingArchive[userId]) {
+    if (text === '취소') {
+      delete pendingArchive[userId];
+      await client.chat.postMessage({
+        channel: event.channel,
+        text: '다시 보기가 취소됐어요.',
+      });
+      return;
+    }
+
+    if (isCommandText(text)) {
+      // 인식된 명령어 → 대기 해제 후 아래 명령어 처리로 fall-through
+      delete pendingArchive[userId];
+    } else {
+      // 날짜 입력으로 처리
+      const recent = pendingArchive[userId];
+      const matched = recent.find(h => {
+        const d = new Date(h.sentAt);
+        return `${d.getMonth() + 1}/${d.getDate()}` === text;
+      });
+
+      if (!matched) {
+        await client.chat.postMessage({
+          channel: event.channel,
+          text: '해당 날짜의 뉴스레터를 찾을 수 없어요. 다시 입력해주세요.',
+        });
+        return;
+      }
+
+      const sentFilePath = path.resolve(`./newsletters/sent/${matched.file}`);
+      if (!fs.existsSync(sentFilePath)) {
+        await client.chat.postMessage({
+          channel: event.channel,
+          text: '해당 날짜의 뉴스레터를 찾을 수 없어요. 다시 입력해주세요.',
+        });
+        return;
+      }
+
+      delete pendingArchive[userId];
+      const parsed = JSON.parse(fs.readFileSync(sentFilePath, 'utf-8'));
+      const blocks = Array.isArray(parsed) ? parsed : parsed.blocks;
+
+      await client.chat.postMessage({
+        channel: event.channel,
+        text: '👾 Hitokoto | 이번주 일본어 한 마디',
+        blocks,
+      });
+
+      if (previewUserId) {
+        let displayName = userId;
+        try {
+          const info = await client.users.info({ user: userId });
+          displayName = info.user?.profile?.display_name || info.user?.real_name || userId;
+        } catch {
+          // 조회 실패 시 슬랙 ID 사용
+        }
+
+        const { channel } = await client.conversations.open({ users: previewUserId });
+        await client.chat.postMessage({
+          channel: channel.id,
+          text: `📮 ${displayName}님이 다시 보기를 요청했어요. (${matched.file})`,
+        });
+      }
+      return;
+    }
+  }
+
   // ── 도움말 ──────────────────────────────────────────────
   if (text === '도움말' || text.toLowerCase() === 'help') {
     await client.chat.postMessage({
       channel: event.channel,
-      text: '📖 히토코토 봇 도움말\n\n사용 가능한 명령어예요:\n• 도움말 / help — 이 메뉴 표시\n• 다시 보기 / archive — 가장 최근 뉴스레터 다시 보기\n• 피드백 / feedback — 익명으로 의견 보내기\n• 구독 취소 / unsubscribe — 뉴스레터 구독 취소 요청',
+      text: '📖 히토코토 봇 도움말\n\n사용 가능한 명령어예요:\n• 도움말 / help — 이 메뉴 표시\n• 다시 보기 / archive — 지난 뉴스레터 다시 보기\n• 피드백 / feedback — 익명으로 의견 보내기\n• 구독 취소 / unsubscribe — 뉴스레터 구독 취소 요청',
     });
     return;
   }
@@ -105,7 +182,11 @@ app.event('message', async ({ event, client }) => {
       ? JSON.parse(fs.readFileSync(historyPath, 'utf-8'))
       : [];
 
-    if (history.length === 0) {
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+    const recent = history.filter(h => new Date(h.sentAt) >= oneMonthAgo);
+
+    if (recent.length === 0) {
       await client.chat.postMessage({
         channel: event.channel,
         text: '아직 발송된 뉴스레터가 없어요.',
@@ -113,41 +194,22 @@ app.event('message', async ({ event, client }) => {
       return;
     }
 
-    const latest = history[history.length - 1];
-    const sentFilePath = path.resolve(`./newsletters/sent/${latest.file}`);
+    const listLines = recent.map(h => {
+      const d = new Date(h.sentAt);
+      const md = `${d.getMonth() + 1}/${d.getDate()}`;
+      const title = h.file
+        .replace(/^\d{4}-\d{2}-\d{2}-/, '')
+        .replace(/\.json$/, '')
+        .replace(/-/g, ' ');
+      return `• ${md} — ${title}`;
+    }).join('\n');
 
-    if (!fs.existsSync(sentFilePath)) {
-      await client.chat.postMessage({
-        channel: event.channel,
-        text: '아직 발송된 뉴스레터가 없어요.',
-      });
-      return;
-    }
-
-    const parsed = JSON.parse(fs.readFileSync(sentFilePath, 'utf-8'));
-    const blocks = Array.isArray(parsed) ? parsed : parsed.blocks;
+    pendingArchive[userId] = recent;
 
     await client.chat.postMessage({
       channel: event.channel,
-      text: '👾 Hitokoto | 이번주 일본어 한 마디',
-      blocks,
+      text: `📅 최근 한 달간 발송된 목록이에요:\n${listLines}\n\n다시 보기를 원하는 뉴스레터의 날짜를 입력해주세요. (예: \`4/20\`)\n취소하려면 \`취소\` 라고 입력해주세요.`,
     });
-
-    if (previewUserId) {
-      let displayName = userId;
-      try {
-        const info = await client.users.info({ user: userId });
-        displayName = info.user?.profile?.display_name || info.user?.real_name || userId;
-      } catch {
-        // 조회 실패 시 슬랙 ID 사용
-      }
-
-      const { channel } = await client.conversations.open({ users: previewUserId });
-      await client.chat.postMessage({
-        channel: channel.id,
-        text: `📮 ${displayName}님이 다시 보기를 요청했어요. (${latest.file})`,
-      });
-    }
     return;
   }
 
