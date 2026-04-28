@@ -481,13 +481,25 @@ function runCheckArchive() {
     ? JSON.parse(fs.readFileSync(historyPath, 'utf-8'))
     : [];
 
-  if (history.length === 0) {
+  const oneMonthAgo = new Date();
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+  const recent = history.filter(h => new Date(h.sentAt) >= oneMonthAgo);
+
+  if (recent.length === 0) {
     console.log('📭 발송된 뉴스레터가 없어요.');
     return;
   }
 
-  const latest = history[history.length - 1];
-  console.log(`📦 다시 보기 대상: ${latest.file} (발송일: ${latest.sentAt})`);
+  console.log('📦 다시 보기 대상 목록 (최근 한 달):');
+  for (const h of recent) {
+    const d = new Date(h.sentAt);
+    const md = `${d.getMonth() + 1}/${d.getDate()}`;
+    const title = h.file
+      .replace(/^\d{4}-\d{2}-\d{2}-/, '')
+      .replace(/\.json$/, '')
+      .replace(/-/g, ' ');
+    console.log(`- ${md} — ${title} (${h.sentAt})`);
+  }
 }
 
 // ── 메인 ──────────────────────────────────────────────────
