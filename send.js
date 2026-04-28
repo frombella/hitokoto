@@ -393,8 +393,8 @@ async function runPreviewNext() {
   }
 
   const today = new Date().toISOString().slice(0, 10);
-  const future = files.filter(f => f.slice(0, 10) > today);
-  const chosen = future.length > 0 ? future[0] : files[files.length - 1];
+  const past  = files.filter(f => f.slice(0, 10) <= today);
+  const chosen = past.length > 0 ? past[0] : files[0];
 
   const filePath = path.join(dir, chosen);
   const parsed = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
