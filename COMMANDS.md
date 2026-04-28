@@ -5,7 +5,7 @@
 
 ## 뉴스레터 발송
 - 다음 발송 예정 파일 확인: cd ~/hitokoto && /usr/local/bin/node send.js --check
-- 다시 보기 대상 파일 확인: cd ~/hitokoto && /usr/local/bin/node send.js --check-archive
+- 다시 보기 대상 목록 확인 (최근 한 달): cd ~/hitokoto && /usr/local/bin/node send.js --check-archive
 - 자동 모드: cd ~/hitokoto && /usr/local/bin/node send.js --auto
 - 수동 모드: cd ~/hitokoto && /usr/local/bin/node send.js
 - 미리보기 (전체): cd ~/hitokoto && /usr/local/bin/node send.js --preview
