@@ -7,3 +7,7 @@ bot.log
 welcomed.json
 sent-history.json
 *.log
+COMMANDS.md
+newsletters/
+!newsletters/sent/
+!newsletters/sent/**

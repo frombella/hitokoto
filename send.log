@@ -219,3 +219,78 @@
 📁 2026-04-27-호렌소.json → newsletters/sent/ 로 이동 완료
 📝 sent-history.json 기록 완료
 📊 발송 결과 리포트를 운영자에게 전송했습니다.
+◇ injected env (3) from .env // tip: ⌘ override existing { override: true }
+📄 뉴스레터 파일 확인 중...
+   ✔ 2026-05-04-고양이.json 로드됨
+
+📋 구독자 목록을 불러오는 중...
+
+── 발송 예정 목록 ──────────────────────
+   1. Bella <bella.12@kakaopiccoma.com>
+   2. Stella <stella.21@kakaopiccoma.com>
+   3. Siena <siena.cho@kakaopiccoma.com>
+   4. Casper <casper.nam@kakaopiccoma.com>
+   5. zero <zero.young@kakaopiccoma.com>
+   6. Senna <senna.park@kakaopiccoma.com>
+   7. Yoonie <yoonie.k@kakaopiccoma.com>
+   8. Luna <luna.lucete@kakaopiccoma.com>
+   9. Peter <peter.bkryu@kakaopiccoma.com>
+  10. Kaya <kaya.winter@kakaopiccoma.com>
+  11. Leo <leo.gon@kakaopiccoma.com>
+  12. Maka <maka.ron@kakaopiccoma.com>
+  13. Hazi <hazi.me@kakaopiccoma.com>
+  14. rumi <rumi.kim@kakaopiccoma.com>
+  15. Wayne <wayne.wh@kakaopiccoma.com>
+  16. Kyo <kyo.kyo@kakaopiccoma.com>
+  17. Ralph <ralph.jo@kakaopiccoma.com>
+  18. Suri <suri.pp@kakaopiccoma.com>
+  19. Effy <effy.eb@kakaopiccoma.com>
+  20. Ollie <ollie.go@kakaopiccoma.com>
+  21. Harry <harry.hh@kakaopiccoma.com>
+  22. Dustin <dustin.44@kakaopiccoma.com>
+  23. woody <woody.choii@kakaopiccoma.com>
+  24. Day <day.k@kakaopiccoma.com>
+  25. Ellie <ellie.joy@kakaopiccoma.com>
+────────────────────────────────────────
+  총 25명
+
+👀 미리보기 발송 중... → bella.12@kakaopiccoma.com
+   ✔ 미리보기 발송 완료
+
+⏳ 30분 동안 답장 대기 중... (AM 10:00:06)
+
+✅ 발송 승인 확인. 전체 발송을 시작합니다.
+
+✅  Bella <bella.12@kakaopiccoma.com> → 발송 완료
+✅  Stella <stella.21@kakaopiccoma.com> → 발송 완료
+✅  Siena <siena.cho@kakaopiccoma.com> → 발송 완료
+✅  Casper <casper.nam@kakaopiccoma.com> → 발송 완료
+✅  zero <zero.young@kakaopiccoma.com> → 발송 완료
+✅  Senna <senna.park@kakaopiccoma.com> → 발송 완료
+✅  Yoonie <yoonie.k@kakaopiccoma.com> → 발송 완료
+✅  Luna <luna.lucete@kakaopiccoma.com> → 발송 완료
+✅  Peter <peter.bkryu@kakaopiccoma.com> → 발송 완료
+✅  Kaya <kaya.winter@kakaopiccoma.com> → 발송 완료
+✅  Leo <leo.gon@kakaopiccoma.com> → 발송 완료
+✅  Maka <maka.ron@kakaopiccoma.com> → 발송 완료
+✅  Hazi <hazi.me@kakaopiccoma.com> → 발송 완료
+✅  rumi <rumi.kim@kakaopiccoma.com> → 발송 완료
+✅  Wayne <wayne.wh@kakaopiccoma.com> → 발송 완료
+✅  Kyo <kyo.kyo@kakaopiccoma.com> → 발송 완료
+✅  Ralph <ralph.jo@kakaopiccoma.com> → 발송 완료
+✅  Suri <suri.pp@kakaopiccoma.com> → 발송 완료
+✅  Effy <effy.eb@kakaopiccoma.com> → 발송 완료
+✅  Ollie <ollie.go@kakaopiccoma.com> → 발송 완료
+✅  Harry <harry.hh@kakaopiccoma.com> → 발송 완료
+✅  Dustin <dustin.44@kakaopiccoma.com> → 발송 완료
+✅  woody <woody.choii@kakaopiccoma.com> → 발송 완료
+✅  Day <day.k@kakaopiccoma.com> → 발송 완료
+✅  Ellie <ellie.joy@kakaopiccoma.com> → 발송 완료
+
+── 발송 결과 ──────────────────────
+   성공: 25명
+   실패: 0명
+
+📁 2026-05-04-고양이.json → newsletters/sent/ 로 이동 완료
+📝 sent-history.json 기록 완료
+📊 발송 결과 리포트를 운영자에게 전송했습니다.
