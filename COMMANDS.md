@@ -25,6 +25,12 @@
 - 절전 모드 방지: caffeinate -t 7200 &
 - 발송 스케줄 수동 실행: launchctl start com.hitokoto.send
 
+## 아카이브 업데이트 (발송 후)
+1. newsletters/sent/ 파일에 루비용 괄호 추가 (한자 옆에 읽기 표기)
+   예: 報告 → 報告(ほうこく)
+2. 아카이브 HTML 재생성: node generate-archive.js
+3. GitHub 업로드: cd ~/hitokoto && git add docs/ && git commit -m "content: N호 아카이브 추가" && git push
+
 ## 기타
 - Slack 토큰 교체: nano ~/hitokoto/.env
 - 뉴스레터 파일 목록: ls ~/hitokoto/newsletters/
