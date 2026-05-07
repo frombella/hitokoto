@@ -8,6 +8,7 @@ welcomed.json
 sent-history.json
 *.log
 COMMANDS.md
+send.js
+bot.js
+generate-archive.js
 newsletters/
-!newsletters/sent/
-!newsletters/sent/**
