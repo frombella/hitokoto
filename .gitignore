@@ -12,3 +12,5 @@ send.js
 bot.js
 generate-archive.js
 newsletters/
+!newsletters/archive/
+!newsletters/archive/**
