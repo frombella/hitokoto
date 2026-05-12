@@ -31,7 +31,7 @@ hitokoto/
 | `sent/` | Slack 발송본 원본 (루비 없음) | 제외 | 로컬 백업 |
 | `archive/` | 루비 표기 추가본 | 추적 | GitHub Pages 아카이브 페이지 |
 
-발송 후 `sent/`에 보관된 파일에 한자 읽기(루비)를 추가하고, `archive/`에 복사한 뒤 `node generate-archive.js`로 `docs/`를 갱신합니다.
+발송 전 `archive/` 폴더에 루비 추가본을 미리 준비하고, `node generate-archive.js`로 `docs/`를 갱신한 후 git push합니다. 발송 후 `send.js`가 자동으로 `newsletters/` → `sent/`로 원본을 이동합니다.
 
 ## 뉴스레터 파일 형식
 
