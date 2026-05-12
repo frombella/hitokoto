@@ -8,16 +8,34 @@
 hitokoto/
 ├── send.js                  # 뉴스레터 발송 스크립트 (수동/자동 모드)
 ├── bot.js                   # DM 수신 이벤트 리스너 (상시 실행)
+├── generate-archive.js      # 아카이브 HTML 생성 스크립트
+├── package.json
 ├── newsletters/
-│   ├── YYYY-MM-DD.json      # 발송할 뉴스레터 (Block Kit JSON)
-│   └── sent/                # 발송 완료 파일 보관
+│   ├── YYYY-MM-DD-주제.json # 발송할 뉴스레터 (Block Kit JSON)
+│   ├── sent/                # 발송 완료 원본 보관 (gitignore)
+│   └── archive/             # 아카이브 페이지용 JSON (git 추적)
+├── docs/                    # GitHub Pages 아카이브 페이지
+│   └── images/              # 아카이브 페이지 이미지
+├── sent-history.json        # 발송 이력 (gitignore)
+├── welcomed.json            # 환영 메시지 발송 이력 (gitignore)
 ├── subscribers.csv          # 구독자 명단 (gitignore)
 └── .env                     # 환경변수 (gitignore)
 ```
 
+### newsletters/sent/ vs newsletters/archive/
+
+두 폴더는 역할이 다르며, 의도적으로 분리 운영됩니다.
+
+| 폴더 | 내용 | git | 용도 |
+|---|---|---|---|
+| `sent/` | Slack 발송본 원본 (루비 없음) | 제외 | 로컬 백업 |
+| `archive/` | 루비 표기 추가본 | 추적 | GitHub Pages 아카이브 페이지 |
+
+발송 후 `sent/`에 보관된 파일에 한자 읽기(루비)를 추가하고, `archive/`에 복사한 뒤 `node generate-archive.js`로 `docs/`를 갱신합니다.
+
 ## 뉴스레터 파일 형식
 
-파일명은 `YYYY-MM-DD.json` 형식으로 작성합니다. 실행 시 오늘 이전/당일 파일 중 가장 오래된 것이 자동 선택됩니다.
+파일명은 `YYYY-MM-DD-주제.json` 형식으로 작성합니다. 실행 시 오늘 이전/당일 파일 중 가장 오래된 것이 자동 선택됩니다.
 
 ```json
 [
