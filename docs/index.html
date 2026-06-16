@@ -6,55 +6,65 @@
   <title>히토코토 아카이브</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Noto Sans KR', sans-serif;
-    background: #F7F6F3;
+    background: #ECEBE6;
     color: #1D1C1B;
-    padding: 60px 16px 80px;
+    padding: 60px 16px 40px;
   }
   .card {
-    max-width: 860px;
+    max-width: 880px;
     margin: 0 auto;
     background: #fff;
-    border-radius: 12px;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 28px rgba(0,0,0,0.06);
   }
   .card-header {
-    background: #1D1C1B;
-    padding: 20px 28px;
-    text-align: center;
+    padding: 30px 32px 22px;
+    border-bottom: 1px solid #eee;
   }
   .card-header h1 {
-    color: #fff;
-    font-size: 1.1rem;
+    font-size: 1.02rem;
     font-weight: 800;
     letter-spacing: -0.01em;
   }
   .card-header p {
-    color: rgba(255,255,255,0.65);
+    color: #aaa;
     font-size: 0.78rem;
-    margin-top: 5px;
+    margin-top: 6px;
   }
-  ul { list-style: none; padding: 6px 0; }
+  ul { list-style: none; }
   ul li a {
+    position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    padding: 13px 28px;
+    align-items: baseline;
+    gap: 18px;
+    padding: 16px 32px;
     text-decoration: none;
     color: #1D1C1B;
-    border-bottom: 1px solid #F0F0EE;
+    border-bottom: 1px solid #F2F1EE;
     transition: background 0.12s;
   }
   ul li:last-child a { border-bottom: none; }
-  ul li a:hover { background: #FAFAF9; }
-  .date  { font-size: 0.78rem; color: #bbb; min-width: 36px; }
-  .topic { font-size: 0.92rem; font-weight: 500; }
+  ul li a:hover { background: #FAFAF8; }
+  /* 호버 시 왼쪽 포인트 라인 */
+  ul li a::before {
+    content: "";
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: #C2452D;
+    opacity: 0; transition: opacity 0.15s;
+  }
+  ul li a:hover::before { opacity: 1; }
+  .no    { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 700;
+           color: #C2452D; min-width: 52px; letter-spacing: 0.02em; }
+  .title { flex: 1; font-size: 0.94rem; font-weight: 500; }
+  .title .ja { color: #a8a39a; font-weight: 400; margin-left: 9px; font-size: 0.88rem; }
+  .date  { font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; color: #cfcabd; white-space: nowrap; }
+  .updated { max-width: 880px; margin: 10px auto 0; text-align: right; font-size: 12px; color: #b6b1a6; }
 </style>
 </head>
 <body>
@@ -64,16 +74,16 @@
       <p>지금까지 발행된 히토코토 뉴스레터 모음</p>
     </div>
     <ul>
-    <li><a href="2026-06-15.html"><span class="date">6/15</span><span class="topic">활동</span></a></li>
-    <li><a href="2026-06-08.html"><span class="date">6/8</span><span class="topic">제3의맥주</span></a></li>
-    <li><a href="2026-06-01.html"><span class="date">6/1</span><span class="topic">여름나기</span></a></li>
-    <li><a href="2026-05-18.html"><span class="date">5/18</span><span class="topic">유행어</span></a></li>
-    <li><a href="2026-05-11.html"><span class="date">5/11</span><span class="topic">연호</span></a></li>
-    <li><a href="2026-05-04.html"><span class="date">5/4</span><span class="topic">고양이</span></a></li>
-    <li><a href="2026-04-27.html"><span class="date">4/27</span><span class="topic">호렌소</span></a></li>
-    <li><a href="2026-04-20.html"><span class="date">4/20</span><span class="topic">식사예절</span></a></li>
+    <li><a href="2026-06-15.html"><span class="no">VOL.08</span><span class="title">활동<span class="ja">活動</span></span><span class="date">6/15</span></a></li>
+    <li><a href="2026-06-08.html"><span class="no">VOL.07</span><span class="title">제3의 맥주<span class="ja">第三のビール</span></span><span class="date">6/08</span></a></li>
+    <li><a href="2026-06-01.html"><span class="no">VOL.06</span><span class="title">여름나기<span class="ja">夏の過ごし方</span></span><span class="date">6/01</span></a></li>
+    <li><a href="2026-05-18.html"><span class="no">VOL.05</span><span class="title">유행어<span class="ja">流行り言葉</span></span><span class="date">5/18</span></a></li>
+    <li><a href="2026-05-11.html"><span class="no">VOL.04</span><span class="title">연호<span class="ja">元号</span></span><span class="date">5/11</span></a></li>
+    <li><a href="2026-05-04.html"><span class="no">VOL.03</span><span class="title">고양이<span class="ja">猫</span></span><span class="date">5/04</span></a></li>
+    <li><a href="2026-04-27.html"><span class="no">VOL.02</span><span class="title">호렌소<span class="ja">報連相</span></span><span class="date">4/27</span></a></li>
+    <li><a href="2026-04-20.html"><span class="no">VOL.01</span><span class="title">식사 예절<span class="ja">食事のマナー</span></span><span class="date">4/20</span></a></li>
     </ul>
   </div>
-  <p style="max-width:860px;margin:8px auto 0;text-align:right;font-size:12px;color:#aaa;">Last updated: 2026-06-15 15:48</p>
+  <p class="updated">Last updated: 2026-06-16 18:53</p>
 </body>
 </html>
