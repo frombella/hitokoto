@@ -3,115 +3,148 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>여름나기 — 히토코토</title>
+  <title>여름나기 — 히토코토</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
   body {
     font-family: 'Noto Sans KR', sans-serif;
-    background: #F7F6F3;
-    color: #1D1C1B;
+    background: var(--bg);
+    color: var(--ink);
     line-height: 1.75;
-    padding: 40px 16px 80px;
+    padding: 48px 16px 80px;
   }
   .container { max-width: 860px; margin: 0 auto; }
   .back {
-    display: inline-block;
-    margin-bottom: 16px;
-    font-size: 0.85rem;
-    color: #aaa;
-    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
   }
-  .back:hover { color: #1D1C1B; }
+  .back:hover { opacity: 0.7; }
   .card {
     background: #fff;
-    border-radius: 12px;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
   }
-  .section-header {
-    background: #1D1C1B;
-    padding: 18px 28px;
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
   }
-  .section-header h2 {
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
   }
-  .body { padding: 20px 28px; }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
   .body > * + * { margin-top: 14px; }
   p { font-size: 0.93rem; color: #333; }
   p.tip {
-    background: #F0F0EE;
+    background: #F4F1EA;
     border-radius: 8px;
-    padding: 12px 16px;
+    padding: 13px 16px;
     font-size: 0.88rem;
     color: #444;
   }
   ul { padding-left: 18px; }
-  ul li { font-size: 0.93rem; color: #333; margin-bottom: 8px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
   ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
   pre {
-    background: #F0F0EE;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
     border-radius: 8px;
     padding: 16px 18px;
     font-family: 'Noto Sans KR', monospace;
     font-size: 0.85rem;
-    line-height: 1.85;
+    line-height: 1.9;
     white-space: pre-wrap;
     word-break: break-word;
     color: #333;
   }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
   table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
   th {
-    background: #2E2D2C;
-    color: #fff;
-    padding: 9px 12px;
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
     text-align: left;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
   }
   td {
-    padding: 8px 12px;
-    border-bottom: 1px solid #EBEBEA;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
     color: #333;
     vertical-align: top;
   }
   tr:last-child td { border-bottom: none; }
-  tr:nth-child(even) td { background: #FAFAF9; }
+  tr:nth-child(even) td { background: #FAFAF8; }
   code {
-    background: #EBEBEA;
+    background: #F0EEE9;
     border-radius: 4px;
     padding: 1px 5px;
     font-size: 0.85em;
-    font-family: monospace;
+    font-family: 'JetBrains Mono', monospace;
   }
   footer {
-    background: #F7F6F3;
-    border-top: 1px solid #EBEBEA;
-    padding: 18px 28px;
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
     font-size: 0.8rem;
     color: #999;
     line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
   }
 </style>
 </head>
 <body>
   <div class="container">
-    <a class="back" href="index.html">← 목록으로</a>
+    <a class="back" href="index.html">← 아카이브</a>
     <div class="card">
-      <div class="section-header"><h2>👾 Hitokoto | 이번 주 일본어 한 마디</h2></div>
+      <div class="masthead">
+        <span class="vol">VOL.06</span>
+        <h1>여름나기<span class="ja">夏の過ごし方</span></h1>
+        <div class="meta">2026 · 6 / 1</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
 <div class="body">
-<p>안녕하세요, 히토코토 구독자 여러분!</p>
 <p>올 여름도 역대급 더위가 될 거라는 뉴스가 벌써부터 들려오고 있어요.<br>이번 주는 일본의 <b>여름나기(夏の過ごし方・なつのすごしかた) </b>에 대해 소개해 드릴게요.</p>
 </div>
-<div class="section-header"><h2>🍉 찌는 듯한 더위, 그래도 여름이 특별한 이유</h2></div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>🍉 찌는 듯한 더위, 그래도 여름이 특별한 이유</h2></div></div>
 <div class="body">
 <p>蒸し暑い(むしあつい) 라는 말 들어본 적 있으세요?<br>'찌는 듯이 덥다'라는 뜻으로, 일본의 여름 날씨를 한 마디로 표현할 때 자주 쓰이는 말이에요.<br>일본은 한국보다 습도가 높아서 같은 기온이어도 체감 온도가 훨씬 높게 느껴지거든요.<br><br>그래서 일본에서는 여름이 시작되면 열사병 이야기가 빠지지 않아요.<br>뉴스에서는 연일 열사병 주의보가 나오고, 편의점에서는 염분 보충용 소금 사탕이 한 코너를 가득 채워요.<br>회사의 풍경도 바뀌는데, 평소에는 정장이 기본인 회사도 여름 동안은 넥타이를 매지 않고 반소매로 출근하기도 해요.<br><br>하지만, 무더운 여름에만 느낄 수 있는 낭만도 있어요.<br>휴가철 해변에서는 눈을 가리고 수박을 깨는 스이카와리(スイカ割り)를 즐기고,<br>밤이 되면 유카타를 입고 불꽃 놀이를 구경하러 나가기도 해요.<br><br>낮에는 해변에서, 밤에는 불꽃 아래에서 — 덥지만, 그래서 더 특별한 계절이에요.</p>
 </div>
-<div class="section-header"><h2>🍧 일본의 여름, 이것만은 먹어봐야</h2></div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🍧 일본의 여름, 이것만은 먹어봐야</h2></div></div>
 <div class="body">
 <ul>
 <li><b>여름 가방 속 필수품 '시오아메' </b>여름철 일본의 편의점이나 슈퍼에서는 염분 보충용 소금 사탕, 塩あめ 를 쉽게 찾아볼 수 있어요. 열사병 예방 차원에서 회사에서 직원들에게 나눠주는 곳도 있을 정도예요.</li>
@@ -120,15 +153,15 @@
 <li><b>잡을 수 있을까? '나가시소멘' </b>물을 따라 흘러오는 소면을 젓가락으로 잡아먹는 流しそうめん 은 먹는 것 자체가 재미인 일본의 여름 풍습이에요. 놓치면 다음 사람한테 넘어가기 때문에 다 같이 웃으면서 먹게 돼요.</li>
 </ul>
 </div>
-<div class="section-header"><h2>📌 이번 주 챙겨가는 단어</h2></div>
+<div class="section"><div class="section-head"><span class="kicker">WORDS</span><h2>📌 이번 주 챙겨가는 단어</h2></div></div>
 <div class="body">
-<div style="border-radius:8px;overflow:hidden;"><table><thead><tr><th>단어</th><th>읽기</th><th>의미</th><th>예문</th><th>해석</th></tr></thead><tbody><tr><td>蒸し暑い</td><td>むしあつい</td><td>찌는 듯이 덥다</td><td><ruby>毎日<rt style="font-size:0.6em;color:#888;">まいにち</rt></ruby><ruby>蒸<rt style="font-size:0.6em;color:#888;">む</rt></ruby>し<ruby>暑<rt style="font-size:0.6em;color:#888;">あつ</rt></ruby>い<ruby>日<rt style="font-size:0.6em;color:#888;">ひ</rt></ruby>が<ruby>続<rt style="font-size:0.6em;color:#888;">つづ</rt></ruby>いてますね。</td><td>매일 찌는 듯이 더운 날이 이어지고 있네요.</td></tr>
+<div class="table-wrap"><table><thead><tr><th>단어</th><th>읽기</th><th>의미</th><th>예문</th><th>해석</th></tr></thead><tbody><tr><td>蒸し暑い</td><td>むしあつい</td><td>찌는 듯이 덥다</td><td><ruby>毎日<rt style="font-size:0.6em;color:#888;">まいにち</rt></ruby><ruby>蒸<rt style="font-size:0.6em;color:#888;">む</rt></ruby>し<ruby>暑<rt style="font-size:0.6em;color:#888;">あつ</rt></ruby>い<ruby>日<rt style="font-size:0.6em;color:#888;">ひ</rt></ruby>が<ruby>続<rt style="font-size:0.6em;color:#888;">つづ</rt></ruby>いてますね。</td><td>매일 찌는 듯이 더운 날이 이어지고 있네요.</td></tr>
 <tr><td>熱中症</td><td>ねっちゅうしょう</td><td>열사병</td><td><ruby>熱中症<rt style="font-size:0.6em;color:#888;">ねっちゅうしょう</rt></ruby>で<ruby>倒<rt style="font-size:0.6em;color:#888;">たお</rt></ruby>れる<ruby>人<rt style="font-size:0.6em;color:#888;">ひと</rt></ruby>が<ruby>増<rt style="font-size:0.6em;color:#888;">ふ</rt></ruby>えてますね。</td><td>열사병으로 쓰러지는 사람이 늘고 있네요.</td></tr>
 <tr><td>冷やし中華</td><td>ひやしちゅうか</td><td>히야시추카</td><td><ruby>夏<rt style="font-size:0.6em;color:#888;">なつ</rt></ruby>になると<ruby>冷<rt style="font-size:0.6em;color:#888;">ひ</rt></ruby>やし<ruby>中華<rt style="font-size:0.6em;color:#888;">ちゅうか</rt></ruby>が<ruby>食<rt style="font-size:0.6em;color:#888;">た</rt></ruby>べたくなります。</td><td>여름이 되면 히야시추카가 먹고 싶어져요.</td></tr>
 <tr><td>夏バテする</td><td>なつばてする</td><td>더위 먹다</td><td><ruby>夏<rt style="font-size:0.6em;color:#888;">なつ</rt></ruby>バテして<ruby>食欲<rt style="font-size:0.6em;color:#888;">しょくよく</rt></ruby>がないんです。</td><td>더위 먹어서 입맛이 없어요.</td></tr>
 <tr><td>さっぱり</td><td>さっぱり</td><td>개운하다, 담백하다</td><td><ruby>暑<rt style="font-size:0.6em;color:#888;">あつ</rt></ruby>い<ruby>日<rt style="font-size:0.6em;color:#888;">ひ</rt></ruby>にはさっぱりした<ruby>飲<rt style="font-size:0.6em;color:#888;">の</rt></ruby>み<ruby>物<rt style="font-size:0.6em;color:#888;">もの</rt></ruby>がいいですね。</td><td>더운 날에는 개운한 음료가 좋죠.</td></tr></tbody></table></div>
 </div>
-<div class="section-header"><h2>👀 실제 대화, 살짝 엿보기</h2></div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
 <div class="body">
 <pre>A: <ruby>今日<rt style="font-size:0.6em;color:#888;">きょう</rt></ruby>も<ruby>蒸<rt style="font-size:0.6em;color:#888;">む</rt></ruby>し<ruby>暑<rt style="font-size:0.6em;color:#888;">あつ</rt></ruby>いですね。<ruby>塩<rt style="font-size:0.6em;color:#888;">しお</rt></ruby>あめいりますか？
 　 (오늘도 찌는 듯이 덥네요. 소금 사탕 필요하세요?)
@@ -141,7 +174,7 @@ B: いいですね。<ruby>最近<rt style="font-size:0.6em;color:#888;">さい�
 <p class="tip">💡 <b>「夏バテしてない?」</b> 는 '더위 먹지 않았어?'라는 표현으로, 무더운 여름 날씨 때문에 기운이 빠지거나 건강을 해치지 않았는지 걱정하며 안부를 물을 때 자주 쓰는 표현이에요.</p>
 <p>여러분의 여름나기 비법에는 어떤 게 있나요?<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
 </div>
-<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9" style="background:#EBEBEA; border-radius:4px; padding:1px 5px; font-size:0.85em; font-family:monospace; text-decoration:none; color:inherit;">여기</a>를 눌러주세요.</footer>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
     </div>
   </div>
 </body>

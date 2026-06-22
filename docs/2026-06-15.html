@@ -3,115 +3,148 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>활동 — 히토코토</title>
+  <title>활동 — 히토코토</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
   body {
     font-family: 'Noto Sans KR', sans-serif;
-    background: #F7F6F3;
-    color: #1D1C1B;
+    background: var(--bg);
+    color: var(--ink);
     line-height: 1.75;
-    padding: 40px 16px 80px;
+    padding: 48px 16px 80px;
   }
   .container { max-width: 860px; margin: 0 auto; }
   .back {
-    display: inline-block;
-    margin-bottom: 16px;
-    font-size: 0.85rem;
-    color: #aaa;
-    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
   }
-  .back:hover { color: #1D1C1B; }
+  .back:hover { opacity: 0.7; }
   .card {
     background: #fff;
-    border-radius: 12px;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
   }
-  .section-header {
-    background: #1D1C1B;
-    padding: 18px 28px;
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
   }
-  .section-header h2 {
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
   }
-  .body { padding: 20px 28px; }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
   .body > * + * { margin-top: 14px; }
   p { font-size: 0.93rem; color: #333; }
   p.tip {
-    background: #F0F0EE;
+    background: #F4F1EA;
     border-radius: 8px;
-    padding: 12px 16px;
+    padding: 13px 16px;
     font-size: 0.88rem;
     color: #444;
   }
   ul { padding-left: 18px; }
-  ul li { font-size: 0.93rem; color: #333; margin-bottom: 8px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
   ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
   pre {
-    background: #F0F0EE;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
     border-radius: 8px;
     padding: 16px 18px;
     font-family: 'Noto Sans KR', monospace;
     font-size: 0.85rem;
-    line-height: 1.85;
+    line-height: 1.9;
     white-space: pre-wrap;
     word-break: break-word;
     color: #333;
   }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
   table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
   th {
-    background: #2E2D2C;
-    color: #fff;
-    padding: 9px 12px;
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
     text-align: left;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
   }
   td {
-    padding: 8px 12px;
-    border-bottom: 1px solid #EBEBEA;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
     color: #333;
     vertical-align: top;
   }
   tr:last-child td { border-bottom: none; }
-  tr:nth-child(even) td { background: #FAFAF9; }
+  tr:nth-child(even) td { background: #FAFAF8; }
   code {
-    background: #EBEBEA;
+    background: #F0EEE9;
     border-radius: 4px;
     padding: 1px 5px;
     font-size: 0.85em;
-    font-family: monospace;
+    font-family: 'JetBrains Mono', monospace;
   }
   footer {
-    background: #F7F6F3;
-    border-top: 1px solid #EBEBEA;
-    padding: 18px 28px;
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
     font-size: 0.8rem;
     color: #999;
     line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
   }
 </style>
 </head>
 <body>
   <div class="container">
-    <a class="back" href="index.html">← 목록으로</a>
+    <a class="back" href="index.html">← 아카이브</a>
     <div class="card">
-      <div class="section-header"><h2>👾 Hitokoto | 이번 주 일본어 한 마디</h2></div>
+      <div class="masthead">
+        <span class="vol">VOL.08</span>
+        <h1>활동<span class="ja">活動</span></h1>
+        <div class="meta">2026 · 6 / 15</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
 <div class="body">
-<p>안녕하세요, 히토코토 구독자 여러분!</p>
 <p>일본에는 '카츠'로 끝나는 말이 아주 많다는 거, 알고 계셨나요?<br>이번 주는 일본인의 일상 속에 숨어있는 다양한 <b>활동(活動・かつどう)</b> 들을 소개해 드릴게요.</p>
 </div>
-<div class="section-header"><h2>✨ 알아두면 재미있는 일본의 '카츠'들</h2></div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>✨ 알아두면 재미있는 일본의 '카츠'들</h2></div></div>
 <div class="body">
 <p>일본에서는 뭔가를 열심히 한다 싶으면, 뒤에 活(かつ) 라는 글자를 붙이고는 해요.<br>활동을 뜻하는 活動(かつどう) 에서 앞 글자만 따온 건데, 이 한 글자만 붙여서 줄임말을 만드는 거예요.<br><br>예를 들어 취업 활동은 就活(しゅうかつ), 아침 활동은 朝活(あさかつ) — 이런 식이에요.<br><br>이 흐름이 시작된 건 2007년, 일본의 한 사회학자가 婚活(こんかつ) 라는 말을 만들면서부터예요.<br>기존에 존재하던 就活(しゅうかつ) 를 본떠서, 결혼을 위해서 하는 활동이라는 의미로 만든 거예요.<br>이 말이 크게 유행하면서, 그 뒤로는 뭐든 活(かつ) 를 붙이는 게 하나의 문화가 됐다고 해요.<br><br>그리고 일본에서는 지금도, 재미있고 다양한 活(かつ) 들이 생겨나고 있어요.</p>
 </div>
-<div class="section-header"><h2>⏳ 당신은 지금 어떤 활동 중인가요?</h2></div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>⏳ 당신은 지금 어떤 활동 중인가요?</h2></div></div>
 <div class="body">
 <ul>
 <li><b>就活(しゅうかつ)</b></li>
@@ -150,7 +183,7 @@
 </ul>
 <pre>끝을 의미하는 終わり(おわり)와 활동을 합친 말로, 유서 정리, 장례 방식 결정, 유품 정리 등 인생의 마지막을 스스로 준비하는 활동이에요.</pre>
 </div>
-<div class="section-header"><h2>👀 실제 대화, 살짝 엿보기</h2></div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
 <div class="body">
 <pre>A: <ruby>最近<rt style="font-size:0.6em;color:#888;">さいきん</rt></ruby><ruby>何<rt style="font-size:0.6em;color:#888;">なに</rt></ruby>かハマってることあります？
 　 (요즘 뭔가 빠져있는 거 있어요?)
@@ -163,7 +196,7 @@ B: <ruby>日本<rt style="font-size:0.6em;color:#888;">にほん</rt></ruby>っ�
 <p class="tip">💡 ハマる 는 '빠지다'라는 뜻으로, 무언가에 푹 빠졌을 때 쓰는 동사예요. 취미나 관심사를 이야기할 때 <b>「〜にハマってます」</b> 라고 쓸 수 있어요.</p>
 <p>여러분은 지금 어떤 '카츠'를 즐기고 있나요?<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
 </div>
-<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9" style="background:#EBEBEA; border-radius:4px; padding:1px 5px; font-size:0.85em; font-family:monospace; text-decoration:none; color:inherit;">여기</a>를 눌러주세요.</footer>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
     </div>
   </div>
 </body>

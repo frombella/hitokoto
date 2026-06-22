@@ -3,111 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>유행어 — 히토코토</title>
+  <title>유행어 — 히토코토</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
   body {
     font-family: 'Noto Sans KR', sans-serif;
-    background: #F7F6F3;
-    color: #1D1C1B;
+    background: var(--bg);
+    color: var(--ink);
     line-height: 1.75;
-    padding: 40px 16px 80px;
+    padding: 48px 16px 80px;
   }
   .container { max-width: 860px; margin: 0 auto; }
   .back {
-    display: inline-block;
-    margin-bottom: 16px;
-    font-size: 0.85rem;
-    color: #aaa;
-    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
   }
-  .back:hover { color: #1D1C1B; }
+  .back:hover { opacity: 0.7; }
   .card {
     background: #fff;
-    border-radius: 12px;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
   }
-  .section-header {
-    background: #1D1C1B;
-    padding: 18px 28px;
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
   }
-  .section-header h2 {
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
   }
-  .body { padding: 20px 28px; }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
   .body > * + * { margin-top: 14px; }
   p { font-size: 0.93rem; color: #333; }
   p.tip {
-    background: #F0F0EE;
+    background: #F4F1EA;
     border-radius: 8px;
-    padding: 12px 16px;
+    padding: 13px 16px;
     font-size: 0.88rem;
     color: #444;
   }
   ul { padding-left: 18px; }
-  ul li { font-size: 0.93rem; color: #333; margin-bottom: 8px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
   ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
   pre {
-    background: #F0F0EE;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
     border-radius: 8px;
     padding: 16px 18px;
     font-family: 'Noto Sans KR', monospace;
     font-size: 0.85rem;
-    line-height: 1.85;
+    line-height: 1.9;
     white-space: pre-wrap;
     word-break: break-word;
     color: #333;
   }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
   table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
   th {
-    background: #2E2D2C;
-    color: #fff;
-    padding: 9px 12px;
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
     text-align: left;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
   }
   td {
-    padding: 8px 12px;
-    border-bottom: 1px solid #EBEBEA;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
     color: #333;
     vertical-align: top;
   }
   tr:last-child td { border-bottom: none; }
-  tr:nth-child(even) td { background: #FAFAF9; }
+  tr:nth-child(even) td { background: #FAFAF8; }
   code {
-    background: #EBEBEA;
+    background: #F0EEE9;
     border-radius: 4px;
     padding: 1px 5px;
     font-size: 0.85em;
-    font-family: monospace;
+    font-family: 'JetBrains Mono', monospace;
   }
   footer {
-    background: #F7F6F3;
-    border-top: 1px solid #EBEBEA;
-    padding: 18px 28px;
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
     font-size: 0.8rem;
     color: #999;
     line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
   }
 </style>
 </head>
 <body>
   <div class="container">
-    <a class="back" href="index.html">← 목록으로</a>
+    <a class="back" href="index.html">← 아카이브</a>
     <div class="card">
-      <div class="section-header"><h2>👾 Hitokoto | 이번 주 일본어 한 마디</h2></div>
+      <div class="masthead">
+        <span class="vol">VOL.05</span>
+        <h1>유행어<span class="ja">流行り言葉</span></h1>
+        <div class="meta">2026 · 5 / 18</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
 <div class="body">
-<p>안녕하세요, 히토코토 구독자 여러분!</p>
 <p>요즘 일본 젊은이들은 어떤 말을 쓰고 있을까요?<br>이번 주는 특별편으로, 2026년 상반기 <b>유행어(流行り言葉・はやりことば) </b>다섯 가지를 소개해 드릴게요.</p>
 </div>
-<div class="section-header"><h2>🔥 滅なんだけど</h2></div>
+<div class="section"><div class="section-head"><span class="kicker">01</span><h2>🔥 滅なんだけど</h2></div></div>
 <div class="body">
 <ul>
 <li><b>읽기</b>　めつなんだけど</li>
@@ -119,7 +152,7 @@
 직역하면 '멸망했다'라는 뜻이지만, 부정적인 상황에서만 쓰이는 건 아니에요.
 마치 한국어의 '좋아서 죽겠다'가 진짜 죽는 게 아니듯, 좋든 나쁘든 감정이 터질 것 같을 때 쓰는 말이에요.</pre>
 </div>
-<div class="section-header"><h2>💘 メロい</h2></div>
+<div class="section"><div class="section-head"><span class="kicker">02</span><h2>💘 メロい</h2></div></div>
 <div class="body">
 <ul>
 <li><b>읽기</b>　めろい</li>
@@ -131,7 +164,7 @@
 일반적으로 사용하는 かっこいい(멋있다), かわいい(귀엽다)보다 한 단계 위의 감정을 표현할 때 써요.
 최애의 무대를 보고 넋이 나간 상태, 그게 바로 メロい에요.</pre>
 </div>
-<div class="section-header"><h2>💤 シャバい</h2></div>
+<div class="section"><div class="section-head"><span class="kicker">03</span><h2>💤 シャバい</h2></div></div>
 <div class="body">
 <ul>
 <li><b>읽기</b>　しゃばい</li>
@@ -143,7 +176,7 @@
 한동안 완전히 사라졌다가 최근 헤이세이 레트로 붐을 타고 다시 부활했어요.
 옛날에는 강한 뉘앙스로 사용되었지만, 지금은 친구 사이에서 '에이, 그것도 못 해?'처럼 가볍게 놀리는 느낌으로 쓰여요.</pre>
 </div>
-<div class="section-header"><h2>🪐 界隈</h2></div>
+<div class="section"><div class="section-head"><span class="kicker">04</span><h2>🪐 界隈</h2></div></div>
 <div class="body">
 <ul>
 <li><b>읽기</b>　かいわい</li>
@@ -153,7 +186,7 @@
 <pre>원래는 '근처', '동네'를 뜻하는 오래된 일본어인데, 지금은 같은 관심사를 가진 사람들의 커뮤니티를 뜻해요.
 カフェ界隈(카페계), コスメ界隈(화장품계) 처럼 자신의 취미나 관심사 뒤에 界隈만 붙이면 '나는 이쪽 사람이에요'라는 뜻이 돼요.</pre>
 </div>
-<div class="section-header"><h2>💗 ギュンです</h2></div>
+<div class="section"><div class="section-head"><span class="kicker">05</span><h2>💗 ギュンです</h2></div></div>
 <div class="body">
 <ul>
 <li><b>읽기</b>　ぎゅんです</li>
@@ -165,7 +198,7 @@
 여기서 더 강한 설렘을 표현하기 위해 キュン에서 ギュン으로 탁음 한 글자를 바꾼 거예요.
 눈이 마주쳤을 때, 좋아하는 사람이 웃었을 때 — 심장이 쿵 하는 그 순간이 ギュン 이에요.</pre>
 </div>
-<div class="section-header"><h2>🎧 전부 알아들으면 당신도 일본 젊은이</h2></div>
+<div class="section"><div class="section-head"><span class="kicker">OUTRO</span><h2>🎧 전부 알아들으면 당신도 일본 젊은이</h2></div></div>
 <div class="body">
 <pre>A: <ruby>昨日<rt style="font-size:0.6em;color:#888;">きのう</rt></ruby>のドラマ<ruby>見<rt style="font-size:0.6em;color:#888;">み</rt></ruby>た？<ruby>主演<rt style="font-size:0.6em;color:#888;">しゅえん</rt></ruby>の<ruby>人<rt style="font-size:0.6em;color:#888;">ひと</rt></ruby>、メロすぎない？ 
    (어제 드라마 봤어? 주연 배우, 너무 반하지 않아?) 
@@ -178,7 +211,7 @@ B: ほんとそれ。<ruby>来週<rt style="font-size:0.6em;color:#888;">らい�
 <p class="tip">💡 <b>「ほんとそれ」</b> 는 직역하면 '진짜 그거'라는 뜻으로, 상대방에게 강하게 공감할 때 쓰는 표현이에요. 한국어의 '그니까'와 비슷한 느낌인데 일본 젊은이들 사이에서 일상적으로 쓰이는 표현이에요. </p>
 <p>다음 주는 공휴일이라 히토코토도 한 주 쉬어갈게요.<br>그 다음 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
 </div>
-<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9" style="background:#EBEBEA; border-radius:4px; padding:1px 5px; font-size:0.85em; font-family:monospace; text-decoration:none; color:inherit;">여기</a>를 눌러주세요.</footer>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
     </div>
   </div>
 </body>
