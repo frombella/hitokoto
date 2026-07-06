@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관동 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.11</span>
+        <h1>관동<span class="ja">関東</span></h1>
+        <div class="meta">2026 · 7 / 6</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>같은 일본인데, 도쿄와 오사카는 사람도 문화도 꽤 달라요.<br>이번 주는 일본 사람들도 재미있어하는 <b>관동(関東・かんとう)과 관서(関西・かんさい) </b>지방의<b> </b>차이점을 들여다볼게요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>🇯🇵 도쿄 사람과 오사카 사람, 어떻게 다를까</h2></div></div>
+<div class="body">
+<p>일본은 크게 도쿄를 중심으로 한 동쪽 지역을 간토(関東・かんとう), 오사카를 중심으로 한 서쪽 지역을 간사이(関西・かんさい)라고 불러요.<br>신칸센으로 2시간 반이면 오갈 수 있는 거리인데, 의외로 다른 점이 많아요.<br><br>'간토 사람들은 쿨하고, 간사이 사람들은 정이 많다'는 이야기, 들어본 적 있으세요?<br>실제로 간토, 특히 도쿄에서는 처음 만난 사람에게 적당한 거리감을 두는 게 예의예요.<br>반면 간사이에서는 처음 보는 사람에게도 스스럼없이 말을 걸어요.<br>간사이에서는 줄을 서다가 모르는 사람과 자연스럽게 대화가 시작되기도 하는데, 간토에서는 상상하기 어려운 풍경이에요.<br><br>이 차이에는 사실 역사적인 이유가 있어요.<br>도쿄는 원래 무사(武士)의 도시여서, 위아래가 분명한 무사 사회 속에서 예의와 격식이 중요했고<br>반면 오사카는 상인(商人)의 도시였기 때문에, 물건을 팔려면 누구에게든 먼저 말을 걸고 대화에 웃음을 넣어 상대의 마음을 여는 게 중요했어요.<br><br>쿨한 간토와 정 많은 간사이 — 그 뿌리는 수백 년 전에 이미 만들어져 있었던 거예요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🗾 알고 보면 재미있는 관동 대 관서</h2></div></div>
+<div class="body">
+<ul>
+<li><b>에스컬레이터에서 서는 위치가 달라요</b> 간토에서는 왼쪽에 서고 오른쪽을 비워두는 게 일반적인데, 간사이에서는 반대로 오른쪽에 서요. 두 지역을 오가는 사람들이 가장 먼저 체감하는 차이예요.</li>
+<li><b>'고기' 하면 서로 다른 걸 떠올려요</b> 간토에서 '고기'라고 하면 돼지고기, 간사이에서는 소고기를 떠올려요. 그래서 같은 돼지고기(豚肉・ぶたにく)가 들어간 호빵을 관동에서는 니쿠만(肉まん), 관서에서는 부타만(豚まん)이라고 불러요.</li>
+<li><b>우동의 국물 색도 달라요</b> 간토의 우동은 진한 간장을 써서 국물이 검고, 간사이의 우동은 연한 간장에 다시마 다시를 써서 국물이 맑아요. 처음 보면 같은 음식인가 싶을 정도로 비주얼이 달라요.</li>
+<li><b>같은 계란말이인데 맛이 달라요</b> 간토의 계란말이(たまごやき)는 달달한 맛이에요. 반면 간사이에서는 다시를 넣어서 짭짤하고 감칠맛이 나는 스타일이에요. 같은 계란말이인데 전혀 다른 음식처럼 느껴져요.</li>
+</ul>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">WORDS</span><h2>📌 이번 주 챙겨가는 단어</h2></div></div>
+<div class="body">
+<div class="table-wrap"><table><thead><tr><th>단어</th><th>읽기</th><th>의미</th><th>예문</th><th>해석</th></tr></thead><tbody><tr><td>関西</td><td>かんさい</td><td>간사이, 관서 지방</td><td><ruby>関西<rt style="font-size:0.6em;color:#888;">かんさい</rt></ruby>の<ruby>人<rt style="font-size:0.6em;color:#888;">ひと</rt></ruby>はよく<ruby>喋<rt style="font-size:0.6em;color:#888;">しゃべ</rt></ruby>ると<ruby>言<rt style="font-size:0.6em;color:#888;">い</rt></ruby>われます。</td><td>간사이 사람은 말이 많다고들 해요.</td></tr>
+<tr><td>関東</td><td>かんとう</td><td>간토, 관동 지방</td><td><ruby>私<rt style="font-size:0.6em;color:#888;">わたし</rt></ruby>は<ruby>関東<rt style="font-size:0.6em;color:#888;">かんとう</rt></ruby>で<ruby>育<rt style="font-size:0.6em;color:#888;">そだ</rt></ruby>ちました。</td><td>저는 관동 지방에서 자랐어요.</td></tr>
+<tr><td>ノリがいい</td><td>のりがいい</td><td>리액션이 좋다, 흥이 많다</td><td><ruby>大阪<rt style="font-size:0.6em;color:#888;">おおさか</rt></ruby>の<ruby>人<rt style="font-size:0.6em;color:#888;">ひと</rt></ruby>はノリがいいですね。</td><td>오사카 사람은 흥이 많네요.</td></tr>
+<tr><td>ツッコミ</td><td>つっこみ</td><td>태클, 츳코미</td><td><ruby>彼<rt style="font-size:0.6em;color:#888;">かれ</rt></ruby>のツッコミはいつも<ruby>面白<rt style="font-size:0.6em;color:#888;">おもしろ</rt></ruby>い。</td><td>그의 츳코미는 언제나 재밌어.</td></tr>
+<tr><td>せっかち</td><td>せっかち</td><td>성급함</td><td>うちの<ruby>父<rt style="font-size:0.6em;color:#888;">ちち</rt></ruby>はせっかちです。</td><td>우리 아빠는 성격이 급해요.</td></tr></tbody></table></div>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
+<div class="body">
+<pre>A: <ruby>先週<rt style="font-size:0.6em;color:#888;">せんしゅう</rt></ruby>、<ruby>初<rt style="font-size:0.6em;color:#888;">はじ</rt></ruby>めて<ruby>大阪<rt style="font-size:0.6em;color:#888;">おおさか</rt></ruby>に<ruby>行<rt style="font-size:0.6em;color:#888;">い</rt></ruby>ってきたよ。
+   (지난주에 처음으로 오사카 다녀왔어.)
+B: どうだった？<ruby>関西<rt style="font-size:0.6em;color:#888;">かんさい</rt></ruby>の<ruby>人<rt style="font-size:0.6em;color:#888;">ひと</rt></ruby>ってノリがいいでしょ？
+   (어땠어? 간사이 사람들 흥 많지?)
+A: うん、お<ruby>店<rt style="font-size:0.6em;color:#888;">みせ</rt></ruby>の<ruby>人<rt style="font-size:0.6em;color:#888;">ひと</rt></ruby>まで<ruby>気軽<rt style="font-size:0.6em;color:#888;">きがる</rt></ruby>に<ruby>話<rt style="font-size:0.6em;color:#888;">はな</rt></ruby>しかけてきて、ツッコミも<ruby>上手<rt style="font-size:0.6em;color:#888;">じょうず</rt></ruby>でびっくりした。
+   (응, 가게 사람까지 스스럼없이 말을 걸고, 츳코미도 잘해서 놀랐어.)
+B: <ruby>関東<rt style="font-size:0.6em;color:#888;">かんとう</rt></ruby>とは<ruby>雰囲気<rt style="font-size:0.6em;color:#888;">ふんいき</rt></ruby>が<ruby>違<rt style="font-size:0.6em;color:#888;">ちが</rt></ruby>うよね。
+   (간토랑은 분위기가 다르지.)
+A: そうそう。あ、エスカレーターで<ruby>左<rt style="font-size:0.6em;color:#888;">ひだり</rt></ruby>に<ruby>立<rt style="font-size:0.6em;color:#888;">た</rt></ruby>ってたら、せっかちな<ruby>人<rt style="font-size:0.6em;color:#888;">ひと</rt></ruby>に<ruby>抜<rt style="font-size:0.6em;color:#888;">ぬ</rt></ruby>かされちゃった。
+   (맞아맞아. 아, 에스컬레이터에서 왼쪽에 서 있었더니 급한 사람한테 추월당했어.)</pre>
+<p class="tip">💡 간사이에서는 누군가 엉뚱한 말을 하면 「なんでやねん」 — 뭔 소리야, 하고 <b>바로 츳코미를 걸어주는 게 센스로 여겨져요.</b> 간사이 대화의 꽃이라, 츳코미 없이 넘어가면 오히려 '받아칠 기회를 놓쳤다'며 아쉬워할 정도랍니다.</p>
+<p>여러분은 관동과 관서, 어느 쪽이 더 끌리세요?<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>

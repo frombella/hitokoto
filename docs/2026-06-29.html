@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>맞장구 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.10</span>
+        <h1>맞장구<span class="ja">相槌</span></h1>
+        <div class="meta">2026 · 6 / 29</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>일본 사람과 이야기하다 보면 중간중간 내 말에 끊임없이 반응해주는 걸 느끼신 적 있으세요?<br>이번 주는 대화를 부드럽게 굴러가게 해주는 <b>맞장구(相槌・あいづち)</b> 에 대한 이야기예요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>🔨 망치질에서 태어난 말, 맞장구</h2></div></div>
+<div class="body">
+<p>한국어에도 맞장구가 있지만, 일본어 대화에서는 그 빈도가 훨씬 높아요.<br>상대가 말할 때 맞장구로 반응을 계속 넣어주는 게 자연스러운 일본식 대화거든요.<br>오히려 이런 맞장구가 없으면 '내 말을 듣고 있나?' 하고 말하는 사람이 불안해할 수 있어서,<br>일본에서는 잘 듣는 것만큼이나 잘 반응하는 것도 중요한 대화 예절이에요.<br><br>맞장구를 뜻하는 相槌(あいづち) 는 相(서로)와 槌(망치)를 합해서 만들어진 말이에요.<br>옛날 대장간에서 스승과 제자가 박자를 맞춰 번갈아 쇠를 두드리던 망치질을 相槌(あいづち) 라고 불렀어요.<br>그런데 이렇게 장단을 맞추는 모습이, 상대의 말에 맞춰 반응하는 대화와 꼭 닮았다고 해서, 그 의미가 점점 대화 쪽으로 옮겨갔어요.<br>그 결과, 지금은 相槌を打つ(あいづちをうつ) — 맞장구를 치다 라는 표현으로 쓰이게 됐어요.<br><br><b>그래서 일본어에서 맞장구는 단순한 추임새가 아니라, 대화의 박자를 함께 맞춰가는 일이에요.</b><br>오늘은 상황별로 어떤 맞장구들이 있는지 하나씩 살펴볼게요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>💭 상황별로 골라 쓰는 맞장구</h2></div></div>
+<div class="body">
+<ul>
+<li><b>うん、ええ、はい </b></li>
+</ul>
+<pre>가장 기본적인 맞장구 표현으로, 상대방에게 '듣고 있어요' 라는 신호를 주는 거예요.
+うん → ええ → はい 순서로 격식이 높아지기 때문에 윗사람이나 거래처와 대화할 때는 はい 또는 ええ 를 쓰는 게 좋아요.</pre>
+<ul>
+<li><b>そうですね、そうなんですね</b></li>
+</ul>
+<pre>상대방의 말에 대한 공감과 동의를 부드럽게 전하는 표현이에요.
+특히 そうなんですね 는 처음 듣는 이야기에 '아, 그렇군요' 하고 반응할 때 딱이에요.</pre>
+<ul>
+<li><b>なるほど</b></li>
+</ul>
+<pre>상대방의 말을 듣고 '과연, 그렇군요' 하고 납득했을 때 쓰는 맞장구예요.
+다만 윗사람에게 단독으로 쓰면 상대 말을 평가하는 듯한 인상을 줄 수 있어서 なるほど、そうなんですね 처럼 뒤에 한 마디 덧붙이는 등 주의가 필요해요.</pre>
+<ul>
+<li><b>へぇ、本当ですか</b></li>
+</ul>
+<pre>상대방의 이야기에 놀라움과 관심을 드러내는 맞장구예요.
+へぇ 는 한국어로 '오, 그래요?' 정도의 표현이고 本当ですか 는 '정말요?' 하고 한 발 더 관심을 보이는 느낌이에요.
+다만 本当ですか 는 무뚝뚝하게 말하면 상대방의 말을 의심하는 뉘앙스로 들릴 수 있으니 밝은 톤으로 말하는 게 포인트예요.</pre>
+<ul>
+<li><b>確かに</b></li>
+</ul>
+<pre>'하긴, 확실히 그래요' 하고 상대 의견에 강하게 동의할 때 쓰는 맞장구예요. 
+듣고 있다는 신호를 넘어, 상대의 말에 적극적으로 공감하며 힘을 실어주는 표현이에요.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">WORDS</span><h2>📌 이번 주 챙겨가는 단어</h2></div></div>
+<div class="body">
+<div class="table-wrap"><table><thead><tr><th>단어</th><th>읽기</th><th>의미</th><th>예문</th><th>해석</th></tr></thead><tbody><tr><td>相槌を打つ</td><td>あいづちをうつ</td><td>맞장구를 치다</td><td><ruby>相槌<rt style="font-size:0.6em;color:#888;">あいづち</rt></ruby>を<ruby>打<rt style="font-size:0.6em;color:#888;">う</rt></ruby>ちながら<ruby>話<rt style="font-size:0.6em;color:#888;">はなし</rt></ruby>を<ruby>聞<rt style="font-size:0.6em;color:#888;">き</rt></ruby>きます。</td><td>맞장구를 치면서 이야기를 들어요.</td></tr>
+<tr><td>なるほど</td><td>なるほど</td><td>과연, 그렇군요</td><td>なるほど、そういうことだったんですね。</td><td>그렇군요, 그런 거였군요.</td></tr>
+<tr><td>確かに</td><td>たしかに</td><td>확실히, 하긴</td><td><ruby>確<rt style="font-size:0.6em;color:#888;">たし</rt></ruby>かに、それは<ruby>一理<rt style="font-size:0.6em;color:#888;">いちり</rt></ruby>ありますね。</td><td>확실히, 그건 일리가 있네요.</td></tr>
+<tr><td>長引く</td><td>ながびく</td><td>길어지다, 오래 끌다</td><td><ruby>仕事<rt style="font-size:0.6em;color:#888;">しごと</rt></ruby>が<ruby>長引<rt style="font-size:0.6em;color:#888;">ながび</rt></ruby>いて、<ruby>終電<rt style="font-size:0.6em;color:#888;">しゅうでん</rt></ruby>を<ruby>逃<rt style="font-size:0.6em;color:#888;">のが</rt></ruby>しました。</td><td>업무가 길어져서 막차를 놓쳤어요.</td></tr>
+<tr><td>スッキリする</td><td>スッキリする</td><td>후련하다, 개운하다</td><td><ruby>話<rt style="font-size:0.6em;color:#888;">はな</rt></ruby>したら<ruby>気持<rt style="font-size:0.6em;color:#888;">きも</rt></ruby>ちがスッキリしました。</td><td>말하고 나니 마음이 후련해졌어요.</td></tr></tbody></table></div>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
+<div class="body">
+<pre>A: <ruby>昨日<rt style="font-size:0.6em;color:#888;">きのう</rt></ruby>の<ruby>会議<rt style="font-size:0.6em;color:#888;">かいぎ</rt></ruby>、3<ruby>時間<rt style="font-size:0.6em;color:#888;">じかん</rt></ruby>もかかったんですよ。
+　 (어제 회의, 3시간이나 걸렸어요.)
+B: へぇ、3<ruby>時間<rt style="font-size:0.6em;color:#888;">じかん</rt></ruby>も！それは<ruby>大変<rt style="font-size:0.6em;color:#888;">たいへん</rt></ruby>でしたね。
+　 (와, 3시간이나! 그거 힘드셨겠어요.)
+A: しかも<ruby>結論<rt style="font-size:0.6em;color:#888;">けつろん</rt></ruby>が<ruby>出<rt style="font-size:0.6em;color:#888;">で</rt></ruby>なくて、また<ruby>来週<rt style="font-size:0.6em;color:#888;">らいしゅう</rt></ruby>なんです。
+　 (게다가 결론도 안 나서, 또 다음 주예요.)
+B: なるほど。<ruby>確<rt style="font-size:0.6em;color:#888;">たし</rt></ruby>かに、<ruby>長引<rt style="font-size:0.6em;color:#888;">ながび</rt></ruby>く<ruby>会議<rt style="font-size:0.6em;color:#888;">かいぎ</rt></ruby>って<ruby>疲<rt style="font-size:0.6em;color:#888;">つか</rt></ruby>れますよね。
+　 (그렇군요. 확실히, 길어지는 회의는 지치죠.)
+A: そうなんですよ。あ、こうして<ruby>聞<rt style="font-size:0.6em;color:#888;">き</rt></ruby>いてもらえると、ちょっとスッキリします。
+　 (맞아요. 아, 이렇게 들어주시니까 좀 후련하네요.)</pre>
+<p class="tip">💡 상대방의 말에 동의하는 표현으로 <b>「おっしゃる通りです」</b> — 말씀하신 대로예요, 라는 표현도 있어요. 비즈니스 자리에서 사용하면 훨씬 깔끔하고 어른스러운 인상을 줄 수 있어요. </p>
+<p>다음에 일본 사람과 대화할 때는, 작은 맞장구 하나를 살짝 얹어보세요.<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>
