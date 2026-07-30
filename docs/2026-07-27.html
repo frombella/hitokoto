@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>일본식 영어 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  blockquote {
+    margin: 0;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-left: 3px solid #C9A24B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: #333;
+  }
+  code.lv {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #F0EDE6;
+    border: 1px solid var(--hair);
+    color: #9A6B1A;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.13</span>
+        <h1>일본식 영어<span class="ja">和製英語</span></h1>
+        <div class="meta">2026 · 7 / 27</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>회의나 메신저에서, 분명 아는 영어 같은데 뜻이 묘하게 다른 표현 만난 적 없으세요?<br>이번 주는 일본 회사에서 유독 자주 쓰는 <b>일본식 영어(和製英語・わせいえいご) </b>표현을 모아봤어요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🤝 アテンド</h2></div></div>
+<div class="body">
+<ul>
+<li><b>읽기</b>　あてんど</li>
+<li><b>의미　</b>수행, 응대, 의전</li>
+<li><b>예문</b>　<ruby>明日<rt style="font-size:0.6em;color:#888;">あした</rt></ruby>はお<ruby>客様<rt style="font-size:0.6em;color:#888;">きゃくさま</rt></ruby>をアテンドします (내일은 손님을 수행합니다)</li>
+</ul>
+<pre>💭 영어 attend는 '참석하다'라는 뜻이지만, 일본 비즈니스에서 アテンド는 손님이나 VIP를 곁에서 안내하고 챙기는 의전이나 수행을 뜻해요. 공항 픽업부터 미팅 동행, 식사 자리까지 상대를 극진히 모시는 일이 모두 アテンド랍니다. 「アテンドする」 처럼 '수행하다, 의전하다'라는 뜻의 동사로 사용하는 경우가 많아요.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>📅 リスケ</h2></div></div>
+<div class="body">
+<ul>
+<li><b>읽기</b>　りすけ</li>
+<li><b>의미　</b>일정 조정, 일정 변경</li>
+<li><b>예문</b>　<ruby>会議<rt style="font-size:0.6em;color:#888;">かいぎ</rt></ruby>を<ruby>来週<rt style="font-size:0.6em;color:#888;">らいしゅう</rt></ruby>にリスケしましょう (회의 일정을 다음 주로 변경합시다)</li>
+</ul>
+<pre>💭 영어 reschedule을 일본식으로 짧게 줄인 말이에요. 「リスケする」 처럼 '일정을 다시 잡다'라는 뜻의 동사로 사용하는 경우가 많은데, 회의나 약속을 미루거나 옮길 때 현장에서 정말 자주 등장하는 표현이에요.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🙌 フォロー</h2></div></div>
+<div class="body">
+<ul>
+<li><b>읽기</b>　ふぉろー</li>
+<li><b>의미　</b>챙김, 서포트, 지원, 보조</li>
+<li><b>예문</b>　<ruby>新人<rt style="font-size:0.6em;color:#888;">しんじん</rt></ruby>をしっかりフォローしてください (신입을 잘 챙겨주세요)</li>
+</ul>
+<pre>💭 영어 follow는 '뒤따르다'라는 뜻이지만, 일본 비즈니스에서 フォロー는 옆에서 도와주거나 챙기는 것을 의미해요. 마찬가지로 「フォローする」 라고 해서 '보조하다, 서포트하다'라는 뜻의 동사로도 사용하는데, SNS의 '팔로우'와 헷갈리기 쉬우니 주의하세요.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>📣 エスカレ</h2></div></div>
+<div class="body">
+<ul>
+<li><b>읽기</b>　えすかれ</li>
+<li><b>의미　</b>보고, 판단 요청</li>
+<li><b>예문</b>　この<ruby>問題<rt style="font-size:0.6em;color:#888;">もんだい</rt></ruby>は<ruby>上司<rt style="font-size:0.6em;color:#888;">じょうし</rt></ruby>にエスカレします (이 문제는 상사에게 보고할게요)</li>
+</ul>
+<pre>💭 영어 escalation은 '사태의 확대, 격화'를 뜻하지만, 일본 비즈니스에서 エスカレ는 자기 선에서 풀기 어려운 문제를 윗선이나 상위 부서로 올려서 판단을 구하는 것을 뜻해요. 원래는 エスカレーション인데 줄여서 エスカレ라고 사용하고, 「エスカレする」 처럼 동사로도 쓸 수 있어요.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>⏱️ オンスケ</h2></div></div>
+<div class="body">
+<ul>
+<li><b>읽기</b>　おんすけ</li>
+<li><b>의미　</b>예정대로 진행 중</li>
+<li><b>예문</b>　プロジェクトはオンスケです (프로젝트는 예정대로 진행 중이에요)</li>
+</ul>
+<pre>💭 영어 on schedule을 짧게 줄인 일본식 표현으로, 말 그대로 계획한 일정대로 순조롭게 가고 있다는 뜻이에요. 누군가가 진행 상황을 물을 때 「オンスケで<ruby>進行中<rt style="font-size:0.6em;color:#888;">しんこうちゅう</rt></ruby>です」 라고 답하면, 일정에 문제없다는 안심 신호가 된답니다.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🎯 コミット</h2></div></div>
+<div class="body">
+<ul>
+<li><b>읽기</b>　こみっと</li>
+<li><b>의미　</b>목표나 결과에 대한 책임, 전념</li>
+<li><b>예문</b>　<ruby>今期<rt style="font-size:0.6em;color:#888;">こんき</rt></ruby>の<ruby>目標<rt style="font-size:0.6em;color:#888;">もくひょう</rt></ruby><ruby>達成<rt style="font-size:0.6em;color:#888;">たっせい</rt></ruby>にコミットします (이번 분기 목표 달성에 책임지고 임하겠습니다)</li>
+</ul>
+<pre>💭 영어 commit이 일본 비즈니스에서는 목표를 반드시 이뤄내겠다, 결과에 책임지고 임하겠다 라는 강한 의지를 드러내는 뜻으로 쓰여요. 일본의 한 다이어트 광고에서 「<ruby>結果<rt style="font-size:0.6em;color:#888;">けっか</rt></ruby>にコミットする」 ー 결과에 책임지겠다, 라는 캐치프레이즈를 사용하면서 유명해진 표현이에요.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>👍 アグリー</h2></div></div>
+<div class="body">
+<ul>
+<li><b>읽기</b>　あぐりー</li>
+<li><b>의미　</b>동의함, 찬성</li>
+<li><b>예문</b>　その<ruby>案<rt style="font-size:0.6em;color:#888;">あん</rt></ruby>にアグリーです (그 안에 동의해요)</li>
+</ul>
+<pre>💭 영어로는 '찬성하다, 동의하다'라는 뜻의 동사인 agree를 일본에서는 형용사, 명사처럼 사용해요. 회의에서 나온 의견에 찬성할 때 「アグリーです」 라고 말하면 찬성합니다 라는 뜻이 되어서, 매우 일본스러운 표현이라고 할 수 있어요.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
+<div class="body">
+<pre>A: <ruby>例<rt style="font-size:0.6em;color:#888;">れい</rt></ruby>の<ruby>案件<rt style="font-size:0.6em;color:#888;">あんけん</rt></ruby>、スケジュールは<ruby>大丈夫<rt style="font-size:0.6em;color:#888;">だいじょうぶ</rt></ruby>そう？
+　 (그 건, 일정은 괜찮을 것 같아?)
+B: <ruby>今<rt style="font-size:0.6em;color:#888;">いま</rt></ruby>のところオンスケです。ただ、<ruby>一部<rt style="font-size:0.6em;color:#888;">いちぶ</rt></ruby>リスケが<ruby>必要<rt style="font-size:0.6em;color:#888;">ひつよう</rt></ruby>かもしれません。
+　 (지금까진 예정대로예요. 다만 일부는 일정 조정이 필요할지도 몰라요.)
+A: わかった。<ruby>遅<rt style="font-size:0.6em;color:#888;">おく</rt></ruby>れそうなら<ruby>早<rt style="font-size:0.6em;color:#888;">はや</rt></ruby>めにエスカレしてね。あと、<ruby>新人<rt style="font-size:0.6em;color:#888;">しんじん</rt></ruby>のフォローもお<ruby>願<rt style="font-size:0.6em;color:#888;">ねが</rt></ruby>い。
+　 (알겠어. 늦어질 것 같으면 빨리 보고해줘. 그리고 신입도 좀 챙겨주고.)
+B: <ruby>承知<rt style="font-size:0.6em;color:#888;">しょうち</rt></ruby>しました。この<ruby>進<rt style="font-size:0.6em;color:#888;">すす</rt></ruby>め<ruby>方<rt style="font-size:0.6em;color:#888;">かた</rt></ruby>でよければ、このまま<ruby>進<rt style="font-size:0.6em;color:#888;">すす</rt></ruby>めます。
+　 (알겠습니다. 이 방식으로 괜찮으시면 이대로 진행할게요.)
+A: うん、それでアグリー。よろしくね。
+　 (응, 그걸로 동의. 잘 부탁해.)</pre>
+<p>오늘의 표현, 외워뒀다가 다음 일본과의 회의나 대화에서 슬쩍 써보는 건 어떠세요?<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>

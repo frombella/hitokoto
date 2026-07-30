@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>일본 드라마 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  blockquote {
+    margin: 0;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-left: 3px solid #C9A24B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: #333;
+  }
+  code.lv {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #F0EDE6;
+    border: 1px solid var(--hair);
+    color: #9A6B1A;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.12</span>
+        <h1>일본 드라마<span class="ja">日本のドラマ</span></h1>
+        <div class="meta">2026 · 7 / 13</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>일본어 공부에 드라마만큼 좋은 교재는 없죠?<br>이번 주는 특별편으로, 넷플릭스에서 볼 수 있는 <b>일본 드라마(日本のドラマ・にほんのドラマ) </b>다섯 편을 소개해 드릴게요.<br>각 드라마의 일본어 난이도도 함께 적어두었으니, 참고해보세요!</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🔮 지옥에 떨어집니다 <code class="lv">난이도 상</code></h2></div></div>
+<div class="body">
+<ul>
+<li><b>원제</b>　地獄に堕ちるわよ（じごくにおちるわよ）</li>
+<li><b>공개</b>　2026년 4월</li>
+<li><b>장르</b>　범죄, 로맨스, 전기</li>
+<li><a href="https://www.youtube.com/watch?v=ErNgP19RJCY" target="_blank" rel="noopener"><b>줄거리</b></a></li>
+</ul>
+<blockquote>쇼와~헤이세이 시대에 점술 붐을 일으킨 실존 점술가 호소키 카즈코(細木数子)의 삶을 그린 실화 기반 드라마예요. <br>전후의 가난 속에서 고등학교를 중퇴하고 밤거리로 뛰어든 주인공은, 스무 살 무렵 긴자의 클럽을 잇달아 성공시키며 '긴자의 여왕'으로 불리게 돼요. <br>이후 독자적인 점술로 방송가의 총아가 되기까지 — 속이고 속고, 올라가고 떨어지는 한 여성의 야망을 그린 이야기예요.</blockquote>
+<ul>
+<li><b>일본어 한 마디 </b></li>
+</ul>
+<blockquote><b>「<ruby>地獄<rt style="font-size:0.6em;color:#888;">じごく</rt></ruby>に<ruby>堕<rt style="font-size:0.6em;color:#888;">お</rt></ruby>ちるわよ」 </b>(지옥에 떨어질 거야) — 주인공이 점술 상담에서 내뱉는 대사예요.<br>2000년대 일본 방송가를 휩쓴 실존 점술가의 트레이드마크 대사로, 드라마 제목이 되기도 했어요.</blockquote>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🏢 도쿄 사기꾼들 <code class="lv">난이도 상</code></h2></div></div>
+<div class="body">
+<ul>
+<li><b>원제</b>　地面師たち（じめんしたち）</li>
+<li><b>공개</b>　2024년 7월</li>
+<li><b>장르</b>　범죄, 스릴러, 느와르</li>
+<li><a href="https://www.youtube.com/watch?v=JpD0xKWw2EM" target="_blank" rel="noopener"><b>줄거리</b></a></li>
+</ul>
+<blockquote>원제의 '지면사(地面師)'는 땅 주인인 척 행세하며 부동산을 팔아 치우는 사기꾼을 의미해요. <br>실제로 일본에서 대기업이 55억 엔을 빼앗긴 대형 부동산 사기 사건을 모티브로 한 드라마인데,<br>리더, 협상 담당, 위조 전문가, 정보상 — 각 분야의 프로가 모여 도쿄 도심의 100억 엔짜리 땅을 노리는 사기극이 손에 땀을 쥐게 해요.<br>공개 후 넷플릭스 일본 1위를 6주 연속 기록하며 2024년 가장 화제가 된 일본 드라마 중 하나예요.</blockquote>
+<ul>
+<li><b>일본어 한 마디 </b></li>
+</ul>
+<blockquote><b>「<ruby>土地<rt style="font-size:0.6em;color:#888;">とち</rt></ruby>が<ruby>人<rt style="font-size:0.6em;color:#888;">ひと</rt></ruby>を<ruby>狂<rt style="font-size:0.6em;color:#888;">くる</rt></ruby>わせるんです」</b> (땅이 사람을 미치게 만드는 거예요) — 리더 하리슨이 사기의 본질을 말하는 대사예요. <br>속이는 자도, 속는 자도, 결국 땅 앞에서 이성을 잃는다는 이 드라마의 핵심이 담긴 한 마디예요.</blockquote>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🃏 아리스 인 보더랜드 <code class="lv">난이도 중</code></h2></div></div>
+<div class="body">
+<ul>
+<li><b>원제</b>　今際の国のアリス（いまわのくにのアリス）</li>
+<li><b>공개</b>　2020년 12월</li>
+<li><b>장르</b>　공포, 스릴러, SF, 데스게임</li>
+<li><a href="https://www.youtube.com/watch?v=CjEyvFprRJU" target="_blank" rel="noopener"><b>줄거리</b></a></li>
+</ul>
+<blockquote>만화 원작의 작품으로, 어느 날 갑자기 사람들이 사라진 텅 빈 도쿄에 떨어진 주인공 아리스가, 의문의 게임에서 살아남아야 하는 서바이벌 스릴러예요. <br>게임에서 지면 곧 죽음 — 단순한 규칙이지만 매 판마다 예측할 수 없는 반전이 이어져요. <br>'일본판 오징어 게임'으로도 불리며, 작년에 시즌3로 완결되어 처음부터 몰아 보기에 딱 좋답니다.</blockquote>
+<ul>
+<li><b>일본어 한 마디 </b></li>
+</ul>
+<blockquote><b>「<ruby>一緒<rt style="font-size:0.6em;color:#888;">いっしょ</rt></ruby>に<ruby>生<rt style="font-size:0.6em;color:#888;">い</rt></ruby>きよ」</b> (함께 살자) — 절체절명의 순간, 여자 주인공이 건네는 대사예요. <br>짧지만 이 드라마를 관통하는 한 마디예요.</blockquote>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>💍 도망치는 건 부끄럽지만 도움이 된다 <code class="lv">난이도 하</code></h2></div></div>
+<div class="body">
+<ul>
+<li><b>원제</b>　逃げるは恥だが役に立つ（にげるははじだがやくにたつ）</li>
+<li><b>공개　</b>2016년 10월</li>
+<li><b>장르</b>　로맨스 코미디</li>
+<li><a href="https://www.netflix.com/kr/title/81410833" target="_blank" rel="noopener"><b>줄거리</b></a></li>
+</ul>
+<blockquote>취업에 어려움을 겪던 주인공이 연애 경험 제로의 회사원에게 '계약 결혼'을 제안해요. <br>남편이 고용주, 아내가 직원 — 비즈니스로 시작한 결혼이 진짜 사랑으로 변해가는 과정을 그린 로맨스 코미디예요. <br>남자 주연인 호시노 겐(星野源)의 사랑 댄스(恋ダンス)가 사회 현상이 될 만큼 큰 인기를 끌었고, <br>드라마 속 부부를 연기한 아라가키 유이(新垣結衣)와 호시노 겐은 이 드라마를 통해 실제로 부부의 연을 맺기도 했어요. </blockquote>
+<ul>
+<li><b>일본어 한 마디 </b></li>
+</ul>
+<blockquote><b>「<ruby>好<rt style="font-size:0.6em;color:#888;">す</rt></ruby>きの<ruby>搾取<rt style="font-size:0.6em;color:#888;">さくしゅ</rt></ruby>です」</b> (좋아한다는 감정의 착취예요) — 주인공이 가사 노동의 가치를 되묻는 장면에서 나온 대사예요. <br>방영 당시 SNS에서 큰 화제가 됐고, 이 드라마의 핵심 메시지가 담긴 한 마디예요.</blockquote>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>⚖️ 언내추럴 <code class="lv">난이도 중</code></h2></div></div>
+<div class="body">
+<ul>
+<li><b>원제</b>　アンナチュラル（あんなちゅらる）<b> </b></li>
+<li><b>공개</b>　2018년 1월</li>
+<li><b>장르</b>　미스터리, 법의학</li>
+<li><a href="https://www.netflix.com/kr/title/81714729" target="_blank" rel="noopener"><b>줄거리</b></a></li>
+</ul>
+<blockquote>원인을 알 수 없는 죽음을 부검으로 파헤치는, 법의학 연구소를 무대로 한 미스터리 드라마예요. <br>매회 새로운 사건을 다루면서 세상을 떠난 이가 남긴 진실을 한 꺼풀씩 밝혀 나가요. <br>앞서 소개한 '도망치는 건 부끄럽지만 도움이 된다'와 같은 각본가의 작품으로, 촘촘하고 힘 있는 전개에 정평이 나 있어요. <br>주제곡인 요네즈 켄시(米津玄師)의 'Lemon' 은 드라마와 함께 사회 현상이 됐고, 일본 역대 뮤직비디오 재생수 1위를 기록한 곡이니 꼭 들어보세요.</blockquote>
+<ul>
+<li><b>일본어 한 마디</b></li>
+</ul>
+<blockquote><b>「あなたの<ruby>人生<rt style="font-size:0.6em;color:#888;">じんせい</rt></ruby>は、あなたのものだよ」</b> (당신의 인생은, 당신의 것이에요) — 7화에서 극단적인 선택을 하려는 소년에게 건네는 대사예요. <br>짧지만 이 드라마에서 가장 많이 회자되는 한 마디예요.</blockquote>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>🎬 실제 대화, 살짝 엿보기</h2></div></div>
+<div class="body">
+<pre>A: <ruby>週末<rt style="font-size:0.6em;color:#888;">しゅうまつ</rt></ruby>、ネトフリで<ruby>何<rt style="font-size:0.6em;color:#888;">なに</rt></ruby>か<ruby>観<rt style="font-size:0.6em;color:#888;">み</rt></ruby>た？
+   (주말에 넷플릭스로 뭐 좀 봤어?)
+B: 「<ruby>地面師<rt style="font-size:0.6em;color:#888;">じめんし</rt></ruby>たち」を<ruby>一気見<rt style="font-size:0.6em;color:#888;">いっきみ</rt></ruby>しちゃった。おもしろすぎて。
+   ('도쿄 사기꾼들'을 정주행해버렸어. 너무 재밌어서.)
+A: あれおもしろいよね！<ruby>私<rt style="font-size:0.6em;color:#888;">わたし</rt></ruby>は「アンナチュラル」にハマってる。
+   (그거 재밌지! 나는 '언내추럴'에 빠져있어.)
+B: どっちも<ruby>日本語<rt style="font-size:0.6em;color:#888;">にほんご</rt></ruby>の<ruby>勉強<rt style="font-size:0.6em;color:#888;">べんきょう</rt></ruby>にも<ruby>役<rt style="font-size:0.6em;color:#888;">やく</rt></ruby>に<ruby>立<rt style="font-size:0.6em;color:#888;">た</rt></ruby>つよね。
+   (둘 다 일본어 공부에도 도움이 되지.)
+A: それな。いつか<ruby>字幕<rt style="font-size:0.6em;color:#888;">じまく</rt></ruby>なしで<ruby>観<rt style="font-size:0.6em;color:#888;">み</rt></ruby>られる<ruby>日<rt style="font-size:0.6em;color:#888;">ひ</rt></ruby>が<ruby>来<rt style="font-size:0.6em;color:#888;">く</rt></ruby>るかな。
+   (그러니까. 언젠가 자막 없이 볼 수 있는 날이 올까?)</pre>
+<p class="tip">💡 <b>「一気見(いっきみ)」</b> 는 드라마를 몰아서 한 번에 보는 것, 즉 '정주행'을 뜻해요. 참고로 만화나 웹툰처럼 읽는 콘텐츠라면 一気読み(いっきよみ) 라고 한답니다.</p>
+<p>여러분의 인생 드라마는 무엇인가요? 있다면 저에게도 살짝 알려주세요.<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>
