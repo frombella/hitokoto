@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>온천 예절 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  blockquote {
+    margin: 0;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-left: 3px solid #C9A24B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: #333;
+  }
+  code.lv {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #F0EDE6;
+    border: 1px solid var(--hair);
+    color: #9A6B1A;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.14</span>
+        <h1>온천 예절<span class="ja">温泉のマナー</span></h1>
+        <div class="meta">2026 · 8 / 3</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>일본 여행에서 뜨끈한 온천은 빼놓을 수 없죠.<br>이번 주는 알아두면 여행이 편해지는 <b>온천 예절(温泉のマナー・おんせんのマナー) </b>을 소개해 드릴게요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>♨️ 일본에는 왜 이렇게 온천이 많을까?</h2></div></div>
+<div class="body">
+<p>여러분은 일본의 온천, 하면 어떤 풍경이 떠오르시나요?<br>눈 쌓인 노천탕에서 몸을 녹이는 원숭이, 모락모락 피어오르는 김, 머리에 수건을 얹고 내쉬는 한숨까지 — 상상만 해도 노곤해지죠.<br><br>일본은 화산이 많은 나라예요. 땅속의 지열로 데워진 물이 곳곳에서 솟아나다 보니,<br>온천의 원천(源泉)이 무려 2만 7천여 곳, 온천지만 해도 3천여 곳에 달하는 온천 대국이랍니다.<br><br>집집마다 욕조가 흔치 않던 시절엔 동네 대중목욕탕(銭湯・せんとう) 에서 몸을 씻는 게 일상이었고,<br>온천에 며칠씩 머물며 몸을 치료하는 탕치(湯治・とうじ) 라는 문화도 있어요.<br>일본인에게 온천은 단순한 목욕이 아니라 쉼과 치유의 공간인 셈이지요.<br><br>이렇게 다 함께 소중히 여기는 곳이다 보니,<br><b>'탕은 몸을 담그며 쉬는 곳이지, 씻는 곳이 아니다' </b>라는 생각과 함께, 모두가 기분 좋게 쓰기 위한 매너도 자리 잡았답니다.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🧖 알아두면 현지인처럼, 온천 입욕 매너</h2></div></div>
+<div class="body">
+<ul>
+<li><b>옷은 탈의실에서 모두 벗어요 </b>한국의 워터파크형 스파와 달리, 일본 온천은 수영복을 입지 않고 들어가는 게 기본이에요. 큰 수건은 탈의실에 두고 작은 수건만 들고 들어가요.</li>
+<li><b>탕에 들어가기 전 반드시 몸을 헹궈요 </b>탕에 들어가기 전에 かけ湯(かけゆ) 라고 해서, 바가지로 물을 떠 심장에서 먼 발끝부터 끼얹어요. 이렇게 하면 몸을 씻어낼 뿐 아니라 뜨거운 물에 서서히 적응할 수 있어요. </li>
+<li><b>수건과 머리카락은 물에 담그지 않아요 </b>수건은 탕에 넣지 않고 머리 위에 올리거나 탕 가장자리에 두고, 긴 머리는 물에 닿지 않도록 묶어요. 여럿이 함께 쓰는 물을 깨끗하게 유지하기 위한 작은 배려랍니다.</li>
+<li><b>탕 안에서는 조용히, 헤엄치지 않아요 </b>온천은 다 같이 몸을 담그고 조용히 쉬는 공간이에요. 수영하듯 첨벙대거나 크게 떠드는 건 잠시 접어두고 느긋하게 몸을 맡겨보세요.</li>
+</ul>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">WORDS</span><h2>📌 이번 주 챙겨가는 단어</h2></div></div>
+<div class="body">
+<div class="table-wrap"><table><thead><tr><th>단어</th><th>읽기</th><th>의미</th><th>예문</th><th>해석</th></tr></thead><tbody><tr><td>湯船</td><td>ゆぶね</td><td>탕, 욕조</td><td><ruby>湯船<rt style="font-size:0.6em;color:#888;">ゆぶね</rt></ruby>にタオルを<ruby>入<rt style="font-size:0.6em;color:#888;">い</rt></ruby>れないでください。</td><td>탕에 수건을 넣지 마세요.</td></tr>
+<tr><td>銭湯</td><td>せんとう</td><td>(동네) 대중목욕탕</td><td><ruby>昔<rt style="font-size:0.6em;color:#888;">むかし</rt></ruby>は<ruby>近所<rt style="font-size:0.6em;color:#888;">きんじょ</rt></ruby>の<ruby>銭湯<rt style="font-size:0.6em;color:#888;">せんとう</rt></ruby>に<ruby>通<rt style="font-size:0.6em;color:#888;">かよ</rt></ruby>っていました。</td><td>옛날엔 동네 목욕탕에 다녔어요.</td></tr>
+<tr><td>かけ湯</td><td>かけゆ</td><td>입욕 전 몸 헹구기</td><td><ruby>湯船<rt style="font-size:0.6em;color:#888;">ゆぶね</rt></ruby>に<ruby>入<rt style="font-size:0.6em;color:#888;">はい</rt></ruby>る<ruby>前<rt style="font-size:0.6em;color:#888;">まえ</rt></ruby>に、かけ<ruby>湯<rt style="font-size:0.6em;color:#888;">ゆ</rt></ruby>をします。</td><td>탕에 들어가기 전에 몸을 헹궈요.</td></tr>
+<tr><td>露天風呂</td><td>ろてんぶろ</td><td>노천탕</td><td><ruby>露天風呂<rt style="font-size:0.6em;color:#888;">ろてんぶろ</rt></ruby>から<ruby>夜空<rt style="font-size:0.6em;color:#888;">よぞら</rt></ruby>が<ruby>見<rt style="font-size:0.6em;color:#888;">み</rt></ruby>えます。</td><td>노천탕에서 밤하늘이 보여요.</td></tr>
+<tr><td>のぼせる</td><td>のぼせる</td><td>(뜨거운 물에) 어지러워지다</td><td><ruby>熱<rt style="font-size:0.6em;color:#888;">あつ</rt></ruby>いお<ruby>湯<rt style="font-size:0.6em;color:#888;">ゆ</rt></ruby>に<ruby>長<rt style="font-size:0.6em;color:#888;">なが</rt></ruby>く<ruby>浸<rt style="font-size:0.6em;color:#888;">つ</rt></ruby>かるとのぼせます。</td><td>뜨거운 물에 오래 담그면 어지러워져요.</td></tr>
+<tr><td>湯上がり</td><td>ゆあがり</td><td>목욕을 마친 뒤</td><td><ruby>湯上<rt style="font-size:0.6em;color:#888;">ゆあ</rt></ruby>がりに<ruby>牛乳<rt style="font-size:0.6em;color:#888;">ぎゅうにゅう</rt></ruby>を<ruby>飲<rt style="font-size:0.6em;color:#888;">の</rt></ruby>みます。</td><td>목욕 후에 우유를 마셔요.</td></tr></tbody></table></div>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
+<div class="body">
+<pre>A: <ruby>温泉<rt style="font-size:0.6em;color:#888;">おんせん</rt></ruby>、<ruby>本当<rt style="font-size:0.6em;color:#888;">ほんとう</rt></ruby>に<ruby>久<rt style="font-size:0.6em;color:#888;">ひさ</rt></ruby>しぶりだなあ。
+　 (온천 정말 오랜만이다.)
+B: いいよね。しかもここ、「<ruby>美肌<rt style="font-size:0.6em;color:#888;">びはだ</rt></ruby>の<ruby>湯<rt style="font-size:0.6em;color:#888;">ゆ</rt></ruby>」で<ruby>有名<rt style="font-size:0.6em;color:#888;">ゆうめい</rt></ruby>なんだよ。
+　 (좋지. 게다가 여기, ‘피부에 좋은 온천’으로 유명해.)
+A: へえ、<ruby>楽<rt style="font-size:0.6em;color:#888;">たの</rt></ruby>しみ！でも、<ruby>長<rt style="font-size:0.6em;color:#888;">なが</rt></ruby>く<ruby>浸<rt style="font-size:0.6em;color:#888;">つ</rt></ruby>かりすぎるとのぼせちゃうよね。
+　 (오, 기대된다! 근데 너무 오래 있으면 어지러워지잖아.)
+B: そうそう。こまめに<ruby>休<rt style="font-size:0.6em;color:#888;">やす</rt></ruby>んで、<ruby>水分<rt style="font-size:0.6em;color:#888;">すいぶん</rt></ruby>をとるのがコツだよ。
+　 (맞아맞아. 자주 쉬면서 수분 보충하는 게 요령이야.)
+A: なるほど。じゃあ、<ruby>湯上<rt style="font-size:0.6em;color:#888;">ゆあ</rt></ruby>がりには<ruby>冷<rt style="font-size:0.6em;color:#888;">つめ</rt></ruby>たい<ruby>牛乳<rt style="font-size:0.6em;color:#888;">ぎゅうにゅう</rt></ruby>だね！
+　 (그렇구나. 그럼 목욕 후엔 시원한 우유다!)</pre>
+<p class="tip">💡 하나 더! 일본에는 목욕을 마친 뒤 <b>시원한 우유 한 잔을 즐기는 문화가</b> 있어요. 특히, 우유 중에서도 커피 우유가 정석이랍니다.</p>
+<p>일본에서 온천이나 대중목욕탕에 가게 되면, 여유롭게 즐겨보세요.<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>
