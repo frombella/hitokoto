@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마이넘버 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  blockquote {
+    margin: 0;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-left: 3px solid #C9A24B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: #333;
+  }
+  code.lv {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #F0EDE6;
+    border: 1px solid var(--hair);
+    color: #9A6B1A;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.15</span>
+        <h1>마이넘버<span class="ja">マイナンバー</span></h1>
+        <div class="meta">2026 · 8 / 10</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>팩스와 도장의 나라로 알려진 일본에, 요즘 행정의 디지털 전환을 이끄는 카드가 하나 있어요.<br>이번 주는 <b>마이넘버(マイナンバー) </b>제도와 그 카드를 소개해 드릴게요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>💳 일본은 왜 이제야 개인 번호를 만들었을까?</h2></div></div>
+<div class="body">
+<p>한국에서는 태어나면 주민등록번호를 받는 게 너무나 당연하죠.<br>그런데 일본에는 얼마 전까지 전 국민 공통의 개인 번호가 없었다는 사실, 알고 계셨나요?<br><br>그러다 2016년, 마이넘버(マイナンバー) 제도가 도입됐어요.<br>국민 모두에게 12자리 번호를 부여해 세금, 사회보장, 재난대응을 하나로 관리하기 시작한 거죠.<br>이 번호를 담은 IC 카드가 바로 마이넘버카드(マイナンバーカード) 인데,<br>사진이 붙어 있어 신분증이 되고, 온라인으로도 여러 행정 서비스를 이용할 수 있어 디지털 신분증으로 불려요.<br><br>다만 반응이 마냥 긍정적이지만은 않았어요.<br>그도 그럴 게, 지금까지 없던 번호가 갑자기 생긴다니 국민 입장에서는 거부감이 들 만하죠.<br>개인정보 유출이나 국가의 감시를 걱정하는 목소리에, 카드에 다른 사람 정보가 잘못 연결되는 사고까지 겹치며 불안이 커지기도 했어요.<br>그럼에도 정부는 여러 혜택과 기능 확대로 보급에 힘썼고, 지금은 국민 10명 중 8명이 카드를 가지고 있답니다.<br><br>오랜 아날로그 관행에 익숙하던 일본이, 이제 카드 한 장과 스마트폰으로 행정을 처리하는 쪽으로 바뀌고 있어요.<br><b>편리함과 우려 사이에서 — 마이넘버카드는 그 변화의 한가운데에 서 있어요.</b></p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>📋 마이넘버카드 한 장으로 할 수 있는 일</h2></div></div>
+<div class="body">
+<ul>
+<li><b>신분증으로 쓸 수 있어요 </b>지금까지 일본에는 전 국민 공통 신분증이 없어서 면허증이나 여권으로 대신하곤 했어요. 이제는 마이넘버카드가 공식 신분증이 되어, 한국의 주민등록증처럼 쓸 수 있답니다.</li>
+<li><b>편의점에서 서류를 발급해요 </b>예전엔 주민표(住民票) 한 장 떼려 해도 평일에 구청까지 가서 줄을 서야 했어요. 지금은 마이넘버카드만 있으면 편의점 복합기에서 바로 받을 수 있죠. 이걸 コンビニ交付(편의점 발급) 라고 해요.</li>
+<li><b>종이로 된 건강보험증이 필요 없어요</b> 원래는 일본에서 병원에 갈 때 종이로 된 건강보험증을 따로 챙겨 다녀야 했죠. 이제 그 기능이 마이나 보험증이라는 이름으로 카드에 통합돼, 카드 한 장으로 진료를 받을 수 있어요.</li>
+<li><b>약 복용 이력과 진료 기록도 이어져요</b> 예전엔 복용 약을 기록하는 약 수첩(お薬手帳) 을 병원이나 약국마다 들고 다녀야 했어요. 이제는 마이나 보험증을 통해, 동의만 하면 약 이력이나 건강검진 정보를 의사와 공유하고 더 정확한 진료를 받을 수 있죠.</li>
+</ul>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">WORDS</span><h2>📌 이번 주 챙겨가는 단어</h2></div></div>
+<div class="body">
+<div class="table-wrap"><table><thead><tr><th>단어</th><th>읽기</th><th>의미</th><th>예문</th><th>해석</th></tr></thead><tbody><tr><td>マイナンバー</td><td>まいなんばー</td><td>마이넘버</td><td>マイナンバーは12<ruby>桁<rt style="font-size:0.6em;color:#888;">けた</rt></ruby>の<ruby>番号<rt style="font-size:0.6em;color:#888;">ばんごう</rt></ruby>です。</td><td>마이넘버는 12자리 번호예요.</td></tr>
+<tr><td>申請</td><td>しんせい</td><td>신청</td><td>カードはオンラインで<ruby>申請<rt style="font-size:0.6em;color:#888;">しんせい</rt></ruby>できます。</td><td>카드는 온라인으로 신청할 수 있어요.</td></tr>
+<tr><td>交付</td><td>こうふ</td><td>교부, 발급</td><td>カードの<ruby>交付<rt style="font-size:0.6em;color:#888;">こうふ</rt></ruby>には<ruby>時間<rt style="font-size:0.6em;color:#888;">じかん</rt></ruby>がかかります。</td><td>카드 발급에는 시간이 걸려요.</td></tr>
+<tr><td>役所</td><td>やくしょ</td><td>관공서 (*시청, 구청)</td><td><ruby>役所<rt style="font-size:0.6em;color:#888;">やくしょ</rt></ruby>の<ruby>受付<rt style="font-size:0.6em;color:#888;">うけつけ</rt></ruby>で<ruby>順番<rt style="font-size:0.6em;color:#888;">じゅんばん</rt></ruby>を<ruby>待<rt style="font-size:0.6em;color:#888;">ま</rt></ruby>ちました。</td><td>관공서 접수처에서 순서를 기다렸어요.</td></tr>
+<tr><td>住民票</td><td>じゅうみんひょう</td><td>주민표 (*주민등록등본)</td><td>コンビニで<ruby>住民票<rt style="font-size:0.6em;color:#888;">じゅうみんひょう</rt></ruby>を<ruby>取<rt style="font-size:0.6em;color:#888;">と</rt></ruby>りました。</td><td>편의점에서 주민표를 뗐어요.</td></tr>
+<tr><td>保険証</td><td>ほけんしょう</td><td>건강보험증</td><td>マイナンバーカードは<ruby>保険証<rt style="font-size:0.6em;color:#888;">ほけんしょう</rt></ruby>としても<ruby>使<rt style="font-size:0.6em;color:#888;">つか</rt></ruby>えます。</td><td>마이넘버카드는 보험증으로도 쓸 수 있어요.</td></tr></tbody></table></div>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
+<div class="body">
+<pre>A: そういえば、マイナンバーカードもう<ruby>作<rt style="font-size:0.6em;color:#888;">つく</rt></ruby>った？
+　 (그러고 보니, 마이넘버카드 벌써 만들었어?)
+B: うん、この<ruby>前<rt style="font-size:0.6em;color:#888;">まえ</rt></ruby>オンラインで<ruby>申請<rt style="font-size:0.6em;color:#888;">しんせい</rt></ruby>したよ。<ruby>役所<rt style="font-size:0.6em;color:#888;">やくしょ</rt></ruby>に<ruby>行<rt style="font-size:0.6em;color:#888;">い</rt></ruby>かなくてもスマホでできて<ruby>楽<rt style="font-size:0.6em;color:#888;">らく</rt></ruby>だった。
+　 (응, 얼마 전에 온라인으로 신청했어. 관공서에 안 가도 폰으로 할 수 있어서 편했어.)
+A: へえ、<ruby>便利<rt style="font-size:0.6em;color:#888;">べんり</rt></ruby>だね。でも、<ruby>手続<rt style="font-size:0.6em;color:#888;">てつづ</rt></ruby>きって<ruby>面倒<rt style="font-size:0.6em;color:#888;">めんどう</rt></ruby>じゃない？
+　 (오, 편하네. 근데 절차가 귀찮지 않아?)
+B: <ruby>意外<rt style="font-size:0.6em;color:#888;">いがい</rt></ruby>と<ruby>簡単<rt style="font-size:0.6em;color:#888;">かんたん</rt></ruby>だったよ。<ruby>住民票<rt style="font-size:0.6em;color:#888;">じゅうみんひょう</rt></ruby>もコンビニで<ruby>取<rt style="font-size:0.6em;color:#888;">と</rt></ruby>れるし、<ruby>保険証<rt style="font-size:0.6em;color:#888;">ほけんしょう</rt></ruby>としても<ruby>使<rt style="font-size:0.6em;color:#888;">つか</rt></ruby>えるから<ruby>便利<rt style="font-size:0.6em;color:#888;">べんり</rt></ruby>なんだ。
+　 (의외로 간단했어. 주민표도 편의점에서 뗄 수 있고, 보험증으로도 쓸 수 있어서 편해.)
+A: いいね。じゃあ、<ruby>私<rt style="font-size:0.6em;color:#888;">わたし</rt></ruby>も<ruby>作<rt style="font-size:0.6em;color:#888;">つく</rt></ruby>ってみようかな。
+　 (좋다. 그럼 나도 만들어볼까.)</pre>
+<p class="tip">💡 마이넘버카드를 만들 때는 <b>용도에 따라 비밀번호를 무려 4종류나</b> 설정해야 해요. 편리한 카드지만, 이 비밀번호를 잊어버려 재설정하러 구청에 가는 사람도 적지 않다고 해요.</p>
+<p>오래된 습관과 새로운 편리함 사이에서, 일본은 천천히 한 걸음을 내딛고 있어요.<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>
