@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>캐시리스 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  blockquote {
+    margin: 0;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-left: 3px solid #C9A24B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: #333;
+  }
+  code.lv {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #F0EDE6;
+    border: 1px solid var(--hair);
+    color: #9A6B1A;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.16</span>
+        <h1>캐시리스<span class="ja">キャッシュレス</span></h1>
+        <div class="meta">2026 · 8 / 24</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>이번주는 우리 지갑 속에서 일어나고 있는 디지털화 이야기예요.<br>현금의 나라 일본을 빠르게 바꾸고 있는 <b>캐시리스(キャッシュレス)</b> 에 대해 알아볼게요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>💸 현금의 나라 일본, 왜 지갑을 바꾸기 시작했을까?</h2></div></div>
+<div class="body">
+<p>일본 여행 중에 카드를 내밀었더니 '현금만 됩니다'라는 말, 들어본 적 있으세요?<br>얼마 전까지만 해도 흔한 일이었는데, <b>그만큼 일본은 현금 사용이 뿌리 깊은 현금의 나라였죠.</b><br><br>이유는 다양한데, 치안이 좋아 현금을 들고 다녀도 불안이 적고 위조 지폐가 거의 없어 현금에 대한 신뢰가 높았거든요.<br>또, 지진 같은 자연재해가 발생했을 때는 아무래도 현금이 필요하다는 인식도 강했어요.<br>오죽하면 은행보다 집 안 서랍을 믿어, 쌓아둔 장롱예금(タンス預金) 이 수십조 엔에 이른다는 말까지 나올 정도였죠.<br><br>그런데 최근 몇 년 사이 분위기가 확 달라졌어요. 일본 정부가 현금 없는 결제, 이른바 캐시리스를 국가 과제로 삼아 적극 밀어주기 시작했거든요.<br>민간의 움직임도 빨랐어요. 한국에 카카오페이가 있다면 일본에는 PayPay(페이페이) 라는 서비스가 있는데,<br>이런 간편결제 앱들이 결제 금액의 일부를 돌려주는 파격 이벤트를 진행하면서 순식간에 사용자를 끌어모았죠.<br>요즘은 신사에서 참배할 때 돈을 넣는 새전함(お賽銭) 에까지 QR코드가 붙어있어, 전통과 디지털이 나란히 놓인 진풍경도 볼 수 있답니다.<br><br>하지만 모두가 이 변화를 반기는 건 아니에요.<br>결제할 때마다 붙는 수수료가 이익을 깎아먹고, 현금과 달리 매출이 며칠 뒤에야 들어오는 입금 지연도 골칫거리죠.<br>그리고 고령 점주에게는 도입 그 자체가 벽이 되기도 해요. 그래서 여전히 '현금만 받겠다'는 가게도 적지 않답니다.<br><br>정부 주도의 캐시리스 바람과 현장의 현실적인 고민이 맞물린 지금, <b>현금의 나라 일본의 지갑이 앞으로 어떻게 달라져갈지 사뭇 기대돼요.</b></p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>📱 요즘 일본에서는 이렇게 결제해요</h2></div></div>
+<div class="body">
+<ul>
+<li><b>QR코드로 결제하는 간편결제</b> PayPay(페이페이), 楽天ペイ(라쿠텐페이) 같은 서비스가 대표적이에요. 앱에 은행 계좌나 카드를 미리 연결해두고, 가게에 있는 QR코드를 찍거나 내 휴대폰 속 바코드를 보여주면 결제 끝! 소액 송금도 가능하고, 쓸 때마다 포인트도 쌓여요.</li>
+<li><b>미리 충전해서 쓰는 교통카드</b> 대표적으로 Suica(스이카), PASMO(파스모) 가 있고, 한국의 T머니와 같은 선불식 교통카드예요. 전철이나 버스는 물론이고 편의점, 자판기에서도 단말기에 카드를 갖다 대기만 하면 사용할 수 있어요. 요즘은 스마트폰에 넣어두면, 실물 카드 없이 폰만으로도 이용할 수 있어요.</li>
+<li><b>카드에 대한 인식을 바꾼 터치 결제</b> 일본에서는 오랫동안 '카드는 빚'이라는 인식이 강해 신용카드를 꺼리는 분위기가 있었는데, 그런 분위기를 바꾼 게 애플페이 같은 터치 결제(タッチ決済) 예요. 서명도 비밀번호도 없이 갖다 대기만 하면 되니 부담이 적었거든요. 덕분에 신용카드 이용도 빠르게 늘어, 이제 캐시리스의 80% 이상을 차지할 만큼 자리 잡았죠.</li>
+</ul>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">WORDS</span><h2>📌 이번 주 챙겨가는 단어</h2></div></div>
+<div class="body">
+<div class="table-wrap"><table><thead><tr><th>단어</th><th>읽기</th><th>의미</th><th>예문</th><th>해석</th></tr></thead><tbody><tr><td>キャッシュレス</td><td>きゃっしゅれす</td><td>캐시리스</td><td><ruby>最近<rt style="font-size:0.6em;color:#888;">さいきん</rt></ruby>はキャッシュレス<ruby>決済<rt style="font-size:0.6em;color:#888;">けっさい</rt></ruby>が<ruby>増<rt style="font-size:0.6em;color:#888;">ふ</rt></ruby>えました。</td><td>요즘은 캐시리스 결제가 늘었어요.</td></tr>
+<tr><td>支払い</td><td>しはらい</td><td>결제, 지불</td><td><ruby>支払<rt style="font-size:0.6em;color:#888;">しはら</rt></ruby>いはカードでお<ruby>願<rt style="font-size:0.6em;color:#888;">ねが</rt></ruby>いします。</td><td>결제는 카드로 부탁해요.</td></tr>
+<tr><td>現金</td><td>げんきん</td><td>현금</td><td>ここは<ruby>現金<rt style="font-size:0.6em;color:#888;">げんきん</rt></ruby>でしか<ruby>払<rt style="font-size:0.6em;color:#888;">はら</rt></ruby>えません。</td><td>여기는 현금으로만 낼 수 있어요.</td></tr>
+<tr><td>チャージ</td><td>ちゃーじ</td><td>충전</td><td>Suicaに<ruby>千円<rt style="font-size:0.6em;color:#888;">せんえん</rt></ruby>チャージしました。</td><td>스이카에 천 엔 충전했어요.</td></tr>
+<tr><td>ポイント還元</td><td>ぽいんとかんげん</td><td>포인트 환원</td><td>ポイント<ruby>還元<rt style="font-size:0.6em;color:#888;">かんげん</rt></ruby>でお<ruby>得<rt style="font-size:0.6em;color:#888;">とく</rt></ruby>に<ruby>買<rt style="font-size:0.6em;color:#888;">か</rt></ruby>えます。</td><td>포인트 환원으로 저렴하게 살 수 있어요.</td></tr></tbody></table></div>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
+<div class="body">
+<pre>A: お<ruby>支払<rt style="font-size:0.6em;color:#888;">しはら</rt></ruby>いはどうする？<ruby>現金<rt style="font-size:0.6em;color:#888;">げんきん</rt></ruby>でいい？
+　 (결제 어떻게 할래? 현금으로 할까?)
+B: ううん、Apple Payで。スマホをかざすだけだから<ruby>楽<rt style="font-size:0.6em;color:#888;">らく</rt></ruby>なんだ。
+　 (아니, 애플페이로. 폰을 갖다 대기만 하면 되니까 편해.)
+A: へえ、そんなに<ruby>便利<rt style="font-size:0.6em;color:#888;">べんり</rt></ruby>なんだ。
+　 (오, 그렇게 편하구나.)
+B: うん、<ruby>財布<rt style="font-size:0.6em;color:#888;">さいふ</rt></ruby>を<ruby>持<rt style="font-size:0.6em;color:#888;">も</rt></ruby>ち<ruby>歩<rt style="font-size:0.6em;color:#888;">ある</rt></ruby>かなくてもいいし、ポイント<ruby>還元<rt style="font-size:0.6em;color:#888;">かんげん</rt></ruby>してくれるサービスも<ruby>多<rt style="font-size:0.6em;color:#888;">おお</rt></ruby>いからね。
+　 (응, 지갑을 안 들고 다녀도 되고. 포인트 환원해주는 서비스도 많거든.)
+A: いいなあ。<ruby>私<rt style="font-size:0.6em;color:#888;">わたし</rt></ruby>も<ruby>現金<rt style="font-size:0.6em;color:#888;">げんきん</rt></ruby>やめて、キャッシュレスにしようかな。
+　 (좋겠다. 나도 현금 그만 쓰고 캐시리스로 바꿔볼까.)</pre>
+<p class="tip">💡 <b>「タッチですか、差し込みですか」</b> — 계산할 때 카드를 건네면 점원이 이렇게 물어 올 때가 있어요. 와이파이 모양의 컨택리스 마크가 있는 카드는 タッチ 이고, IC칩을 단말기에 꽂아서 결제하는 카드는 差し込み 예요. 미리 알아두면 당황하지 않아요!</p>
+<p>일본 여행을 계획 중이라면, 이제 현금 대신 교통카드나 결제 앱 하나로도 충분할지 몰라요.<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>
