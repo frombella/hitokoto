@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>라멘 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  blockquote {
+    margin: 0;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-left: 3px solid #C9A24B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: #333;
+  }
+  code.lv {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #F0EDE6;
+    border: 1px solid var(--hair);
+    color: #9A6B1A;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.17</span>
+        <h1>라멘<span class="ja">ラーメン</span></h1>
+        <div class="meta">2026 · 8 / 31</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>이번주는 일본 여행에서 빼놓을 수 없는 한 그릇, <b>라멘(ラーメン)</b> 이야기예요.<br>전국 어디서나 있지만 지역마다 국물도 면도 제각각인 그 다채로운 세계를 함께 들여다봐요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>🍜 중국에서 온 국수, 라멘이 되기까지</h2></div></div>
+<div class="body">
+<p>일본을 대표하는 음식 중 하나로 손꼽히는 라멘.<br>그런데 그 뿌리가 사실은 일본이 아닌 중국에 있다는 것, 알고 계셨나요?<br><br>라멘이 일본에 들어온 건 지금으로부터 100여 년 전, 외국과 활발히 교류하던 개항기 무렵이에요.<br>바다를 건너 일본에 온 중국 화교들이 전한 중국식 국수가 그 시작이었죠.<br>그래서 초창기에는 중국식 국수라는 뜻의 중화소바(中華そば・ちゅうかそば) 라고 불렸답니다.<br><br>이 한 그릇은 일본 곳곳으로 퍼져 나가면서 <b>각 지역의 기후와 특산물, 입맛을 만나 저마다 다른 모습으로 진화했어요.</b><br>추운 고장에서는 진하고 기름진 국물로, 바다를 낀 항구에서는 맑고 담백한 국물로 말이죠.<br>그렇게 중국에서 온 한 그릇의 국수는, 지역의 개성을 품은 채 일본만의 방식으로 완성된 고유의 음식으로 자리 잡았답니다.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🗺️ 알고 먹으면 더 맛있는, 지역별 대표 라멘</h2></div></div>
+<div class="body">
+<p><b>삿포로의 미소 라멘</b><br></p>
+<blockquote>혹독한 추위로 유명한 홋카이도에서 몸을 데워줄 뜨끈한 한 그릇으로 태어났어요.<br>된장(味噌・みそ) 의 진한 감칠맛에 기름으로 막을 씌워 좀처럼 식지 않고, 홋카이도 특산물인 버터와 옥수수를 얹어 더 든든하게 즐길 수 있어요. </blockquote>
+<p><br><b>후쿠오카의 돈코츠 라멘</b><br></p>
+<blockquote>돼지 뼈를 오래 고아낸 뽀얗고 진한 국물에, 가느다란 면이 특징이에요. 바쁜 시장 사람들에게 빨리 내어주려 가는 면을 썼는데, 이 면은 금세 불어버려요. <br>그래서 처음엔 면을 조금만 담아 주고, 다 먹은 뒤 국물이 남으면 새로 삶은 면만 추가하죠. 이렇게 면만 리필해서 먹는 카에다마(替え玉・かえだま) 문화가 여기서 생겨났어요.</blockquote>
+<p><br><b>도쿄의 쇼유 라멘</b><br></p>
+<blockquote>우리가 라멘 하면 흔히 떠올리는 갈색 국물에 차슈와 김을 얹은 모습, 그 원형이 바로 쇼유 라멘이에요. <br>닭 뼈와 간장(醤油・しょうゆ) 으로 낸 맑고 깔끔한 국물은 라멘의 가장 기본이라, 지금도 중화소바(中華そば・ちゅうかそば) 라는 정겨운 옛 이름으로 불리기도 하죠.</blockquote>
+<p><br><b>하코다테의 시오 라멘</b><br></p>
+<blockquote>일찍이 외국에 문을 연 항구 도시답게, 일본에서 라멘이 가장 먼저 자리 잡은 고장 중 하나예요. 실제로 하코다테에는 일본에서 가장 오래된 라멘 기록이 남아 있을 정도죠. <br>바다에서 나는 다시마로 감칠맛을 낸 투명하고 담백한 소금(塩・しお) 국물은, 같은 홋카이도 지역인 삿포로의 미소 라멘과는 정반대의 매력이랍니다.</blockquote>
+<p><br><b>요코하마의 이에케이 라멘</b><br></p>
+<blockquote>돈코츠 라멘과 쇼유 라멘, 이 두 국물을 하나로 합친 데서 시작된 비교적 젊은 라멘이에요. <br>진한 국물에 굵은 면을 사용하고, 여기에 시금치와 큼직한 김을 얹는 게 특징이죠. 밥과 함께 먹으면 한 끼로 든든해서 젊은 층에게 특히 인기랍니다.</blockquote>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">WORDS</span><h2>📌 이번 주 챙겨가는 단어</h2></div></div>
+<div class="body">
+<div class="table-wrap"><table><thead><tr><th>단어</th><th>읽기</th><th>의미</th><th>예문</th><th>해석</th></tr></thead><tbody><tr><td>ご当地</td><td>ごとうち</td><td>그 고장, 현지</td><td>この<ruby>街<rt style="font-size:0.6em;color:#888;">まち</rt></ruby>のご<ruby>当地<rt style="font-size:0.6em;color:#888;">とうち</rt></ruby>ラーメンが<ruby>食<rt style="font-size:0.6em;color:#888;">た</rt></ruby>べたいです。</td><td>이 동네의 고장 라멘이 먹고 싶어요.</td></tr>
+<tr><td>券売機</td><td>けんばいき</td><td>식권 자판기</td><td><ruby>券売機<rt style="font-size:0.6em;color:#888;">けんばいき</rt></ruby>で<ruby>食券<rt style="font-size:0.6em;color:#888;">しょっけん</rt></ruby>を<ruby>買<rt style="font-size:0.6em;color:#888;">か</rt></ruby>います。</td><td>식권 자판기에서 식권을 사요.</td></tr>
+<tr><td>硬め</td><td>かため</td><td>단단하게</td><td><ruby>麺<rt style="font-size:0.6em;color:#888;">めん</rt></ruby>は<ruby>硬<rt style="font-size:0.6em;color:#888;">かた</rt></ruby>めでお<ruby>願<rt style="font-size:0.6em;color:#888;">ねが</rt></ruby>いします。</td><td>면은 단단하게 부탁해요.</td></tr>
+<tr><td>柔らかめ</td><td>やわらかめ</td><td>부드럽게</td><td><ruby>母<rt style="font-size:0.6em;color:#888;">はは</rt></ruby>は<ruby>柔<rt style="font-size:0.6em;color:#888;">やわ</rt></ruby>らかめの<ruby>麺<rt style="font-size:0.6em;color:#888;">めん</rt></ruby>が<ruby>好<rt style="font-size:0.6em;color:#888;">す</rt></ruby>きです。</td><td>엄마는 부드러운 면을 좋아하세요.</td></tr>
+<tr><td>大盛り</td><td>おおもり</td><td>곱빼기</td><td><ruby>大盛<rt style="font-size:0.6em;color:#888;">おおも</rt></ruby>りは<ruby>無料<rt style="font-size:0.6em;color:#888;">むりょう</rt></ruby>ですか。</td><td>곱빼기는 무료인가요?</td></tr>
+<tr><td>替え玉</td><td>かえだま</td><td>면 추가</td><td>スープが<ruby>残<rt style="font-size:0.6em;color:#888;">のこ</rt></ruby>ったので<ruby>替<rt style="font-size:0.6em;color:#888;">か</rt></ruby>え<ruby>玉<rt style="font-size:0.6em;color:#888;">だま</rt></ruby>を<ruby>頼<rt style="font-size:0.6em;color:#888;">たの</rt></ruby>みました。</td><td>국물이 남아서 면 추가를 시켰어요.</td></tr></tbody></table></div>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
+<div class="body">
+<pre>A: ここ、<ruby>有名<rt style="font-size:0.6em;color:#888;">ゆうめい</rt></ruby>なご<ruby>当地<rt style="font-size:0.6em;color:#888;">とうち</rt></ruby>ラーメンのお<ruby>店<rt style="font-size:0.6em;color:#888;">みせ</rt></ruby>なんだって。
+　 (여기, 유명한 지역 라멘집이래.)
+B: そうなんだ！じゃあまずは<ruby>券売機<rt style="font-size:0.6em;color:#888;">けんばいき</rt></ruby>で<ruby>食券<rt style="font-size:0.6em;color:#888;">しょっけん</rt></ruby>を<ruby>買<rt style="font-size:0.6em;color:#888;">か</rt></ruby>おう。
+　 (그렇구나! 그럼 우선 식권 자판기에서 식권 사자.)
+A: <ruby>私<rt style="font-size:0.6em;color:#888;">わたし</rt></ruby>は<ruby>麺<rt style="font-size:0.6em;color:#888;">めん</rt></ruby>を<ruby>硬<rt style="font-size:0.6em;color:#888;">かた</rt></ruby>めにして、<ruby>大盛<rt style="font-size:0.6em;color:#888;">おおも</rt></ruby>りにしようかな。
+　 (난 면은 단단하게, 곱빼기로 할까.)
+B: <ruby>私<rt style="font-size:0.6em;color:#888;">わたし</rt></ruby>は<ruby>柔<rt style="font-size:0.6em;color:#888;">やわ</rt></ruby>らかめにしようっと。そのほうが<ruby>好<rt style="font-size:0.6em;color:#888;">す</rt></ruby>きなんだ。
+　 (난 부드럽게 할래. 그게 더 좋더라고.)
+A: いいね。<ruby>足<rt style="font-size:0.6em;color:#888;">た</rt></ruby>りなかったら<ruby>替<rt style="font-size:0.6em;color:#888;">か</rt></ruby>え<ruby>玉<rt style="font-size:0.6em;color:#888;">だま</rt></ruby>もできるしね。
+　 (좋네. 부족하면 면 추가도 되고.)</pre>
+<p class="tip">💡 일본에서는 라멘을 먹을 때 면을 후루룩 소리 내며 먹는 걸 아주 자연스럽게 여겨요. 한국에서는 다소 조심스러운 '면치기'가 일본에서는 지극히 평범한 풍경이랍니다!</p>
+<p>다음에 일본에 가신다면, 내 취향의 라멘 한 그릇을 찾아보는 건 어떨까요?<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>
