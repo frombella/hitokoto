@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>비즈니스 경어 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  blockquote {
+    margin: 0;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-left: 3px solid #C9A24B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: #333;
+  }
+  code.lv {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #F0EDE6;
+    border: 1px solid var(--hair);
+    color: #9A6B1A;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.18</span>
+        <h1>비즈니스 경어<span class="ja">ビジネス敬語</span></h1>
+        <div class="meta">2026 · 9 / 7</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>이번주는 일본 회사에서 꼭 필요한 <b>비즈니스 경어(ビジネス敬語・びじねすけいご)</b> 특집이에요.<br>매일 쓰던 표현이 회사에선 어떻게 바뀌는지, 바로 써먹을 수 있는 6가지를 모아봤어요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>🏢 왜 일본 회사에선 말투가 달라질까?</h2></div></div>
+<div class="body">
+<p>일본어를 공부하다 보면 누구나 한 번쯤 경어(敬語・けいご) 라는 벽에 부딪혀요.<br>한국어는 존댓말과 반말, 두 가지로 나뉘는 정도인데 — 일본어는 왜 이렇게 표현이 많을까요?<br><br>사실 여기엔 일본 특유의 문화가 숨어 있어요.<br>예로부터 일본에서는 상대가 나보다 윗사람인지, 또 얼마나 가까운 사이인지에 따라 말투를 바꾸는 걸 중요하게 여겼거든요.<br>상대를 한 단계 높이거나 나를 한 단계 낮춤으로써, 말 속에 존중과 배려의 마음을 담은 거죠.<br><br>일본어에서 경어는 크게 <b>상대를 높이는 존경어(尊敬語)</b>, <b>나를 낮추는 겸양어(謙譲語)</b>, 그리고 <b>정중하게 말하는 정중어(丁寧語)</b>로 나뉘어요.<br>이 감각만 잘 잡으면 같은 말을 해도 한층 더 프로처럼 들린답니다.<br>일상에서 쓰던 표현이 회사에선 어떻게 바뀌는지, 상황과 함께 살펴볼게요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🤝 承知しました</h2></div></div>
+<div class="body">
+<blockquote><b>읽기　</b>しょうちしました<br><b>의미</b>　알겠습니다<br><b>예문</b>　<ruby>承知<rt style="font-size:0.6em;color:#888;">しょうち</rt></ruby>しました。<ruby>明日<rt style="font-size:0.6em;color:#888;">あした</rt></ruby>までに<ruby>準備<rt style="font-size:0.6em;color:#888;">じゅんび</rt></ruby>いたします。(알겠습니다. 내일까지 준비하겠습니다.)</blockquote>
+<pre>「<ruby>分<rt style="font-size:0.6em;color:#888;">わ</rt></ruby>かりました」 의 정중한 비즈니스 표현이에요. 
+윗사람이나 거래처의 지시·의뢰에 답할 때 쓰는데, 한층 더 격식을 차릴 땐 「かしこまりました」 라고도 한답니다.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🙇 申し訳ございません</h2></div></div>
+<div class="body">
+<blockquote><b>읽기　</b>もうしわけございません<br><b>의미</b>　죄송합니다<br><b>예문</b>　ご<ruby>迷惑<rt style="font-size:0.6em;color:#888;">めいわく</rt></ruby>をおかけして、<ruby>申<rt style="font-size:0.6em;color:#888;">もう</rt></ruby>し<ruby>訳<rt style="font-size:0.6em;color:#888;">わけ</rt></ruby>ございません。(폐를 끼쳐 죄송합니다.)</blockquote>
+<pre>「すみません」 보다 훨씬 정중한 사과 표현으로, 고객이나 거래처처럼 예의를 갖춰야 하는 상대에게 써요. 
+실수나 폐를 끼친 것에 대해 사과할 때는 물론, 부탁이나 거절 앞에 붙여 말을 부드럽게 만들 때도 자주 쓰인답니다.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🙆 よろしいでしょうか</h2></div></div>
+<div class="body">
+<blockquote><b>읽기　</b>よろしいでしょうか<br><b>의미</b>　괜찮으실까요<br><b>예문</b>　<ruby>明日<rt style="font-size:0.6em;color:#888;">あした</rt></ruby>ご<ruby>連絡<rt style="font-size:0.6em;color:#888;">れんらく</rt></ruby>してもよろしいでしょうか。(내일 연락드려도 괜찮으실까요?)</blockquote>
+<pre>「いいですか」 의 한층 정중한 표현으로, 강요하지 않고 부드럽게 묻는 느낌을 준답니다.
+상대에게 허락을 구하거나 확인을 받을 때 쓰는데, 회의 시간을 정하거나 연락을 드리기 전처럼 상대의 의향을 먼저 여쭐 때 특히 자주 쓰여요.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🚶 伺います</h2></div></div>
+<div class="body">
+<blockquote><b>읽기　</b>うかがいます<br><b>의미</b>　찾아뵙겠습니다<br><b>예문</b>　<ruby>明日<rt style="font-size:0.6em;color:#888;">あした</rt></ruby>、<ruby>御社<rt style="font-size:0.6em;color:#888;">おんしゃ</rt></ruby>に<ruby>伺<rt style="font-size:0.6em;color:#888;">うかが</rt></ruby>います。(내일 귀사로 찾아뵙겠습니다.)</blockquote>
+<pre>「<ruby>行<rt style="font-size:0.6em;color:#888;">い</rt></ruby>きます」 의 겸양어로, 거래처나 윗사람을 찾아뵙겠다고 말할 때 써요. 흥미로운 건 <ruby>聞<rt style="font-size:0.6em;color:#888;">き</rt></ruby>く(묻다)의 겸양어이기도 하다는 점이에요. 
+「<ruby>一<rt style="font-size:0.6em;color:#888;">ひと</rt></ruby>つ<ruby>伺<rt style="font-size:0.6em;color:#888;">うかが</rt></ruby>いたいことがあるのですが。(한 가지 여쭙고 싶은 게 있는데요.)」 처럼 정중히 물을 때도 쓰이니, 문맥에 따라서 '찾아뵙다'와 '여쭙다'를 구분해서 사용할 필요가 있어요.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🙋 いかがなさいますか</h2></div></div>
+<div class="body">
+<blockquote><b>읽기　</b>いかがなさいますか<br><b>의미</b>　어떻게 하시겠습니까<br><b>예문</b>　お<ruby>支払<rt style="font-size:0.6em;color:#888;">しはら</rt></ruby>いはいかがなさいますか。(결제는 어떻게 하시겠습니까?)</blockquote>
+<pre>「どうしますか」 의 존경어예요. 상사나 고객에게 어떻게 할지 의향을 여쭐 때 쓰는데, 상대의 행동을 높이는 정중한 질문이랍니다.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>⏳ 少々お待ちください</h2></div></div>
+<div class="body">
+<blockquote><b>읽기　</b>しょうしょうおまちください<br><b>의미</b>　잠시만 기다려 주세요<br><b>예문</b>　ただいま<ruby>確認<rt style="font-size:0.6em;color:#888;">かくにん</rt></ruby>いたしますので、<ruby>少々<rt style="font-size:0.6em;color:#888;">しょうしょう</rt></ruby>お<ruby>待<rt style="font-size:0.6em;color:#888;">ま</rt></ruby>ちくださいませ。(지금 확인하겠사오니, 잠시만 기다려 주세요.)</blockquote>
+<pre>「ちょっと<ruby>待<rt style="font-size:0.6em;color:#888;">ま</rt></ruby>ってください」 의 정중한 표현이에요. 
+전화 응대나 접객 중 잠시 기다려 달라고 부탁할 때 쓰는데, 끝에 「ませ」 를 붙여 「<ruby>少々<rt style="font-size:0.6em;color:#888;">しょうしょう</rt></ruby>お<ruby>待<rt style="font-size:0.6em;color:#888;">ま</rt></ruby>ちくださいませ」 라고 하면 한층 더 공손해져요.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
+<div class="body">
+<pre>A: お<ruby>電話<rt style="font-size:0.6em;color:#888;">でんわ</rt></ruby>ありがとうございます。カカオピッコマの<ruby>田中<rt style="font-size:0.6em;color:#888;">たなか</rt></ruby>でございます。
+　 (전화 감사합니다. 카카오픽코마의 다나카입니다.)
+B: お<ruby>世話<rt style="font-size:0.6em;color:#888;">せわ</rt></ruby>になっております。<ruby>来週<rt style="font-size:0.6em;color:#888;">らいしゅう</rt></ruby>の<ruby>打<rt style="font-size:0.6em;color:#888;">う</rt></ruby>ち<ruby>合<rt style="font-size:0.6em;color:#888;">あ</rt></ruby>わせの<ruby>件<rt style="font-size:0.6em;color:#888;">けん</rt></ruby>でご<ruby>連絡<rt style="font-size:0.6em;color:#888;">れんらく</rt></ruby>しました。<ruby>今<rt style="font-size:0.6em;color:#888;">いま</rt></ruby>、お<ruby>電話<rt style="font-size:0.6em;color:#888;">でんわ</rt></ruby>よろしいでしょうか。
+　 (신세 지고 있습니다. 다음 주 미팅 건으로 연락드렸습니다. 지금 전화 괜찮으실까요?)
+A: はい、もちろんです。<ruby>日程<rt style="font-size:0.6em;color:#888;">にってい</rt></ruby>はいかがなさいますか。
+　 (네, 물론입니다. 일정은 어떻게 하시겠습니까?)
+B: では、<ruby>水曜日<rt style="font-size:0.6em;color:#888;">すいようび</rt></ruby>に<ruby>御社<rt style="font-size:0.6em;color:#888;">おんしゃ</rt></ruby>へ<ruby>伺<rt style="font-size:0.6em;color:#888;">うかが</rt></ruby>います。
+　 (그럼, 수요일에 귀사로 찾아뵙겠습니다.)
+A: <ruby>承知<rt style="font-size:0.6em;color:#888;">しょうち</rt></ruby>しました。お<ruby>待<rt style="font-size:0.6em;color:#888;">ま</rt></ruby>ちしております。
+　 (알겠습니다. 기다리고 있겠습니다.)</pre>
+<p class="tip">💡 <b>「お世話になっております」</b> — 직역하면 '신세 지고 있습니다' 라는 뜻으로, 전화나 메일을 열 때 습관처럼 붙이는 인사예요. 특별히 신세 진 일이 없어도 관용적으로 쓰는 일본 비즈니스의 기본 매너랍니다.</p>
+<p>익숙한 표현부터 차근차근, 회사에서 자연스럽게 써보는 건 어떠세요?<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>
