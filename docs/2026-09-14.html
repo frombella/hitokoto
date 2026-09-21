@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>캔슬 카이와이 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  blockquote {
+    margin: 0;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-left: 3px solid #C9A24B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: #333;
+  }
+  code.lv {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #F0EDE6;
+    border: 1px solid var(--hair);
+    color: #9A6B1A;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.19</span>
+        <h1>캔슬 카이와이<span class="ja">キャンセル界隈</span></h1>
+        <div class="meta">2026 · 9 / 14</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>이번 주는 몇 년 사이 일본 SNS에 자리 잡은 신조어, <b>캔슬 카이와이(キャンセル界隈・きゃんせるかいわい) </b>이야기예요.<br>해야 할 일을 잠시 내려놓는 사람들의 속마음을 함께 들여다볼게요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>🌀 오늘 하루쯤은 캔슬해도 괜찮아</h2></div></div>
+<div class="body">
+<p>몇 년 전부터 일본 SNS를 구경하다 보면 キャンセル界隈 라는 말이 자주 눈에 띄어요.<br>직역하면 '~을 취소하는 무리'인데, <b>당연히 해야 할 일을 패스하는 사람들을 가리키는 신조어죠.</b><br><br>그중에서도 대표적인 게 목욕을 패스하는 사람들을 뜻하는 お風呂キャンセル界隈(おふろきゃんせるかいわい) 예요.<br>사실 일본에서는 하루의 끝에 뜨거운 욕조에 몸을 담그는 것이 아주 당연한 일과인데, 단순히 몸을 씻는 것을 넘어 그날의 쌓인 피로를 녹이는 소중한 휴식 시간이거든요.<br><br>그런 목욕마저 패스한다니, 처음엔 그저 게을러 보일지도 몰라요.<br>하지만 이 말이 이렇게까지 퍼진 배경엔, 요즘 일본 젊은이들의 지친 마음이 자리하고 있답니다.<br>매일 무엇이든 제대로 해내야 한다는 압박, SNS 속에서 끊임없이 남과 비교되는 나날 — 그런 일상이 쌓이다 보면 어느 날은 사소한 일 하나조차 버거워지곤 하죠.<br><br>그럴 때 '오늘만은 이거 하나 안 해도 괜찮아'라고 스스로를 놓아주는 것, 그게 바로 キャンセル界隈 의 마음이에요.<br>게으름이 아니라, 남에게 맞추기보다 내 페이스를 지키며 나를 돌보는 작은 '숨 고르기'인 셈이죠.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🙅 저마다 사연이 있는 캔슬들</h2></div></div>
+<div class="body">
+<ul>
+<li><b>お風呂キャンセル(おふろきゃんせる)</b> 이 유행의 시초라고 할 수 있는 대표 주자, '목욕 캔슬'이에요. 하루를 마치고 나면 씻을 기력조차 남지 않을 만큼 지쳤을 때 '오늘은 그냥 자고 싶다'며 목욕을 미루는 거죠. 줄여서 風呂キャン(ふろきゃん) 이라고도 한답니다.</li>
+<li><b>恋愛キャンセル(れんあいきゃんせる)</b> 연애를 잠시 접어두는 '연애 캔슬'을 말해요. 누군가를 만나 마음 쓰는 것보다, 나 자신에게 집중하는 시간이 더 소중해진 거죠. 요즘은 '연애도 선택'이라 여기며 내 삶을 우선하는 사람이 늘고 있답니다.</li>
+<li><b>コンロキャンセル(こんろきゃんせる)</b> 밥은 챙겨 먹되, 직접 요리는 하지 않겠다는 '가스레인지 캔슬'이에요. 가스레인지에 불을 켜는 대신 즉석식품이나 배달, 편의점 음식으로 한 끼를 해결하는 거죠. 혼자 사는 사람이 늘어난 요즘, 새로운 식문화로 떠오르고 있답니다.</li>
+<li><b>苦労キャンセル(くろうきゃんせる)</b> 번거롭고 힘든 수고 자체를 과감히 줄이는 '고생 캔슬'을 의미해요. 청소는 로봇청소기에게, 설거지는 식기세척기에게 맡기며 굳이 애쓰지 않는 거죠. 참고 견디기보다 '편하게 사는 법'을 택하는, 요즘다운 실용주의예요.</li>
+</ul>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">WORDS</span><h2>📌 이번 주 챙겨가는 단어</h2></div></div>
+<div class="body">
+<div class="table-wrap"><table><thead><tr><th>단어</th><th>읽기</th><th>의미</th><th>예문</th><th>해석</th></tr></thead><tbody><tr><td>界隈</td><td>かいわい</td><td>~커뮤니티, ~하는 무리, ~하는 사람들</td><td>ネットの<ruby>界隈<rt style="font-size:0.6em;color:#888;">かいわい</rt></ruby>で<ruby>話題<rt style="font-size:0.6em;color:#888;">わだい</rt></ruby>になっています。</td><td>인터넷 커뮤니티에서 화제가 되고 있어요.</td></tr>
+<tr><td>やる気</td><td>やるき</td><td>의욕</td><td>やる<ruby>気<rt style="font-size:0.6em;color:#888;">き</rt></ruby>を<ruby>出<rt style="font-size:0.6em;color:#888;">だ</rt></ruby>して<ruby>頑張<rt style="font-size:0.6em;color:#888;">がんば</rt></ruby>ろう。</td><td>의욕을 내서 힘내자.</td></tr>
+<tr><td>甘やかす</td><td>あまやかす</td><td>오냐오냐하다, 응석을 받아주다</td><td><ruby>子供<rt style="font-size:0.6em;color:#888;">こども</rt></ruby>を<ruby>甘<rt style="font-size:0.6em;color:#888;">あま</rt></ruby>やかしすぎないように。</td><td>아이를 너무 오냐오냐하지 않도록.</td></tr>
+<tr><td>無理する</td><td>むりする</td><td>무리하다</td><td><ruby>無理<rt style="font-size:0.6em;color:#888;">むり</rt></ruby>すると<ruby>体<rt style="font-size:0.6em;color:#888;">からだ</rt></ruby>を<ruby>壊<rt style="font-size:0.6em;color:#888;">こわ</rt></ruby>すよ。</td><td>무리하면 몸 상해.</td></tr>
+<tr><td>ペース</td><td>ぺーす</td><td>페이스, 속도</td><td><ruby>彼<rt style="font-size:0.6em;color:#888;">かれ</rt></ruby>はいつもマイペースだ。</td><td>그는 언제나 마이페이스야.</td></tr></tbody></table></div>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
+<div class="body">
+<pre>A: <ruby>最近<rt style="font-size:0.6em;color:#888;">さいきん</rt></ruby>、<ruby>疲<rt style="font-size:0.6em;color:#888;">つか</rt></ruby>れがたまってて、<ruby>何<rt style="font-size:0.6em;color:#888;">なに</rt></ruby>もやる<ruby>気<rt style="font-size:0.6em;color:#888;">き</rt></ruby>が<ruby>出<rt style="font-size:0.6em;color:#888;">で</rt></ruby>ないんだよね。
+　 (요즘 피로가 쌓여서, 뭘 해도 의욕이 안 나.)
+B: わかる〜。<ruby>私<rt style="font-size:0.6em;color:#888;">わたし</rt></ruby>なんて<ruby>昨日<rt style="font-size:0.6em;color:#888;">きのう</rt></ruby>、<ruby>風呂<rt style="font-size:0.6em;color:#888;">ふろ</rt></ruby>キャンしちゃったよ。
+　 (이해해~. 난 어제 목욕까지 캔슬해버렸는걸.)
+A: あはは、あるある。たまには<ruby>自分<rt style="font-size:0.6em;color:#888;">じぶん</rt></ruby>を<ruby>甘<rt style="font-size:0.6em;color:#888;">あま</rt></ruby>やかしてもいいかもね。
+　 (아하하, 그런 거 있지. 가끔은 나한테 좀 너그러워져도 괜찮을지도.)
+B: そうそう。<ruby>無理<rt style="font-size:0.6em;color:#888;">むり</rt></ruby>せず、<ruby>自分<rt style="font-size:0.6em;color:#888;">じぶん</rt></ruby>のペースでいこうよ。
+　 (맞아맞아. 무리하지 말고 내 페이스대로 가자.)</pre>
+<p class="tip">💡 <b>「あるある」</b> — 대화에 나온 이 표현은 '그런 일 흔하지'라는 공감의 맞장구예요. 누군가의 경험담에 '나도 그래!' 하고 공감해줄 때 딱이랍니다.</p>
+<p>여러분도 오늘 하루, 나를 위한 '캔슬' 하나쯤 허락해보는 건 어떨까요?<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>
