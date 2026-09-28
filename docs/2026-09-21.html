@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>재개발 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  blockquote {
+    margin: 0;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-left: 3px solid #C9A24B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: #333;
+  }
+  code.lv {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #F0EDE6;
+    border: 1px solid var(--hair);
+    color: #9A6B1A;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.20</span>
+        <h1>재개발<span class="ja">再開発</span></h1>
+        <div class="meta">2026 · 9 / 21</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>이번 주는 도쿄의 대표적인 번화가 시부야가 겪고 있는 큰 변화 이야기예요.<br>10년 넘게 이어지고 있는 시부야의 <b>재개발(再開発・さいかいはつ)</b>, 무엇이 어떻게 달라지고 있는지 함께 살펴볼까요?</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>🚧 시부야 던전, 대공사에 나선 이유</h2></div></div>
+<div class="body">
+<p>도쿄 시부야에 가본 적이 있다면, 역 주변 곳곳에 세워진 공사 가림막과 크레인을 본 적 있을 거예요.<br>사실 시부야는 벌써 10년 넘게 '100년에 한 번'이라 불리는 초대형 재개발이 이어지고 있어요.<br>2012년 시부야 히카리에 준공을 시작으로, 여러 지구를 동시에 뜯어고치는 이 공사는 완공 예정이 무려 2034년이랍니다.<br><br>왜 이렇게까지 대공사를 할까요? 가장 큰 이유는 시부야역이 너무나 복잡해진 탓이에요.<br>하루 약 300만 명이 오가는, 신주쿠에 이어 세계 2위 규모의 이 거대한 역은 지하 5층부터 지상 3층까지 9개 노선이 겹겹이 얽혀 있는데,<br>이 모습이 <b>마치 게임 속의 미로 같다며 渋谷ダンジョン(시부야 던전) 이라는 별명까지 붙었을 정도예요.</b><br><br>여기에 낡은 건물과 지상의 극심한 혼잡까지 더해지자, 도쿄는 시부야를 통째로 다시 짓기로 했어요.<br>건물과 건물을 이어줄 스카이웨이를 놓고, 사람과 전철이 더 편하게 오가도록 역과 거리를 새롭게 설계하는 거죠.<br><br>그 결과, 시부야에는 지금 이 순간에도 새로운 명소가 속속 태어나고 있어요.<br>공사 가림막 너머, 시부야가 어떤 모습으로 변신하고 있는지 하나씩 만나볼까요?</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🏙️ 새롭게 태어난 시부야의 명소들</h2></div></div>
+<div class="body">
+<ul>
+<li><b>시부야 스크램블 스퀘어</b> 현재 시부야에서 가장 높은 빌딩이에요. 옥상 전망대 'SHIBUYA SKY'에 오르면 스크램블 교차로와 도쿄의 풍경을 한눈에 내려다볼 수 있어, 특히 노을과 야경을 즐길 수 있는 명소로 인기예요.</li>
+<li><b>미야시타 파크</b> 공원과 쇼핑몰을 하나로 합친 독특한 공간이에요. 옥상 전체가 잔디밭 공원이라, 쇼핑과 산책을 한 번에 즐기려는 젊은 층의 데이트 장소로 사랑받고 있어요. 1층에는 일본 전국의 향토음식을 맛볼 수 있는 먹자골목 '시부야 요코초(渋谷横丁)'도 있어, 낮부터 밤까지 활기가 넘친답니다.</li>
+<li><b>시부야 스트림</b> 옛 도요코선 철길 자리에 들어선 세련된 복합 시설이에요. 재개발과 함께 되살아난 시부야강을 따라 산책로가 이어지고, 물길 옆으로 분위기 좋은 카페와 레스토랑이 늘어서 있어, 번잡한 시부야를 벗어나 조용한 한때를 보내기 좋은 곳이에요.</li>
+<li><b>시부야 히카리에</b> 시부야 재개발이 첫발을 뗀 상징적인 복합 시설이에요. 쇼핑몰부터 뮤지컬 극장까지 갖춰, 쇼핑과 문화 생활을 하루 종일 즐길 수 있는 곳이죠. 과일이 산더미처럼 올라간 파르페로 유명한 카페 '카지츠엔 리베르(果実園リーベル)'도 있어, 쇼핑 후 달콤하게 한숨 돌리기 좋아요.</li>
+</ul>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">WORDS</span><h2>📌 이번 주 챙겨가는 단어</h2></div></div>
+<div class="body">
+<div class="table-wrap"><table><thead><tr><th>단어</th><th>읽기</th><th>의미</th><th>예문</th><th>해석</th></tr></thead><tbody><tr><td>再開発</td><td>さいかいはつ</td><td>재개발</td><td><ruby>駅前<rt style="font-size:0.6em;color:#888;">えきまえ</rt></ruby>で<ruby>再開発<rt style="font-size:0.6em;color:#888;">さいかいはつ</rt></ruby>が<ruby>進<rt style="font-size:0.6em;color:#888;">すす</rt></ruby>んでいます。</td><td>역 앞에서 재개발이 진행되고 있어요.</td></tr>
+<tr><td>工事</td><td>こうじ</td><td>공사</td><td>この<ruby>道<rt style="font-size:0.6em;color:#888;">みち</rt></ruby>は<ruby>工事<rt style="font-size:0.6em;color:#888;">こうじ</rt></ruby><ruby>中<rt style="font-size:0.6em;color:#888;">ちゅう</rt></ruby>です。</td><td>이 길은 공사 중이에요.</td></tr>
+<tr><td>迷宮</td><td>めいきゅう</td><td>미궁, 미로</td><td><ruby>駅<rt style="font-size:0.6em;color:#888;">えき</rt></ruby>がまるで<ruby>迷宮<rt style="font-size:0.6em;color:#888;">めいきゅう</rt></ruby>のようだ。</td><td>역이 마치 미궁 같아.</td></tr>
+<tr><td>完成</td><td>かんせい</td><td>완성</td><td>ビルは<ruby>来年<rt style="font-size:0.6em;color:#888;">らいねん</rt></ruby><ruby>完成<rt style="font-size:0.6em;color:#888;">かんせい</rt></ruby>します。</td><td>빌딩은 내년에 완성돼요.</td></tr>
+<tr><td>一気に</td><td>いっきに</td><td>단숨에, 한꺼번에</td><td><ruby>仕事<rt style="font-size:0.6em;color:#888;">しごと</rt></ruby>を<ruby>一気<rt style="font-size:0.6em;color:#888;">いっき</rt></ruby>に<ruby>終<rt style="font-size:0.6em;color:#888;">お</rt></ruby>わらせました。</td><td>일을 단숨에 끝냈어요.</td></tr></tbody></table></div>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
+<div class="body">
+<pre>A: <ruby>渋谷駅<rt style="font-size:0.6em;color:#888;">しぶやえき</rt></ruby>、<ruby>工事<rt style="font-size:0.6em;color:#888;">こうじ</rt></ruby>のせいで<ruby>迷宮<rt style="font-size:0.6em;color:#888;">めいきゅう</rt></ruby>みたいだね。<ruby>出口<rt style="font-size:0.6em;color:#888;">でぐち</rt></ruby>がわからないよ。
+　 (시부야역, 공사 때문에 미궁 같아. 출구를 못 찾겠어.)
+B: わかる。でも<ruby>再開発<rt style="font-size:0.6em;color:#888;">さいかいはつ</rt></ruby>が<ruby>完成<rt style="font-size:0.6em;color:#888;">かんせい</rt></ruby>したら、もっと<ruby>便利<rt style="font-size:0.6em;color:#888;">べんり</rt></ruby>になるらしいよ。
+　 (그러게. 근데 재개발이 완성되면 훨씬 편해진대.)
+A: え、いつ<ruby>完成<rt style="font-size:0.6em;color:#888;">かんせい</rt></ruby>するの？もう<ruby>何年<rt style="font-size:0.6em;color:#888;">なんねん</rt></ruby>も<ruby>工事<rt style="font-size:0.6em;color:#888;">こうじ</rt></ruby>してるよね。
+　 (어, 언제 완성되는데? 벌써 몇 년째 공사하고 있잖아.)
+B: 2034<ruby>年<rt style="font-size:0.6em;color:#888;">ねん</rt></ruby>だって。いくつもの<ruby>地区<rt style="font-size:0.6em;color:#888;">ちく</rt></ruby>を<ruby>一気<rt style="font-size:0.6em;color:#888;">いっき</rt></ruby>に<ruby>直<rt style="font-size:0.6em;color:#888;">なお</rt></ruby>してるから、まだまだ<ruby>先<rt style="font-size:0.6em;color:#888;">さき</rt></ruby>みたい。
+　 (2034년이래. 여러 지구를 한꺼번에 손보고 있어서, 아직 한참 남은 것 같아.)
+A: そういえば、<ruby>新<rt style="font-size:0.6em;color:#888;">あたら</rt></ruby>しくできた<ruby>展望台<rt style="font-size:0.6em;color:#888;">てんぼうだい</rt></ruby>、<ruby>行<rt style="font-size:0.6em;color:#888;">い</rt></ruby>ってみた？
+　 (그러고 보니, 새로 생긴 전망대 가봤어?)
+B: うん、SHIBUYA SKYでしょ？<ruby>景色<rt style="font-size:0.6em;color:#888;">けしき</rt></ruby>が<ruby>最高<rt style="font-size:0.6em;color:#888;">さいこう</rt></ruby>だったよ。<ruby>夜景<rt style="font-size:0.6em;color:#888;">やけい</rt></ruby>も<ruby>絶対<rt style="font-size:0.6em;color:#888;">ぜったい</rt></ruby>おすすめ。
+　 (응, SHIBUYA SKY 말이지? 경치가 최고였어. 야경도 완전 추천.)</pre>
+<p class="tip">💡 재개발로 시부야가 아무리 변해도 늘 같은 자리를 지키는 명소가 있어요. <b>바로 시부야역 앞의 충견 동상 하치코(ハチ公)예요.</b> 세상을 떠난 주인을 매일 역 앞에서 기다렸다는 아키타견 '하치'를 기린 동상으로, 지금도 도쿄에서 손꼽히는 만남의 장소랍니다.</p>
+<p>다음에 시부야를 찾는다면, 새롭게 태어난 명소들을 직접 눈에 담아보는 건 어떨까요?<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>
