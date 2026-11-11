@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>일본의 집 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  blockquote {
+    margin: 0;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-left: 3px solid #C9A24B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: #333;
+  }
+  code.lv {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #F0EDE6;
+    border: 1px solid var(--hair);
+    color: #9A6B1A;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.23</span>
+        <h1>일본의 집<span class="ja">住まい</span></h1>
+        <div class="meta">2026 · 10 / 19</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>만약 일본에서 집을 구해 산다면, 어디서부터 놀라게 될까요?<br>이번 주는 한국과 닮은 듯 다른, <b>일본의 집(住まい・すまい)</b> 이야기예요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>🏠 닮은 듯 다른, 한국과 일본의 집</h2></div></div>
+<div class="body">
+<p>한국과 일본은 가까운 나라지만, 창밖으로 보이는 풍경은 사뭇 달라요.<br>한국의 도시는 고층 아파트 단지로 가득하다면, 일본은 2~3층짜리 단독주택과 낮은 맨션이 거리의 기본 풍경이거든요.<br>도쿄 같은 대도시에서도 역에서 조금만 걸어 들어가면, 좁은 골목을 따라 작은 마당이 딸린 단독주택이 빼곡히 늘어서 있죠.<br><br>이렇게 풍경이 다른 데엔 이유가 있어요.<br>지진이 잦은 일본에서는 건물을 높이 올리기보다 가볍고 유연한 목조 주택을 낮게 짓는 것이 오래전부터 표준이었거든요.<br>여기에 '마당 딸린 단독주택'에 대한 로망이 강해서, 지금도 좁은 땅에라도 단독주택을 짓는 사람이 많아요.<br><br>그런데 다른 건 겉모습만이 아니에요.<br>일본의 집은 덥고 습한 여름을 나기 위해 통풍을 중시하는 구조로 지어졌어요.<br>그래서 한국의 온돌 같은 바닥 난방이 거의 없고, 겨울엔 냉난방 겸용 에어컨의 난방 기능과 코타츠(こたつ)로 추위를 난답니다.<br><br>이처럼 겉모습부터 집 안까지 다르다 보니, 집을 구하는 방식부터 사는 방식까지 곳곳에서 차이가 나타나요.<br>일본에서 집을 구하고 살 때 마주치는 놀라운 포인트들을 하나씩 소개할게요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🔑 알아두면 재미있는 일본의 주거 문화</h2></div></div>
+<div class="body">
+<ul>
+<li><b>아파트와 맨션이 반대예요</b> 일본에서 아파트(アパート)는 목조 등으로 지은 2층 안팎의 저층 연립주택을, 맨션(マンション)은 철근 콘크리트로 지은 중고층의 공동주택을 가리켜요. 한국에서 쓰는 어감과는 거의 반대라, 집을 구할 때 헷갈리기 쉽답니다.</li>
+<li><b>전세 제도가 없어요</b> 일본은 집을 빌릴 때 월세가 기본이고, 전세 제도가 아예 없어요. 계약할 때는 보증금인 시키킹(敷金・しききん)과 함께 집주인에게 감사의 뜻으로 내는 레이킹(礼金・れいきん)이라는 돈을 지불해야 하는데, 이건 나중에 돌려받지 못한답니다.</li>
+<li><b>주차장도 월세를 내요</b> 일본에서는 주차장이 집에 포함되지 않아, 따로 월세를 내고 빌리는 게 보통이에요. 도쿄 23구는 주차장 월세만 평균 3만 엔인 데다 차를 살 때 '차고지 증명서'까지 필요해서, 도심에서는 차 없이 사는 사람이 많답니다.</li>
+<li><b>지금도 열쇠를 사용해요</b> 한국에선 디지털 도어락이 기본이지만, 일본은 지금도 금속 열쇠가 표준이에요. 지진이나 정전이 잦다 보니, 전기 없이도 작동하는 아날로그 열쇠를 더 신뢰하는 경향이 있거든요. 입주할 때 열쇠를 건네받고 퇴거할 때 반납하는 게 이사의 기본 절차이고, 만약 열쇠를 잃어버리면 자물쇠를 통째로 교체하고 그 비용까지 부담해야 해요.</li>
+<li><b>일본 집만의 옵션이 있어요</b> 욕조에 받아둔 물을 다시 데우는 오이다키(追い焚き・おいたき), 장마철에 욕실에서 빨래를 말릴 수 있는 욕실 건조기는 일본 집의 인기 옵션이에요. 재미있는 건 바닥 난방(床暖房・ゆかだんぼう)인데, 한국에선 기본인 온돌이 일본에선 고급 맨션 거실에만 들어가는 프리미엄 옵션이랍니다.</li>
+</ul>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">WORDS</span><h2>📌 이번 주 챙겨가는 단어</h2></div></div>
+<div class="body">
+<div class="table-wrap"><table><thead><tr><th>단어</th><th>읽기</th><th>의미</th><th>예문</th><th>해석</th></tr></thead><tbody><tr><td>一人暮らし</td><td>ひとりぐらし</td><td>자취, 혼자 살기</td><td><ruby>来年<rt style="font-size:0.6em;color:#888;">らいねん</rt></ruby>から<ruby>一人暮<rt style="font-size:0.6em;color:#888;">ひとりぐ</rt></ruby>らしを<ruby>始<rt style="font-size:0.6em;color:#888;">はじ</rt></ruby>めます。</td><td>내년부터 자취를 시작해요.</td></tr>
+<tr><td>間取り</td><td>まどり</td><td>(집의) 방 배치, 구조</td><td>この<ruby>間取<rt style="font-size:0.6em;color:#888;">まど</rt></ruby>りは<ruby>使<rt style="font-size:0.6em;color:#888;">つか</rt></ruby>いやすそうです。</td><td>이 구조는 쓰기 편해 보여요.</td></tr>
+<tr><td>敷金</td><td>しききん</td><td>보증금</td><td><ruby>敷金<rt style="font-size:0.6em;color:#888;">しききん</rt></ruby>は<ruby>退去<rt style="font-size:0.6em;color:#888;">たいきょ</rt></ruby>するときに<ruby>戻<rt style="font-size:0.6em;color:#888;">もど</rt></ruby>ってきます。</td><td>보증금은 퇴거할 때 돌려받아요.</td></tr>
+<tr><td>礼金</td><td>れいきん</td><td>(집주인에게 내는) 사례금</td><td><ruby>礼金<rt style="font-size:0.6em;color:#888;">れいきん</rt></ruby>なしの<ruby>物件<rt style="font-size:0.6em;color:#888;">ぶっけん</rt></ruby>を<ruby>探<rt style="font-size:0.6em;color:#888;">さが</rt></ruby>しています。</td><td>사례금 없는 매물을 찾고 있어요.</td></tr>
+<tr><td>物件</td><td>ぶっけん</td><td>(부동산) 매물</td><td><ruby>駅近<rt style="font-size:0.6em;color:#888;">えきちか</rt></ruby>のいい<ruby>物件<rt style="font-size:0.6em;color:#888;">ぶっけん</rt></ruby>が<ruby>見<rt style="font-size:0.6em;color:#888;">み</rt></ruby>つかりました。</td><td>역에서 가까운 좋은 매물을 찾았어요.</td></tr></tbody></table></div>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
+<div class="body">
+<pre>A: <ruby>来月<rt style="font-size:0.6em;color:#888;">らいげつ</rt></ruby>から<ruby>東京<rt style="font-size:0.6em;color:#888;">とうきょう</rt></ruby>で<ruby>一人暮<rt style="font-size:0.6em;color:#888;">ひとりぐ</rt></ruby>らしするんだけど、<ruby>部屋探<rt style="font-size:0.6em;color:#888;">へやさが</rt></ruby>しが<ruby>大変<rt style="font-size:0.6em;color:#888;">たいへん</rt></ruby>で。
+　 (다음 달부터 도쿄에서 자취하는데, 방 구하기가 힘들어서.)
+B: どんな<ruby>間取<rt style="font-size:0.6em;color:#888;">まど</rt></ruby>りを<ruby>探<rt style="font-size:0.6em;color:#888;">さが</rt></ruby>してるの？
+　 (어떤 구조를 찾고 있는데?)
+A: 1Kで<ruby>十分<rt style="font-size:0.6em;color:#888;">じゅうぶん</rt></ruby>なんだけど、<ruby>敷金<rt style="font-size:0.6em;color:#888;">しききん</rt></ruby>とか<ruby>礼金<rt style="font-size:0.6em;color:#888;">れいきん</rt></ruby>とか、<ruby>初期<rt style="font-size:0.6em;color:#888;">しょき</rt></ruby><ruby>費用<rt style="font-size:0.6em;color:#888;">ひよう</rt></ruby>がすごくて。
+　 (1K면 충분한데, 시키킹에 레이킹에 초기 비용이 어마어마해서.)
+B: ああ、<ruby>礼金<rt style="font-size:0.6em;color:#888;">れいきん</rt></ruby>は<ruby>戻<rt style="font-size:0.6em;color:#888;">もど</rt></ruby>ってこないから、ちょっと<ruby>痛<rt style="font-size:0.6em;color:#888;">いた</rt></ruby>いよね。
+　 (아, 레이킹은 돌려받지 못하니까 좀 아프지.)
+A: でも<ruby>昨日<rt style="font-size:0.6em;color:#888;">きのう</rt></ruby>、<ruby>礼金<rt style="font-size:0.6em;color:#888;">れいきん</rt></ruby>なしのいい<ruby>物件<rt style="font-size:0.6em;color:#888;">ぶっけん</rt></ruby>を<ruby>見<rt style="font-size:0.6em;color:#888;">み</rt></ruby>つけて、<ruby>今日<rt style="font-size:0.6em;color:#888;">きょう</rt></ruby><ruby>見<rt style="font-size:0.6em;color:#888;">み</rt></ruby>に<ruby>行<rt style="font-size:0.6em;color:#888;">い</rt></ruby>くんだ。
+　 (그래도 어제 레이킹 없는 좋은 매물을 찾아서, 오늘 보러 가려고 해.)</pre>
+<p class="tip">💡 일본 부동산은 <b>집 구조를 1K, 1LDK처럼 숫자와 알파벳으로 표기해요.</b> 제일 앞에 오는 숫자는 방 개수, L은 거실(Living), D는 식당(Dining), K는 부엌(Kitchen)이라 표기만 봐도 집의 구조가 그림이 그려지죠. 대화 속에 등장하는 1K는 방 하나에 부엌이 딸린 구조랍니다.</p>
+<p>일본 드라마 속 주인공이 방을 구하는 장면이 나오면, 오늘 배운 단어들이 하나씩 들려올 거예요.<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>

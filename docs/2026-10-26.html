@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>유행어 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  blockquote {
+    margin: 0;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-left: 3px solid #C9A24B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: #333;
+  }
+  code.lv {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #F0EDE6;
+    border: 1px solid var(--hair);
+    color: #9A6B1A;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.24</span>
+        <h1>유행어<span class="ja">流行り言葉</span></h1>
+        <div class="meta">2026 · 10 / 26</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>이번 주는 오랜만에 돌아온 <b>유행어(流行り言葉・はやりことば)</b> 특별편이에요.<br>AI부터 인간관계까지, 2026년 하반기 일본을 사로잡은 다섯 가지 말을 모아봤어요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">01</span><h2>📱 ドパガキ</h2></div></div>
+<div class="body">
+<ul>
+<li><b>읽기</b>　どぱがき</li>
+<li><b>의미</b>　숏폼 영상이나 핸드폰 게임 같은 자극적인 콘텐츠를 끊지 못하는 '도파민 중독' 상태인 사람</li>
+<li><b>예문</b>　<ruby>気<rt style="font-size:0.6em;color:#888;">き</rt></ruby>づいたら3<ruby>時間<rt style="font-size:0.6em;color:#888;">じかん</rt></ruby>もスクロールしてた。<ruby>完全<rt style="font-size:0.6em;color:#888;">かんぜん</rt></ruby>にドパガキだわ。 (정신 차리니 3시간이나 스크롤하고 있었어. 완전 도파민 중독이야.)</li>
+</ul>
+<pre>ドーパミン(도파민)과 ガキ(꼬맹이)를 합친 인터넷 슬랭이에요.
+숏폼을 보다가 밤을 새우거나, 영화나 드라마를 배속으로 보고 요약 영상으로 결말만 확인하는 식으로 손쉽게 도파민을 얻으려는 상태를 가리키죠.
+남을 지적하기보다는 '나 완전 도파가키야'처럼 스스로에게 쓰는 게 요즘 용법이에요.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">02</span><h2>🤖 チャッピー</h2></div></div>
+<div class="body">
+<ul>
+<li><b>읽기</b>　ちゃっぴー</li>
+<li><b>의미</b>　일본 젊은이들이 챗지피티를 친구처럼 부르는 애칭</li>
+<li><b>예문</b>　それ、チャッピーに<ruby>聞<rt style="font-size:0.6em;color:#888;">き</rt></ruby>いてみたら？ (그거 챠피한테 물어보지 그래?)</li>
+</ul>
+<pre>챗지피티를 귀엽게 줄여 부르는 이름으로, 지난해 유행어 대상 후보에 오른 뒤 이제는 일상어로 자리 잡았어요.
+숙제도 고민 상담도 AI와 함께하는 게 일상이 된 시대상이 담긴 말이죠.
+요즘은 점심 메뉴 같은 사소한 결정까지 챠피에게 물어보는 사람이 늘면서, '챠피 의존(チャッピー依存・ちゃっぴーいぞん)'을 걱정하는 목소리가 나올 만큼 하나의 사회 현상이 됐답니다.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">03</span><h2>💼 ギュられる</h2></div></div>
+<div class="body">
+<ul>
+<li><b>읽기</b>　ぎゅられる</li>
+<li><b>의미</b>　인간의 일이나 역할을 AI에게 빼앗기다</li>
+<li><b>유의어</b>　AIに<ruby>置<rt style="font-size:0.6em;color:#888;">お</rt></ruby>き<ruby>換<rt style="font-size:0.6em;color:#888;">か</rt></ruby>えられる (AI로 대체되다)</li>
+<li><b>예문</b>　<ruby>資格<rt style="font-size:0.6em;color:#888;">しかく</rt></ruby>の<ruby>勉強<rt style="font-size:0.6em;color:#888;">べんきょう</rt></ruby>してるけど、どうせギュられる<ruby>気<rt style="font-size:0.6em;color:#888;">き</rt></ruby>がする。 (자격증 공부 중인데, 어차피 AI한테 뺏길 것 같아.)</li>
+</ul>
+<pre>AI가 인간을 넘어서는 기술적 특이점을 뜻하는 シンギュラリティ(싱귤래리티)의 ギュ에 수동형 られる를 붙여서 만들어진 말이에요.
+인공지능이 빠르게 발전하면서 '내 자리가 없어질지도 모른다'는 위기감과 자조를 담아 SNS에서 쓰이고 있어요.
+심각하게라기보다, 자학 섞인 농담처럼 가볍게 쓰는 게 포인트랍니다.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">04</span><h2>🎭 めくれる</h2></div></div>
+<div class="body">
+<ul>
+<li><b>읽기</b>　めくれる</li>
+<li><b>의미</b>　꾸민 모습이나 거짓이 들통나다, 까발려지다</li>
+<li><b>유의어</b>　バレる (들키다)</li>
+<li><b>예문</b>　<ruby>盛<rt style="font-size:0.6em;color:#888;">も</rt></ruby>ってた<ruby>過去<rt style="font-size:0.6em;color:#888;">かこ</rt></ruby>が<ruby>配信<rt style="font-size:0.6em;color:#888;">はいしん</rt></ruby>でめくれてた。 (부풀렸던 과거가 방송에서 까발려졌어.)</li>
+</ul>
+<pre>원래는 종이나 옷자락 등이 '젖혀지다'라는 평범한 동사로 사용했는데,
+폭로계 유튜버들의 영상에서 숨긴 거짓이 めくれる(젖혀져 드러나다)라는 표현이 퍼지면서 '가면이 벗겨진다, 까발려지다'라는 이미지로 확장됐죠.
+폭로마저 콘텐츠로 소비하는 요즘의 방송 문화가 낳은 용법이에요.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">05</span><h2>🤝 フレネミー</h2></div></div>
+<div class="body">
+<ul>
+<li><b>읽기</b>　ふれねみー</li>
+<li><b>의미</b>　친구 같지만 적 같기도 한 미묘한 관계</li>
+<li><b>유의어</b>　ライバル (라이벌)</li>
+<li><b>예문</b>　<ruby>仲良<rt style="font-size:0.6em;color:#888;">なかよ</rt></ruby>いけど、たまにフレネミーっぽく<ruby>感<rt style="font-size:0.6em;color:#888;">かん</rt></ruby>じる。 (친하긴 한데, 가끔 프레네미처럼 느껴져.)</li>
+</ul>
+<pre>Friend(친구)와 Enemy(적)를 합친 영어권 조어로, 일본에서는 올해 젊은 층 유행어 랭킹 상위에 오를 만큼 다시 주목받고 있어요.
+겉으론 웃으며 응원하지만 속으론 은근히 견제하는, 말하자면 '웃는 얼굴의 라이벌' 같은 관계를 가리키죠.
+SNS에서 '좋아요'를 누르면서도 속으로는 비교하게 되는 미묘한 거리감이 공감을 얻으며, 요즘 시대의 인간관계를 이야기할 때 빠지지 않는 키워드가 됐답니다.</pre>
+<p>오늘 소개한 신조어들, 일본 SNS나 드라마에서 마주치면 반갑게 들릴 거예요.<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>

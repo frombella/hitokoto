@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>공휴일 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  blockquote {
+    margin: 0;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-left: 3px solid #C9A24B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: #333;
+  }
+  code.lv {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #F0EDE6;
+    border: 1px solid var(--hair);
+    color: #9A6B1A;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.22</span>
+        <h1>공휴일<span class="ja">祝日</span></h1>
+        <div class="meta">2026 · 10 / 12</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>이번 주는 일본의 <b>공휴일(祝日・しゅくじつ)</b> 이야기예요.<br>스포츠의 날인 오늘, 그 공휴일에 담긴 의미와 일본만의 연휴 문화를 함께 살펴볼게요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>📅 일본은 왜 공휴일이 많을까?</h2></div></div>
+<div class="body">
+<p>일본에는 1년에 무려 16일의 공휴일이 있어요.<br>미국·프랑스(11일), 독일·영국(9일)과 비교하면 선진 7개국 중 가장 많죠. 왜 이렇게 쉬는 날이 많을까요?<br><br>그 배경에는 '다 함께 쉬는' 문화가 있어요.<br>일본은 개인이 따로 휴가를 내기보다 모두가 같은 날 쉬는 것을 편하게 여기는 경향이 있거든요.<br>실제로 일본의 유급휴가 취득률은 역대 최고인 지금도 70%를 밑돌아요. 제도상 연 18일 정도가 주어지지만, 쓰는 날은 12일 남짓이죠.<br>그래서 나라가 공휴일을 늘려 다 함께 쉬도록 해왔다는 분석이 있는데, 1990년대에는 여가를 늘리자는 정부 정책으로 공휴일이 차례차례 늘어났어요.<br><br>덕분에 생긴 것이 바로 일본만의 연휴(連休・れんきゅう) 문화예요.<br>일부 공휴일을 월요일로 옮겨서 3일 연휴를 만들어주는 '해피먼데이' 제도인데, 공휴일이 줄줄이 이어지는 봄의 골든위크, 가을의 실버위크 같은 대형 연휴도 유명하죠.<br><br>게다가 일본은 공휴일에 담는 의미도 한국과 사뭇 달라요.<br>한국의 공휴일이 삼일절이나 광복절처럼 역사적인 날을 기리는 경우가 많다면 일본은 바다나 산, 스포츠처럼 자연과 일상에 감사하는 날이 많거든요.<br>그럼 일본의 독특한 공휴일 몇 가지를 만나볼까요?</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🗾 일본에서는 이런 날 쉽니다</h2></div></div>
+<div class="body">
+<ul>
+<li><b>성인의 날(成人の日・せいじんのひ)</b> 1월 둘째 월요일. 어른이 된 것을 자각하고 새 출발을 응원하는 날이에요. 일본의 법적 성인은 만 18세로 내려갔지만, 성인식은 지금도 만 스무 살이 되는 해에 치르는 게 일반적이에요. 이날은 전국 지자체마다 성인식이 열려, 화려한 기모노나 정장을 차려입은 스무 살 새내기들이 거리를 수놓죠.</li>
+<li><b>쇼와의 날(昭和の日・しょうわのひ)</b> 4월 29일. 격동의 쇼와 시대를 되돌아보는 날이에요. 원래는 쇼와 천황의 생일이었는데, 지금은 봄의 황금연휴 '골든위크'의 시작을 알리는 공휴일이기도 하죠. 날짜 자체에 의미가 있다 보니, 월요일로 옮기는 해피먼데이 대상은 아니랍니다.</li>
+<li><b>바다의 날(海の日・うみのひ)</b> 7월 셋째 월요일. 바다의 은혜에 감사하고, 바다로 둘러싸인 일본의 번영을 기원하는 날이에요. 유래도 재밌는데, 1876년 메이지 천황이 배를 타고 긴 지방 순행을 무사히 마치고 요코하마에 돌아온 날을 기념한 데서 시작됐다고 해요. 참고로 바다에 감사하는 날을 공휴일로 둔 나라는 세계에서 일본뿐이랍니다.</li>
+<li><b>추분의 날(秋分の日・しゅうぶんのひ)</b> 9월 22~23일 무렵으로, 조상을 공경하고 먼저 떠난 이들을 추모하는 날이에요. 절기가 공휴일인 데다, 날짜가 해마다 달라 국립천문대의 계산을 거쳐 전년도에야 확정된답니다. 추분 전후 일주일은 온 가족이 성묘를 가기도 하고, 팥소를 입힌 떡 오하기(おはぎ)를 먹는 풍습도 있어요.</li>
+</ul>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">WORDS</span><h2>📌 이번 주 챙겨가는 단어</h2></div></div>
+<div class="body">
+<div class="table-wrap"><table><thead><tr><th>단어</th><th>읽기</th><th>의미</th><th>예문</th><th>해석</th></tr></thead><tbody><tr><td>連休</td><td>れんきゅう</td><td>연휴</td><td><ruby>連休<rt style="font-size:0.6em;color:#888;">れんきゅう</rt></ruby><ruby>明<rt style="font-size:0.6em;color:#888;">あ</rt></ruby>けは<ruby>仕事<rt style="font-size:0.6em;color:#888;">しごと</rt></ruby>がたまりがちです。</td><td>연휴 직후엔 일이 쌓이기 십상이에요.</td></tr>
+<tr><td>祝日</td><td>しゅくじつ</td><td>공휴일</td><td><ruby>今年<rt style="font-size:0.6em;color:#888;">ことし</rt></ruby>は<ruby>祝日<rt style="font-size:0.6em;color:#888;">しゅくじつ</rt></ruby>が<ruby>土曜<rt style="font-size:0.6em;color:#888;">どよう</rt></ruby>と<ruby>重<rt style="font-size:0.6em;color:#888;">かさ</rt></ruby>なって、<ruby>損<rt style="font-size:0.6em;color:#888;">そん</rt></ruby>した<ruby>気分<rt style="font-size:0.6em;color:#888;">きぶん</rt></ruby>です。</td><td>올해는 공휴일이 토요일과 겹쳐서 손해 본 기분이에요.</td></tr>
+<tr><td>宿</td><td>やど</td><td>숙소, 여관</td><td><ruby>駅<rt style="font-size:0.6em;color:#888;">えき</rt></ruby>の<ruby>近<rt style="font-size:0.6em;color:#888;">ちか</rt></ruby>くに<ruby>宿<rt style="font-size:0.6em;color:#888;">やど</rt></ruby>を<ruby>取<rt style="font-size:0.6em;color:#888;">と</rt></ruby>りました。</td><td>역 근처에 숙소를 잡았어요.</td></tr>
+<tr><td>のんびりする</td><td>のんびりする</td><td>느긋하게 지내다</td><td><ruby>週末<rt style="font-size:0.6em;color:#888;">しゅうまつ</rt></ruby>は<ruby>家<rt style="font-size:0.6em;color:#888;">いえ</rt></ruby>でのんびりします。</td><td>주말엔 집에서 느긋하게 보내요.</td></tr>
+<tr><td>せっかく</td><td>せっかく</td><td>모처럼, 애써</td><td>せっかく<ruby>日本<rt style="font-size:0.6em;color:#888;">にほん</rt></ruby>に<ruby>来<rt style="font-size:0.6em;color:#888;">き</rt></ruby>たので、<ruby>温泉<rt style="font-size:0.6em;color:#888;">おんせん</rt></ruby>に<ruby>行<rt style="font-size:0.6em;color:#888;">い</rt></ruby>きます。</td><td>모처럼 일본에 왔으니 온천에 가요.</td></tr></tbody></table></div>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
+<div class="body">
+<pre>A: <ruby>今度<rt style="font-size:0.6em;color:#888;">こんど</rt></ruby>の<ruby>三連休<rt style="font-size:0.6em;color:#888;">さんれんきゅう</rt></ruby>、<ruby>何<rt style="font-size:0.6em;color:#888;">なに</rt></ruby>か<ruby>予定<rt style="font-size:0.6em;color:#888;">よてい</rt></ruby>ある？
+　 (이번 3연휴에 무슨 계획 있어?)
+B: <ruby>紅葉<rt style="font-size:0.6em;color:#888;">こうよう</rt></ruby>を<ruby>見<rt style="font-size:0.6em;color:#888;">み</rt></ruby>に<ruby>行<rt style="font-size:0.6em;color:#888;">い</rt></ruby>きたかったんだけど、<ruby>宿<rt style="font-size:0.6em;color:#888;">やど</rt></ruby>がどこも<ruby>満室<rt style="font-size:0.6em;color:#888;">まんしつ</rt></ruby>でさ。
+　 (단풍 보러 가고 싶었는데, 숙소가 어디나 만실이라.)
+A: ああ、<ruby>紅葉<rt style="font-size:0.6em;color:#888;">こうよう</rt></ruby>シーズンはどこも<ruby>人気<rt style="font-size:0.6em;color:#888;">にんき</rt></ruby>だからね。
+　 (아~ 단풍 시즌엔 어디나 인기니까.)
+B: そうそう。だから<ruby>今回<rt style="font-size:0.6em;color:#888;">こんかい</rt></ruby>は<ruby>近場<rt style="font-size:0.6em;color:#888;">ちかば</rt></ruby>でのんびりすることにしたよ。
+　 (맞아맞아. 그래서 이번엔 가까운 데서 느긋하게 보내기로 했어.)
+A: それもいいね。せっかくの<ruby>祝日<rt style="font-size:0.6em;color:#888;">しゅくじつ</rt></ruby>だし、ゆっくり<ruby>休<rt style="font-size:0.6em;color:#888;">やす</rt></ruby>もう。
+　 (그것도 좋네. 모처럼의 공휴일이니까, 푹 쉬자.)</pre>
+<p class="tip">💡 일본에는 <b>공휴일과 공휴일 사이에 낀 평일이 자동으로 휴일이 되는 国民の休日(국민의 휴일)</b> 라는 규정이 있어요. 덕분에 2019년 골든위크는 사상 첫 10연휴가 되기도 했죠.</p>
+<p>오늘 일본은 쉬어가는 월요일, 우리는 출근하는 월요일이네요. 이번 주도 활기차게 시작해봐요!<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요.</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>히트상품 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  blockquote {
+    margin: 0;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-left: 3px solid #C9A24B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: #333;
+  }
+  code.lv {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #F0EDE6;
+    border: 1px solid var(--hair);
+    color: #9A6B1A;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.25</span>
+        <h1>히트상품<span class="ja">ヒット商品</span></h1>
+        <div class="meta">2026 · 11 / 9</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>올해 일본인들은 어떤 것들에 지갑을 열었을까요?<br>이번 주는 지난주 막 발표된, 2026년 일본의 <b>히트상품(ヒット商品・ヒットしょうひん)</b> 이야기예요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>🛍️ 올해의 히트상품, 일본의 한 해를 돌아보다</h2></div></div>
+<div class="body">
+<p>일본에서는 매년 11월, 일본 최대 경제지 닛케이(日経) 그룹에서 펴내는 잡지 닛케이 트렌디가 '올해의 히트상품 베스트 30'을 발표해요.<br>한 해 동안 일본에서 무엇이 팔리고 화제가 됐는지를 돌아보는 랭킹이라, 발표될 때마다 뉴스를 장식하죠.<br><br>올해의 히트상품을 한마디로 하면 '작지만 확실한 만족'이에요.<br>한국에서 유행했던 '소확행'이라는 말, 사실 일본 작가 무라카미 하루키가 에세이에서 처음 쓴 小確幸(しょうかっこう)라는 말에서 왔는데 — 딱 그 소확행의 해였던 거죠.<br>물가가 오르면서 큰 지출은 줄이는 대신, 주머니 사정에 맞는 작은 소비로 기쁨을 얻는 경향이 뚜렷해졌거든요.<br><br>그럼 올 한 해 일본인의 지갑을 연 히트상품들, 함께 살펴볼까요?</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">01</span><h2>🧸 目印チャーム (메지루시 참)</h2></div></div>
+<div class="body">
+<ul>
+<li><b>순위</b>　1위</li>
+<li><b>한 줄 소개</b>　가방이나 우산에 달아 '내 것'임을 표시하는 작은 참</li>
+</ul>
+<pre>고물가(物価高・ぶっかだか) 속에서 몇백 엔으로 누릴 수 있는 작은 사치의 상징이에요.
+좋아하는 캐릭터와 콜라보한 참을 모으고, 달고, 교환하는 재미가 어린아이뿐만 아니라 어른들까지 사로잡았죠.
+<ruby>目印<rt style="font-size:0.6em;color:#888;">めじるし</rt></ruby>는 '표시'라는 뜻인데, 내 물건을 찾기 쉽게 하려던 실용적인 아이디어가, 어느새 개성을 드러내는 패션 아이템이 된 셈이죠.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">02</span><h2>📱 TikTok Shop</h2></div></div>
+<div class="body">
+<ul>
+<li><b>순위</b>　2위</li>
+<li><b>한 줄 소개</b>　틱톡 영상을 보다가 그 자리에서 바로 구매할 수 있는 쇼핑 기능</li>
+</ul>
+<pre>2025년 일본에 상륙한 뒤, 영상 시청과 쇼핑의 경계를 허물며 급성장했어요.
+방송을 보며 실시간으로 사는 '라이브 커머스'가 일본에서도 본격화된 신호탄이죠.
+'사고 싶은 걸 검색하는' 쇼핑에서 '보다가 사고 싶어지는' 쇼핑으로 — 소비의 순서 자체를 뒤집은 것이 랭크인의 이유랍니다.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">03</span><h2>💎 ボンボンドロップシール (봉봉드롭 스티커)</h2></div></div>
+<div class="body">
+<ul>
+<li><b>순위</b>　3위</li>
+<li><b>한 줄 소개</b>　사탕처럼 볼록하고 반짝반짝 빛나는 수집용 입체 스티커</li>
+</ul>
+<pre>친구와 스티커를 모아 교환하던 추억의 놀이가 어른들 사이에서 되살아났어요.
+헤이세이 레트로 붐을 타고 가는 곳마다 품절 대란이 벌어졌죠.
+이 '모으고 나누는' 즐거움은 바다를 건너, 요즘 한국 초등학생들 사이에서도 스티커 교환 붐을 일으키고 있답니다.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">05</span><h2>🍜 冷しカップヌードル (차가운 컵누들)</h2></div></div>
+<div class="body">
+<ul>
+<li><b>순위</b>　5위</li>
+<li><b>한 줄 소개</b>　뜨거운 물 대신 찬물을 부어 먹는 컵라면</li>
+</ul>
+<pre>닛신(日清)이 5년에 걸쳐 개발한, 브랜드 역사상 첫 '찬물 전용' 컵라면이에요.
+차가운 물을 붓고 5분만 기다리면 완성 — '이 더위에 뜨거운 라면은 무리'라던 사람들의 마음을 읽고, 발상을 뒤집은 거죠.
+올여름 품절 점포가 속출할 만큼 팔리면서 기후가 식탁을 바꾸는 요즘의 일본을 보여준 히트작이 됐답니다.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">06</span><h2>🏓 ピックルボール (피클볼)</h2></div></div>
+<div class="body">
+<ul>
+<li><b>순위</b>　6위</li>
+<li><b>한 줄 소개</b>　테니스와 탁구를 섞은 듯한, 미국에서 건너온 라켓 스포츠</li>
+</ul>
+<pre>탁구채를 키운 듯한 패들로 플라스틱 공을 주고받는 운동으로, 초보자나 시니어도 금방 배울 수 있어요.
+일본의 경기 인구가 1년 새 7배인 33만 명으로 불어났고, 전용 코트도 곳곳에 생기는 중이죠.
+돈도 체력도 큰 부담 없이 '가볍게 시작할 수 있는 운동'을 찾던 요즘 흐름과 딱 맞아떨어졌답니다.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">10</span><h2>🤖 Claude Code</h2></div></div>
+<div class="body">
+<ul>
+<li><b>순위</b>　10위</li>
+<li><b>한 줄 소개</b>　원하는 걸 말로 설명하면 코드를 대신 짜 주는 AI 코딩 도구</li>
+</ul>
+<pre>원래는 개발자용 도구였지만, 채팅하듯 말로 시키면 돼서 일반 직장인들에게까지 퍼졌어요.
+'일하는 방식이 바뀌었다'는 말이 나올 만큼, AI가 일하는 현장까지 깊숙이 들어왔다는 걸 보여줬죠.
+그리고 사실... 지금 보고 계시는 히토코토도 Claude와 함께 만들고 있답니다 🤫</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">24</span><h2>🥤 韓流メガサイズコーヒー店 (한류 메가사이즈 커피점)</h2></div></div>
+<div class="body">
+<ul>
+<li><b>순위</b>　24위</li>
+<li><b>한 줄 소개</b>　1리터급 초대형 음료를 저렴하게 파는 한국발 커피 체인</li>
+</ul>
+<pre>한국발 커피 체인이 일본에 속속 상륙하면서, 1리터급 메가사이즈 음료가 SNS를 달궜어요.
+올해 8월 빽다방이 도쿄 신바시에 1호점을 냈고, 매머드커피도 도쿄에서 매장을 빠르게 늘리는 중이에요.
+'이 가격에 이 양이?' 하는 놀라움이 고물가 시대 일본인의 마음을 정확히 저격했죠.
+한국의 일상이 일본의 히트상품이 된, 구독자 여러분께는 특히 반가운 랭크인이에요.</pre>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
+<div class="body">
+<pre>A: <ruby>今年<rt style="font-size:0.6em;color:#888;">ことし</rt></ruby>のヒット<ruby>商品<rt style="font-size:0.6em;color:#888;">しょうひん</rt></ruby>ランキング、<ruby>見<rt style="font-size:0.6em;color:#888;">み</rt></ruby>ましたか？
+　 (올해 히트상품 랭킹 봤어요?)
+B: <ruby>見<rt style="font-size:0.6em;color:#888;">み</rt></ruby>ました。1<ruby>位<rt style="font-size:0.6em;color:#888;">い</rt></ruby>の<ruby>目印<rt style="font-size:0.6em;color:#888;">めじるし</rt></ruby>チャーム、うちの<ruby>娘<rt style="font-size:0.6em;color:#888;">むすめ</rt></ruby>のかばんにも<ruby>付<rt style="font-size:0.6em;color:#888;">つ</rt></ruby>いてます。
+　 (봤어요. 1위 메지루시 참, 우리 딸 가방에도 달려 있어요.)
+A: <ruby>人気<rt style="font-size:0.6em;color:#888;">にんき</rt></ruby>ですよね。<ruby>物価高<rt style="font-size:0.6em;color:#888;">ぶっかだか</rt></ruby>でも、<ruby>小<rt style="font-size:0.6em;color:#888;">ちい</rt></ruby>さなご<ruby>褒美<rt style="font-size:0.6em;color:#888;">ほうび</rt></ruby>は<ruby>欠<rt style="font-size:0.6em;color:#888;">か</rt></ruby>かせないみたいですね。
+　 (인기죠. 고물가여도 작은 보상은 포기할 수 없나 봐요.)
+B: ボンボンドロップシールなんて、<ruby>人気<rt style="font-size:0.6em;color:#888;">にんき</rt></ruby>すぎてなかなか<ruby>買<rt style="font-size:0.6em;color:#888;">か</rt></ruby>えないらしいですよ。
+　 (봉봉드롭 스티커는 인기가 너무 많아서 사기도 힘들다던데요.)
+A: <ruby>来年<rt style="font-size:0.6em;color:#888;">らいねん</rt></ruby>は<ruby>何<rt style="font-size:0.6em;color:#888;">なに</rt></ruby>が<ruby>流行<rt style="font-size:0.6em;color:#888;">はや</rt></ruby>るのか、<ruby>楽<rt style="font-size:0.6em;color:#888;">たの</rt></ruby>しみですね。
+　 (내년엔 뭐가 유행할지 기대되네요.)</pre>
+<p class="tip">💡 <b>自分へのご褒美(じぶんへのごほうび)</b> — '나에게 주는 상'이라는 뜻으로, 열심히 일한 자신에게 작은 선물을 사주는 것을 말해요. 일본의 소비 문화를 이해하는 열쇠 같은 표현이랍니다.</p>
+<p>여러분이 올해 산 것 중 '나에게 주는 상'은 어떤 것이었나요?<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>

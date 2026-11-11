@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>살고 싶은 동네 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  blockquote {
+    margin: 0;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-left: 3px solid #C9A24B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: #333;
+  }
+  code.lv {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #F0EDE6;
+    border: 1px solid var(--hair);
+    color: #9A6B1A;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.21</span>
+        <h1>살고 싶은 동네<span class="ja">住みたい街</span></h1>
+        <div class="meta">2026 · 9 / 28</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>만약 일본에 살게 된다면, 여러분은 어떤 동네를 고르시겠어요?<br>이번 주는 매년 화제가 되는 <b>살고 싶은 동네(住みたい街・すみたいまち)</b> 랭킹을 통해, 일본인이 꿈꾸는 동네를 함께 둘러볼게요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>🏡 일본인의 마음을 사로잡은 동네는?</h2></div></div>
+<div class="body">
+<p>이사철이 되면 일본에서는 어김없이 화제에 오르는 랭킹이 하나 있어요.<br>집이나 방을 구할 때 이용하는 대표 부동산 정보 사이트 SUUMO(스모)가 매년 발표하는 살고 싶은 동네 순위예요.<br>결과가 나올 때마다 뉴스와 SNS가 들썩일 만큼 관심이 뜨겁답니다.<br><br>순위는 지역별로 수천 명을 대상으로 한 대규모 설문으로 정해져요.<br>교통 편의성부터 거리 분위기, 브랜드 이미지까지 두루 반영되기에, 단순한 인기투표가 아니라 지금 사람들이 원하는 삶이 고스란히 드러나죠.<br><br>그런데 일본인은 왜 이렇게 이 랭킹에 열광할까요?<br>일본은 진학·취업·전근으로 이사가 잦은 데다, '어느 동네에 사느냐'가 그 사람의 라이프스타일과 이미지를 보여준다고 여기는 문화가 있거든요.<br><b>그래서 살 곳을 고르는 일은 곧 '어떤 삶을 살고 싶은가'를 고르는 일에 가깝답니다.</b><br><br>여기엔 일본 특유의 주거 문화도 한몫해요.<br>일본은 목조 주택이 많아서 지은 지 20~30년만 지나도 건물의 자산 가치는 거의 사라진다고 여겨지거든요.<br>그러다 보니 집을 사서 재산을 불리기보다, '어느 동네에서 어떻게 살 것인가'라는 거주 경험 자체를 더 중요하게 여기는 경향이 있어요.<br><br>흥미롭게도 인기 동네의 기준은 시대에 따라 조금씩 달라져요.<br>예전에는 롯폰기나 오모테산도처럼 화려한 도심이 인기였다면, 요즘은 집값과 생활 편의를 함께 따지는 '가성비'가 중요해졌어요.<br>그래서 오미야처럼 대규모 재개발로 확 바뀐 동네가 주목받고, 지바현의 나가레야마처럼 도심까지 가깝지만 집세는 부담 없는 근교 동네도 새롭게 떠오르고 있답니다.<br><br>그럼 일본인이 가장 살고 싶어 하는 동네는 어디일까요? 해마다 상위권을 지키는 단골들을 지금부터 소개할게요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🚉 해마다 상위권을 지키는 동네들</h2></div></div>
+<div class="body">
+<ul>
+<li><b>요코하마(横浜・よこはま)</b> 9년 연속 1위를 차지한 부동의 강자예요. 1859년 국제 무역항으로 문을 연 항구 도시라, 바다와 세련된 도시 풍경, 편리한 교통을 두루 갖췄죠. 개항의 역사가 남긴 차이나타운, 항만을 재개발한 미나토미라이 같은 즐길 거리도 풍부해요.</li>
+<li><b>오미야(大宮・おおみや)</b> 여러 신칸센 노선이 지나는 교통의 요충지예요. 우에노도쿄라인으로 도쿄역까지 약 30분이면 닿으면서도 집값은 상대적으로 합리적이라, 젊은 세대에게 특히 인기랍니다.</li>
+<li><b>기치조지(吉祥寺・きちじょうじ)</b> 여러 해 상위권을 지켜온 동네예요. 지브리 미술관으로도 유명한 이노카시라 공원의 푸르름과 개성 있는 상점가가 어우러진, '살기 좋다'의 대명사 같은 곳이죠.</li>
+<li><b>에비스(恵比寿・えびす)</b> 세련되고 고급스러운 이미지의 도심 동네예요. 사실 '에비스'라는 이름은 이곳에 있던 에비스 맥주 공장에서 유래했는데, 그 자리에 들어선 에비스 가든플레이스를 비롯해 맛집과 세련된 카페가 많고, 시부야·신주쿠도 가까워 많은 사람이 동경하는 곳이랍니다.</li>
+</ul>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">WORDS</span><h2>📌 이번 주 챙겨가는 단어</h2></div></div>
+<div class="body">
+<div class="table-wrap"><table><thead><tr><th>단어</th><th>읽기</th><th>의미</th><th>예문</th><th>해석</th></tr></thead><tbody><tr><td>引っ越す</td><td>ひっこす</td><td>이사하다</td><td><ruby>来月<rt style="font-size:0.6em;color:#888;">らいげつ</rt></ruby>、<ruby>東京<rt style="font-size:0.6em;color:#888;">とうきょう</rt></ruby>に<ruby>引<rt style="font-size:0.6em;color:#888;">ひ</rt></ruby>っ<ruby>越<rt style="font-size:0.6em;color:#888;">こ</rt></ruby>します。</td><td>다음 달에 도쿄로 이사해요.</td></tr>
+<tr><td>おしゃれだ</td><td>おしゃれ</td><td>세련되다, 멋지다</td><td>この<ruby>街<rt style="font-size:0.6em;color:#888;">まち</rt></ruby>にはおしゃれなカフェが<ruby>多<rt style="font-size:0.6em;color:#888;">おお</rt></ruby>いです。</td><td>이 동네에는 세련된 카페가 많아요.</td></tr>
+<tr><td>憧れる</td><td>あこがれる</td><td>동경하다</td><td><ruby>都会<rt style="font-size:0.6em;color:#888;">とかい</rt></ruby>の<ruby>暮<rt style="font-size:0.6em;color:#888;">く</rt></ruby>らしに<ruby>憧<rt style="font-size:0.6em;color:#888;">あこが</rt></ruby>れています。</td><td>도시 생활을 동경하고 있어요.</td></tr>
+<tr><td>家賃</td><td>やちん</td><td>집세, 월세</td><td><ruby>家賃<rt style="font-size:0.6em;color:#888;">やちん</rt></ruby>は<ruby>毎月<rt style="font-size:0.6em;color:#888;">まいつき</rt></ruby><ruby>払<rt style="font-size:0.6em;color:#888;">はら</rt></ruby>います。</td><td>집세는 매달 내요.</td></tr>
+<tr><td>手が出ない</td><td>てがでない</td><td>엄두가 안 나다, 손댈 수 없다</td><td><ruby>都心<rt style="font-size:0.6em;color:#888;">としん</rt></ruby>のマンションは<ruby>高<rt style="font-size:0.6em;color:#888;">たか</rt></ruby>すぎて<ruby>手<rt style="font-size:0.6em;color:#888;">て</rt></ruby>が<ruby>出<rt style="font-size:0.6em;color:#888;">で</rt></ruby>ません。</td><td>도심 맨션은 너무 비싸서 엄두가 안 나요.</td></tr></tbody></table></div>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">DIALOGUE</span><h2>👀 실제 대화, 살짝 엿보기</h2></div></div>
+<div class="body">
+<pre>A: そろそろ<ruby>引<rt style="font-size:0.6em;color:#888;">ひ</rt></ruby>っ<ruby>越<rt style="font-size:0.6em;color:#888;">こ</rt></ruby>したいんだけど、どこがいいかな。
+　 (슬슬 이사하고 싶은데, 어디가 좋을까.)
+B: <ruby>横浜<rt style="font-size:0.6em;color:#888;">よこはま</rt></ruby>は？おしゃれだし、ずっと<ruby>人気<rt style="font-size:0.6em;color:#888;">にんき</rt></ruby>だよ。
+　 (요코하마는? 세련됐고, 계속 인기야.)
+A: <ruby>憧<rt style="font-size:0.6em;color:#888;">あこが</rt></ruby>れるけど、<ruby>家賃<rt style="font-size:0.6em;color:#888;">やちん</rt></ruby>が<ruby>高<rt style="font-size:0.6em;color:#888;">たか</rt></ruby>くて<ruby>手<rt style="font-size:0.6em;color:#888;">て</rt></ruby>が<ruby>出<rt style="font-size:0.6em;color:#888;">で</rt></ruby>ないなあ。
+　 (동경하지만, 집세가 비싸서 엄두가 안 나.)
+B: じゃあ<ruby>大宮<rt style="font-size:0.6em;color:#888;">おおみや</rt></ruby>とか。<ruby>都心<rt style="font-size:0.6em;color:#888;">としん</rt></ruby>にも<ruby>近<rt style="font-size:0.6em;color:#888;">ちか</rt></ruby>いし、<ruby>意外<rt style="font-size:0.6em;color:#888;">いがい</rt></ruby>と<ruby>住<rt style="font-size:0.6em;color:#888;">す</rt></ruby>みやすいらしいよ。
+　 (그럼 오미야 같은 데. 도심에도 가깝고, 의외로 살기 좋대.)
+A: なるほど、そういう<ruby>穴場<rt style="font-size:0.6em;color:#888;">あなば</rt></ruby>を<ruby>探<rt style="font-size:0.6em;color:#888;">さが</rt></ruby>すのもいいね。
+　 (그렇구나, 그런 숨은 동네를 찾는 것도 좋겠다.)</pre>
+<p class="tip">💡 <b>穴場(あなば) 는 남들은 잘 모르지만 알고 보면 실속 있는 좋은 곳을 뜻해요.</b> 맛집이든 여행지든 두루 쓰이는데, 부동산에서는 '유명하진 않아도 살기 좋고 집세도 합리적인 숨은 동네'를 가리킨답니다.</p>
+<p>다음 주는 공휴일이라 히토코토도 한 주 쉬어갈게요.</p>
+<p class="tip">쉬어가는 동안, 지난 호를 &lt;https://frombella.github.io/hitokoto/|<b>아카이브</b>&gt; 페이지에서 다시 만나보세요.<br>놓쳤던 표현이나 한자 발음도 함께 확인하실 수 있어요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>
