@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>스시 — 히토코토</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#ECEBE6; --ink:#1D1C1B; --accent:#C2452D; --muted:#a8a39a; --hair:#F2F1EE;
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 16px 80px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--accent); text-decoration: none;
+  }
+  .back:hover { opacity: 0.7; }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.07);
+  }
+  /* 상단 타이틀 밴드 — 메인(index) card-header와 동일 언어 */
+  .masthead { padding: 30px 32px 24px; border-bottom: 1px solid var(--hair); }
+  .masthead .vol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+  }
+  .masthead h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; }
+  .masthead h1 .ja { color: var(--muted); font-weight: 400; font-size: 1.05rem; margin-left: 10px; }
+  .masthead .meta {
+    color: #bbb; font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; margin-top: 10px;
+  }
+  /* 섹션 헤더 — 테라코타 왼쪽 라인 + 모노 키커 */
+  .section { padding: 26px 32px 4px; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; padding-top: 22px; }
+  .section-head { position: relative; padding-left: 16px; margin-bottom: 4px; }
+  .section-head::before {
+    content: ""; position: absolute; left: 0; top: 2px; bottom: 2px;
+    width: 3px; border-radius: 2px; background: var(--accent);
+  }
+  .section-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent); display: block;
+  }
+  .section-head h2 { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.01em; margin-top: 3px; }
+  .body { padding: 14px 32px 24px 48px; }
+  .section + .body { padding-top: 0; }
+  .body > * + * { margin-top: 14px; }
+  p { font-size: 0.93rem; color: #333; }
+  p.tip {
+    background: #F4F1EA;
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    color: #444;
+  }
+  ul { padding-left: 18px; }
+  ul li { font-size: 0.93rem; color: #333; margin-bottom: 9px; }
+  ul li:last-child { margin-bottom: 0; }
+  ul li::marker { color: var(--accent); }
+  pre {
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Noto Sans KR', monospace;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  blockquote {
+    margin: 0;
+    background: #F7F6F2;
+    border: 1px solid var(--hair);
+    border-left: 3px solid #C9A24B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: #333;
+  }
+  code.lv {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: #F0EDE6;
+    border: 1px solid var(--hair);
+    color: #9A6B1A;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 9px;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .video-wrap { position: relative; padding-top: 56.25%; border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); margin: 14px 0 6px; }
+  .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .video-cap { font-size: 0.82em; color: var(--muted); margin-bottom: 14px; }
+  .table-wrap { border-radius: 8px; overflow: hidden; border: 1px solid var(--hair); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    background: #F4F3EF;
+    color: #777;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--hair);
+    color: #333;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFAF8; }
+  code {
+    background: #F0EEE9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer {
+    background: #F7F6F2;
+    border-top: 1px solid var(--hair);
+    padding: 20px 32px;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.7;
+  }
+  footer a {
+    background: #F0EEE9; border-radius: 4px; padding: 1px 6px;
+    font-size: 0.85em; font-family: 'JetBrains Mono', monospace;
+    text-decoration: none; color: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 아카이브</a>
+    <div class="card">
+      <div class="masthead">
+        <span class="vol">VOL.27</span>
+        <h1>스시<span class="ja">寿司</span></h1>
+        <div class="meta">2026 · 11 / 23</div>
+      </div>
+<div class="section"><div class="section-head"><span class="kicker">INTRO</span><h2>👋 안녕하세요, 히토코토 구독자 여러분!</h2></div></div>
+<div class="body">
+<p>일본 하면 떠오르는 미식 중 하나인 스시, 다들 좋아하시죠?<br>이번 주는 알고 먹으면 더 맛있는 <b>스시(寿司・すし)</b> 를 제대로 즐기는 법을 함께 살펴볼게요.</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">STORY</span><h2>🍣 스시, 사실은 패스트푸드였다?</h2></div></div>
+<div class="body">
+<p>일본 스시집에 가면 왠지 '제대로 먹고 있나?' 싶어 머뭇거릴 때가 있죠.<br>하지만 스시를 먹는 법은 까다로운 규칙이 아니라, 한 점(一貫・いっかん)을 가장 맛있게 먹기 위한 배려에서 나온 거랍니다.<br><br>사실 스시의 뿌리는 '생선 보존법'이었어요.<br>옛날에는 생선을 밥에 묻어 삭혀서 오래 보관했는데, 이것이 스시의 원형인 <a href="https://www.google.com/search?q=%E3%81%AA%E3%82%8C%E3%81%9A%E3%81%97" target="_blank" rel="noopener">나레즈시(なれずし)</a> 예요.<br>이때 밥은 먹기 위한 게 아니라 생선을 삭히기 위한 도구에 불과했기 때문에 먹을 때는 다 긁어내 버렸답니다.<br><br>우리가 아는 손으로 쥔 스시 — <a href="https://www.google.com/search?q=%E6%8F%A1%E3%82%8A%E5%AF%BF%E5%8F%B8" target="_blank" rel="noopener">니기리즈시(握り寿司・にぎりずし)</a> 가 등장한 건 지금으로부터 약 200년 전, 에도시대 후기의 일이에요.<br>당시 에도는 인구 100만이 넘는 대도시였고, 바쁜 사람들을 위한 포장마차 음식이 인기였어요.<br>스시도 그중 하나로, 갓 쥔 한 점을 손으로 집어 후딱 먹는 이른바 '에도의 패스트푸드'였죠.<br>지금도 스시를 손으로 먹어도 전혀 이상하지 않은 건 그 흔적이랍니다.<br><br>이렇게 오랜 시간을 거쳐, 스시 장인은 밥의 양과 재료의 균형, 쥐는 세기까지 계산해 딱 한입 크기로 스시를 쥐게 됐어요.<br>그 맛을 온전히 즐기려면 몇 가지 작은 요령만 알면 충분하죠.<br>그럼 스시를 더 맛있게 즐기는 법, 하나씩 만나볼까요?</p>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">POINTS</span><h2>🥢 스시가 더 맛있어지는 다섯 가지 요령</h2></div></div>
+<div class="body">
+<ul>
+<li><b>손과 젓가락 둘 다 좋아요</b> 스시는 손으로 먹어도, 젓가락을 써도 괜찮아요. 원래 손으로 먹던 음식이라 손으로 집는 게 오히려 자연스럽죠. 다만 생강 절임인 가리(ガリ) 는 젓가락으로 집는 게 좋아요.</li>
+<li><b>간장은 밥이 아닌 재료에 찍어요</b> 간장은 밥(シャリ) 이 아니라 위에 올린 재료(ネタ) 끝에 살짝만 찍어요. 밥에 찍으면 밥알이 부서지고, 간장을 너무 많이 머금어 재료 본연의 맛을 해칠 수 있거든요.</li>
+<li><b>와사비는 간장에 풀지 않아요</b> 한국에서 흔히 하듯 간장에 와사비를 풀면 향이 날아가고 간장도 탁해져요. 한 점의 스시에는 장인이 이미 알맞은 양의 와사비를 넣어 두니, 더 원하면 재료 위에 얹어 먹는 게 좋아요.</li>
+<li><b>나오면 바로 한입에 먹어요</b> 스시 한 점은 장인이 최적의 균형으로 쥔 것이라, 반으로 자르지 않고 한입에 먹는 게 예의예요. 그리고 갓 쥔 직후, 밥이 사람 체온쯤일 때가 가장 맛있기 때문에 장인이 한 점씩 내주면 바로 먹는 게 암묵의 매너랍니다.</li>
+<li><b>담백한 것부터 순서대로 먹어요</b> 흰살생선(白身・しろみ) 이나 조개처럼 담백한 것부터 시작해서, 붉은살(赤身・あかみ), 기름진 참치 뱃살(トロ) 순으로 먹으면 더 좋아요. 진한 맛을 먼저 먹으면 이어지는 담백한 맛을 느끼기 어렵거든요.</li>
+</ul>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">WORDS</span><h2>🐟 실전에서 바로 쓰는 스시집 단어</h2></div></div>
+<div class="body">
+<div class="table-wrap"><table><thead><tr><th>단어</th><th>읽기</th><th>뜻</th><th>참고</th></tr></thead><tbody><tr><td>シャリ</td><td>しゃり</td><td>샤리, 식초로 간한 초밥 밥</td><td>シャリは<ruby>少<rt style="font-size:0.6em;color:#888;">すく</rt></ruby>なめでお<ruby>願<rt style="font-size:0.6em;color:#888;">ねが</rt></ruby>いします。(밥은 적게 부탁해요)</td></tr>
+<tr><td>ネタ</td><td>ねた</td><td>네타, 밥 위에 올리는 재료</td><td>おすすめのネタは<ruby>何<rt style="font-size:0.6em;color:#888;">なん</rt></ruby>ですか？ (추천 재료는 뭐예요?)</td></tr>
+<tr><td>握り</td><td>にぎり</td><td>니기리, 손으로 쥔 기본형 스시</td><td>まぐろの<ruby>握<rt style="font-size:0.6em;color:#888;">にぎ</rt></ruby>りをください。(참치 니기리 주세요)</td></tr>
+<tr><td>軍艦</td><td>ぐんかん</td><td>김을 둘러 재료를 올린 군함 말이</td><td>いくら(연어알)·うに(성게)</td></tr>
+<tr><td>ガリ</td><td>がり</td><td>곁들여 나오는 생강 초절임</td><td>스시 한 점과 다음 점 사이 입가심용</td></tr>
+<tr><td>サビ抜き</td><td>さびぬき</td><td>와사비 빼고</td><td>サビ<ruby>抜<rt style="font-size:0.6em;color:#888;">ぬ</rt></ruby>きでお<ruby>願<rt style="font-size:0.6em;color:#888;">ねが</rt></ruby>いします。(와사비 빼고 부탁해요)</td></tr>
+<tr><td>白身</td><td>しろみ</td><td>흰살생선</td><td>도미(たい)·광어(ひらめ)·농어(すずき)</td></tr>
+<tr><td>赤身</td><td>あかみ</td><td>참치 붉은살</td><td>기름진 뱃살 부위는 <ruby>大<rt style="font-size:0.6em;color:#888;">おお</rt></ruby>トロ(대뱃살)·<ruby>中<rt style="font-size:0.6em;color:#888;">ちゅう</rt></ruby>トロ(중뱃살)</td></tr>
+<tr><td>光りもの</td><td>ひかりもの</td><td>등푸른 생선</td><td>전어(こはだ)·고등어(さば)</td></tr>
+<tr><td>炙り</td><td>あぶり</td><td>토치로 겉만 살짝 구운 스시</td><td><ruby>炙<rt style="font-size:0.6em;color:#888;">あぶ</rt></ruby>りサーモン(아부리 연어)</td></tr></tbody></table></div>
+</div>
+<div class="section"><div class="section-head"><span class="kicker">VIDEO</span><h2>📺 스시 먹는 법, 영상으로 더 보기</h2></div></div>
+<div class="body">
+<p>손으로 먹을까 젓가락으로 먹을까, 간장은 어디에 찍을까 — 오늘 소개한 요령들을 그대로 다룬 뉴스 영상이에요.<br>일본인들도 먹는 법이 제각각이고 몰랐던 사실도 많다는 게 재미 포인트예요. 듣기 연습 겸 가볍게 재생해 보세요!</p>
+<div class="video-wrap"><iframe src="https://www.youtube.com/embed/kOMud6uR6mU" title="寿司の食べ方はどっち？「手で食べる」「箸で食べる」…しょう油はネタに？【Nスタ解説】" loading="lazy" allowfullscreen allow="encrypted-media; picture-in-picture"></iframe></div><p class="video-cap">▶ 寿司の食べ方はどっち？「手で食べる」「箸で食べる」…しょう油はネタに？【Nスタ解説】</p>
+<p>다음에 스시집에 가면, 오늘 배운 요령으로 한 점 한 점 음미해보는 건 어떨까요?<br>다음 주 월요일에 또 다른 일본어 한 마디로 찾아올게요!</p>
+</div>
+<footer>👾 Hitokoto | 매주 월요일 발행<br>이번 호 어떠셨나요? 뉴스레터 구독을 원하시면 <a href="https://forms.gle/CJ76h8Uk6wwNTjtw9">여기</a>를 눌러주세요.</footer>
+    </div>
+  </div>
+</body>
+</html>
